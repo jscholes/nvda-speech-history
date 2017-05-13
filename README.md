@@ -1,4 +1,4 @@
-# nvda-speech-history
+# NVDA Speech History
 This is an updated version of the Clip Copy add-on for NVDA, initially created by Tyler Spivey in 2012.  The original version of the add-on offered two keystrokes:
 
 - F12: Copy the most recent spoken text to the clipboard
