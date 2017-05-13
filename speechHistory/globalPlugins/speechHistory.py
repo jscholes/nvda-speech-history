@@ -85,6 +85,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
     def terminate(self):
         speech.speak = oldSpeak
+        speech.speakSpelling = oldSpeakSpelling
 
     __gestures = {
         "kb:f12":"copyLast",
