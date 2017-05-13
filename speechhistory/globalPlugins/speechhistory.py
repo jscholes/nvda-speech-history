@@ -19,7 +19,7 @@ history_pos = 0
 
 def append_to_history(string):
     global history, history_pos
-    if len(history) == 10:
+    if len(history) == 100:
         history.pop()
     history.insert(0, string)
     history_pos = 0
