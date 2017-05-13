@@ -56,6 +56,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         if api.copyToClip(history[history_pos]):
             tones.beep(1500, 120)
 
+    # Translators: Documentation string for copy currently selected speech history item script
     script_copyLast.__doc__ = _('Copy the currently selected speech history item to the clipboard, which by default will be the most recently spoken text by NVDA.')
     script_copyLast.category = SCRCAT_SPEECH
 
@@ -68,6 +69,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
         oldSpeak([history[history_pos]])
 
+    # Translators: Documentation string for previous speech history item script
     script_prevString.__doc__ = _('Review the previous item in NVDA\'s speech history.')
     script_prevString.category = SCRCAT_SPEECH
 
@@ -80,6 +82,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
         oldSpeak([history[history_pos]])
 
+    # Translators: Documentation string for next speech history item script
     script_nextString.__doc__ = _('Review the next item in NVDA\'s speech history.')
     script_nextString.category = SCRCAT_SPEECH
 
