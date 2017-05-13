@@ -4,12 +4,17 @@
 # This add-on is free software, licensed under the terms of the GNU General Public License (version 2).
 # See the file LICENSE for more details.
 
+import addonHandler
 import api
 import globalPluginHandler
 from queueHandler import eventQueue, queueFunction
 import speech
 import tones
 import ui
+
+from globalCommands import SCRCAT_SPEECH
+
+addonHandler.initTranslation()
 
 oldSpeak = speech.speak
 oldSpeakSpelling = speech.speakSpelling
@@ -51,6 +56,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         if api.copyToClip(history[history_pos]):
             tones.beep(1500, 120)
 
+    script_copyLast.__doc__ = _('Copy the currently selected speech history item to the clipboard, which by default will be the most recently spoken text by NVDA.')
+    script_copyLast.category = SCRCAT_SPEECH
+
     def script_prevString(self, gesture):
         global history_pos
         history_pos += 1
@@ -60,6 +68,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
         oldSpeak([history[history_pos]])
 
+    script_prevString.__doc__ = _('Review the previous item in NVDA\'s speech history.')
+    script_prevString.category = SCRCAT_SPEECH
+
     def script_nextString(self, gesture):
         global history_pos
         history_pos -= 1
@@ -68,6 +79,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
             history_pos += 1
 
         oldSpeak([history[history_pos]])
+
+    script_nextString.__doc__ = _('Review the next item in NVDA\'s speech history.')
+    script_nextString.category = SCRCAT_SPEECH
 
     def terminate(self):
         speech.speak = oldSpeak
