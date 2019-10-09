@@ -53,7 +53,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
         speech.speakSpelling = mySpeakSpelling
 
     def script_copyLast(self, gesture):
-        if api.copyToClip(history[history_pos]):
+        if api.copyToClip(history[history_pos].strip()):
             tones.beep(1500, 120)
 
     # Translators: Documentation string for copy currently selected speech history item script
