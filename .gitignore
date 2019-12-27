@@ -89,4 +89,11 @@ ENV/
 .ropeproject
 
 # NVDA
-*..nvda-addon
+addon/doc/*.css
+addon/doc/en/
+*.html
+*.ini
+*.pyc
+*.pyo
+*.nvda-addon
+.sconsign.dblite
