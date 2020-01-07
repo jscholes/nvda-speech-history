@@ -3,7 +3,6 @@
 #This file is covered by the GNU General Public License.
 #See the file COPYING.txt for more details.
 
-import codecs
 import gettext
 import os
 import os.path
@@ -12,6 +11,10 @@ import sys
 sys.dont_write_bytecode = True
 
 import buildVars
+
+if sys.version_info.major == 2:
+	import codecs
+	open = codecs.open
 
 
 def md2html(source, dest):
@@ -27,20 +30,19 @@ def md2html(source, dest):
 		"[[!meta title=\"": "# ",
 		"\"]]": " #",
 	}
-	with codecs.open(source, "r", "utf-8") as f:
+	with open(source, "r", encoding = "utf-8") as f:
 		mdText = f.read()
 		headerList = headerDic.iteritems () if sys.version_info.major == 2 else list(headerDic.items())
 		for k, v in headerList:
 			mdText = mdText.replace(k, v, 1)
 		htmlText = markdown.markdown(mdText)
-	with codecs.open(dest, "w", "utf-8") as f:
-		f.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-			"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"\n" +
-			"    \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n" +
-			"<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"%s\" lang=\"%s\">\n" % (lang, lang) +
+	with open(dest, "w", encoding = "utf-8") as f:
+		f.write("<!DOCTYPE html>\n" +
+			"<html lang=\"%s\">\n" % lang +
 			"<head>\n" +
-			"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n" +
-			"<link rel=\"stylesheet\" type=\"text/css\" href=\"../style.css\" media=\"screen\"/>\n" +
+			"<meta charset=\"UTF-8\">\n" +
+			"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+			"<link rel=\"stylesheet\" type=\"text/css\" href=\"../style.css\" media=\"screen\">\n" +
 			"<title>%s</title>\n" % title +
 			"</head>\n<body>\n"
 		)
@@ -109,21 +111,26 @@ def createAddonBundleFromPath(path, dest):
 	return dest
 
 def generateManifest(source, dest):
-	with codecs.open(source, "r", "utf-8") as f:
+	with open(source, "r", encoding = "utf-8") as f:
 		manifest_template = f.read()
 	manifest = manifest_template.format(**buildVars.addon_info)
-	with codecs.open(dest, "w", "utf-8") as f:
+	with open(dest, "w", encoding = "utf-8") as f:
 		f.write(manifest)
 
 def generateTranslatedManifest(source, language, out):
 	_ = gettext.translation("nvda", localedir=os.path.join("addon", "locale"), languages=[language]).ugettext if sys.version_info.major == 2 else gettext.translation("nvda", localedir=os.path.join("addon", "locale"), languages=[language]).gettext
 	vars = {}
 	for var in ("addon_summary", "addon_description"):
-		vars[var] = _(buildVars.addon_info[var])
-	with codecs.open(source, "r", "utf-8") as f:
+		if isinstance(buildVars.addon_info[var], str):
+			vars[var] = _(buildVars.addon_info[var])
+		elif isinstance(buildVars.addon_info[var], list):
+			vars[var] = ''.join([_(l) for l in buildVars.addon_info[var]])
+		else:
+			raise TypeError("Error with %s key in buildVars" % var)
+	with open(source, "r", encoding = "utf-8") as f:
 		manifest_template = f.read()
 	result = manifest_template.format(**vars)
-	with codecs.open(out, "w", "utf-8") as f:
+	with open(out, "w", encoding = "utf-8") as f:
 		f.write(result)
 
 def expandGlobs(files):
@@ -173,4 +180,4 @@ for dir in langDirs:
 		env.Depends(htmlFile, [mdFile, moFile])
 		env.Depends(addon, htmlFile)
 env.Default(addon)
-env.Clean (addon, ['.sconsign.dblite', 'addon/doc/en/'])
+env.Clean (addon, ['.sconsign.dblite', 'addon/doc/en/', 'addon/doc'])

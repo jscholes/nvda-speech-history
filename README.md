@@ -12,6 +12,8 @@ The add-on allows you to review the most recent 100 items spoken by NVDA, as wel
 
 By default, use Shift+F11 to move back through the history, Shift+F12 to move forwards and F12 on its own to copy the selected item.
 
+If F12 is pressed once, copies without removing the blanks at the beginning and end of the text, if pressed twice, copies by deleting them.
+
 These hotkeys can be updated from within the Speech category of NVDA's Input gestures dialog.
 
 
