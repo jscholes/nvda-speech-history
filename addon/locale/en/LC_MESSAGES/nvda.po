@@ -1,0 +1,60 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the 'speechHistory' package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 'speechHistory' '2020.01.07'\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@freelists.org'\n"
+"POT-Creation-Date: 2020-01-07 10:58+0100\n"
+"PO-Revision-Date: 2020-01-07 11:04+0100\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.4\n"
+"Last-Translator: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: en\n"
+
+#. Translators: Documentation string for copy currently selected speech history item script
+#: addon\globalPlugins\speechHistory.py:67
+msgid ""
+"Copy the currently selected speech history item to the clipboard, which by "
+"default will be the most recently spoken text by NVDA. If pressed once, "
+"copies without removing the blanks at the beginning and end of the text, if "
+"pressed twice, copies by deleting them."
+msgstr ""
+"Copy the currently selected speech history item to the clipboard, which by "
+"default will be the most recently spoken text by NVDA. If pressed once, "
+"copies without removing the blanks at the beginning and end of the text, if "
+"pressed twice, copies by deleting them."
+
+#. Translators: Documentation string for previous speech history item script
+#: addon\globalPlugins\speechHistory.py:80
+msgid "Review the previous item in NVDA's speech history."
+msgstr "Review the previous item in NVDA's speech history."
+
+#. Translators: Documentation string for next speech history item script
+#: addon\globalPlugins\speechHistory.py:93
+msgid "Review the next item in NVDA's speech history."
+msgstr "Review the next item in NVDA's speech history."
+
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+#: buildVars.py:17
+msgid "Speech history review and copying"
+msgstr "Speech history review and copying"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:20
+msgid ""
+"This add-on allows you to review the 100 most recent strings spoken by NVDA, "
+"by default using Shift+F11 and Shift+F12.  Additionally, you can copy any "
+"spoken item to the clipboard by pressing F12."
+msgstr ""
+"This add-on allows you to review the 100 most recent strings spoken by NVDA, "
+"by default using Shift+F11 and Shift+F12.  Additionally, you can copy any "
+"spoken item to the clipboard by pressing F12."
