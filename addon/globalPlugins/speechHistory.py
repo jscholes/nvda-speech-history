@@ -16,7 +16,7 @@ import ui
 from globalCommands import SCRCAT_SPEECH
 
 addonHandler.initTranslation()
-
+str = basestring if sys.version_info.major == 2 else str
 oldSpeak = speech.speak
 oldSpeakSpelling = speech.speakSpelling
 data = ''
@@ -32,17 +32,17 @@ def append_to_history(string):
 
 def mySpeak(sequence, *args, **kwargs):
 	global data
-	text = u''.join([x for x in sequence if isinstance(x, basestring)]) if sys.version_info.major == 2 else ' '.join([x for x in sequence if isinstance(x, str)])
+	oldSpeak(sequence, *args, **kwargs)
+	text = u' '.join([x for x in sequence if isinstance(x, str)])
 	if text:
 		data = text
-		oldSpeak(sequence, *args, **kwargs)
 		queueFunction(eventQueue, append_to_history, text)
 
 def mySpeakSpelling(text, *args, **kwargs):
 	global data
+	oldSpeakSpelling(text, *args, **kwargs)
 	if text:
 		data = text
-	oldSpeakSpelling(text, *args, **kwargs)
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
