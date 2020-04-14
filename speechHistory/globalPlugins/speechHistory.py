@@ -9,6 +9,7 @@ import api
 import globalPluginHandler
 from queueHandler import eventQueue, queueFunction
 import speech
+import speechViewer
 import tones
 import ui
 
@@ -32,7 +33,7 @@ def append_to_history(string):
 
 def mySpeak(sequence, *args, **kwargs):
 	global data
-	text = u''.join([x for x in sequence if isinstance(x, str)])
+	text = speechViewer.SPEECH_ITEM_SEPARATOR.join([x for x in sequence if isinstance(x, str)])
 	if text:
 		data = text
 		oldSpeak(sequence, *args, **kwargs)
