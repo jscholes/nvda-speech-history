@@ -17,25 +17,24 @@ from globalCommands import SCRCAT_SPEECH
 
 addonHandler.initTranslation()
 
+MAX_HISTORY_LENGTH = 500
+
 oldSpeak = speech.speak
-data = ''
 history = []
 history_pos = 0
 
 
 def append_to_history(string):
 	global history, history_pos
-	if len(history) == 100:
+	if len(history) == MAX_HISTORY_LENGTH:
 		history.pop()
 	history.insert(0, string)
 	history_pos = 0
 
 
 def mySpeak(sequence, *args, **kwargs):
-	global data
 	text = speechViewer.SPEECH_ITEM_SEPARATOR.join([x for x in sequence if isinstance(x, str)])
 	if text:
-		data = text
 		oldSpeak(sequence, *args, **kwargs)
 		queueFunction(eventQueue, append_to_history, text)
 
