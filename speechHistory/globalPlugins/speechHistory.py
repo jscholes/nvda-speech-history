@@ -31,7 +31,7 @@ def append_to_history(string):
 
 def mySpeak(sequence, *args, **kwargs):
     global data
-    text = u''.join([x for x in sequence if isinstance(x, basestring)])
+    text = u''.join([x for x in sequence if isinstance(x, str)])
     if text:
         data = text
         oldSpeak(sequence, *args, **kwargs)
