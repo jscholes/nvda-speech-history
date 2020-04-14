@@ -17,7 +17,6 @@ from globalCommands import SCRCAT_SPEECH
 addonHandler.initTranslation()
 
 oldSpeak = speech.speak
-oldSpeakSpelling = speech.speakSpelling
 data = ''
 history = []
 history_pos = 0
@@ -40,21 +39,12 @@ def mySpeak(sequence, *args, **kwargs):
 		queueFunction(eventQueue, append_to_history, text)
 
 
-def mySpeakSpelling(text, *args, **kwargs):
-	global data
-	if text:
-		data = text
-	oldSpeakSpelling(text, *args, **kwargs)
-
-
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
 		super(GlobalPlugin, self).__init__(*args, **kwargs)
-		global oldSpeak, oldSpeakSpelling
+		global oldSpeak
 		oldSpeak = speech.speak
 		speech.speak = mySpeak
-		oldSpeakSpelling = speech.speakSpelling
-		speech.speakSpelling = mySpeakSpelling
 
 	def script_copyLast(self, gesture):
 		if api.copyToClip(history[history_pos]):
@@ -92,7 +82,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def terminate(self):
 		speech.speak = oldSpeak
-		speech.speakSpelling = oldSpeakSpelling
 
 	__gestures = {
 		"kb:f12":"copyLast",
