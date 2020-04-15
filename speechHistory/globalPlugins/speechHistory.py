@@ -4,9 +4,13 @@
 # This add-on is free software, licensed under the terms of the GNU General Public License (version 2).
 # See the file LICENSE for more details.
 
+import wx
+
 import addonHandler
 import api
+import config
 import globalPluginHandler
+import gui
 from queueHandler import eventQueue, queueFunction
 import speech
 import speechViewer
@@ -46,12 +50,24 @@ def getSequenceText(sequence):
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
 		super(GlobalPlugin, self).__init__(*args, **kwargs)
+		confspec = {
+			'trimWhitespaceFromStart': 'boolean(default=false)',
+			'trimWhitespaceFromEnd': 'boolean(default=false)',
+		}
+		config.conf.spec['speechHistory'] = confspec
+		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(SpeechHistorySettingsPanel)
+
 		global oldSpeak
 		oldSpeak = speech.speak
 		speech.speak = mySpeak
 
 	def script_copyLast(self, gesture):
-		if api.copyToClip(getSequenceText(history[history_pos])):
+		text = getSequenceText(history[history_pos])
+		if config.conf['speechHistory']['trimWhitespaceFromStart']:
+			text = text.lstrip()
+		if config.conf['speechHistory']['trimWhitespaceFromEnd']:
+			text = text.rstrip()
+		if api.copyToClip(text):
 			tones.beep(1500, 120)
 
 	# Translators: Documentation string for copy currently selected speech history item script
@@ -84,11 +100,31 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_nextString.__doc__ = _('Review the next item in NVDA\'s speech history.')
 	script_nextString.category = SCRCAT_SPEECH
 
-	def terminate(self):
+	def terminate(self, *args, **kwargs):
+		super().terminate(*args, **kwargs)
 		speech.speak = oldSpeak
+		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(SpeechHistorySettingsPanel)
 
 	__gestures = {
 		"kb:f12":"copyLast",
 		"kb:shift+f11":"prevString",
 		"kb:shift+f12":"nextString",
 	}
+
+
+class SpeechHistorySettingsPanel(gui.SettingsPanel):
+	# Translators: the label/title for the Speech History settings panel.
+	title = _('Speech History')
+
+	def makeSettings(self, settingsSizer):
+		helper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		# Translators: the label for the preference to trim whitespace from the start of text
+		self.trimWhitespaceFromStartCB = helper.addItem(wx.CheckBox(self, label=_('Trim whitespace from &start when copying text')))
+		self.trimWhitespaceFromStartCB.SetValue(config.conf['speechHistory']['trimWhitespaceFromStart'])
+		# Translators: the label for the preference to trim whitespace from the end of text
+		self.trimWhitespaceFromEndCB = helper.addItem(wx.CheckBox(self, label=_('Trim whitespace from &end when copying text')))
+		self.trimWhitespaceFromEndCB.SetValue(config.conf['speechHistory']['trimWhitespaceFromEnd'])
+
+	def onSave(self):
+		config.conf['speechHistory']['trimWhitespaceFromStart'] = self.trimWhitespaceFromStartCB.GetValue()
+		config.conf['speechHistory']['trimWhitespaceFromEnd'] = self.trimWhitespaceFromEndCB.GetValue()
