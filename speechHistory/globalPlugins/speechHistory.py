@@ -24,19 +24,23 @@ history = []
 history_pos = 0
 
 
-def append_to_history(string):
+def append_to_history(seq):
 	global history, history_pos
 	if len(history) == MAX_HISTORY_LENGTH:
 		history.pop()
-	history.insert(0, string)
+	history.insert(0, seq)
 	history_pos = 0
 
 
 def mySpeak(sequence, *args, **kwargs):
 	oldSpeak(sequence, *args, **kwargs)
-	text = speechViewer.SPEECH_ITEM_SEPARATOR.join([x for x in sequence if isinstance(x, str)])
+	text = getSequenceText(sequence)
 	if text:
-		queueFunction(eventQueue, append_to_history, text)
+		queueFunction(eventQueue, append_to_history, sequence)
+
+
+def getSequenceText(sequence):
+	return speechViewer.SPEECH_ITEM_SEPARATOR.join([x for x in sequence if isinstance(x, str)])
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
@@ -47,7 +51,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		speech.speak = mySpeak
 
 	def script_copyLast(self, gesture):
-		if api.copyToClip(history[history_pos]):
+		if api.copyToClip(getSequenceText(history[history_pos])):
 			tones.beep(1500, 120)
 
 	# Translators: Documentation string for copy currently selected speech history item script
@@ -61,7 +65,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			tones.beep(200, 100)
 			history_pos -= 1
 
-		oldSpeak([history[history_pos]])
+		oldSpeak(history[history_pos])
 
 	# Translators: Documentation string for previous speech history item script
 	script_prevString.__doc__ = _('Review the previous item in NVDA\'s speech history.')
@@ -74,7 +78,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			tones.beep(200, 100)
 			history_pos += 1
 
-		oldSpeak([history[history_pos]])
+		oldSpeak(history[history_pos])
 
 	# Translators: Documentation string for next speech history item script
 	script_nextString.__doc__ = _('Review the next item in NVDA\'s speech history.')
