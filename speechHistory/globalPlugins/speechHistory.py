@@ -33,10 +33,10 @@ def append_to_history(string):
 
 
 def mySpeak(sequence, *args, **kwargs):
+	oldSpeak(sequence, *args, **kwargs)
 	text = speechViewer.SPEECH_ITEM_SEPARATOR.join([x for x in sequence if isinstance(x, str)])
 	if text:
 		queueFunction(eventQueue, append_to_history, text)
-	oldSpeak(sequence, *args, **kwargs)
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
