@@ -1,0 +1,71 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: 'speechHistory' '2020.2'\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
+"POT-Creation-Date: 2020-08-04 18:43+0800\n"
+"PO-Revision-Date: 2020-08-13 10:00+0800\n"
+"Last-Translator: ABitGlow<bitglow@outlook.com>\n"
+"Language-Team: NVDA Simplified Chinese Team\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Translators: Documentation string for copy currently selected speech history item script
+#: addon\globalPlugins\speechHistory.py:57
+msgid ""
+"Copy the currently selected speech history item to the clipboard, which by "
+"default will be the most recently spoken text by NVDA."
+msgstr "复制当前选择的朗读历史项目到剪切板，默认情况下这将是 NVDA 最近一次朗读的内容。"
+
+#. Translators: Documentation string for previous speech history item script
+#: addon\globalPlugins\speechHistory.py:70
+msgid "Review the previous item in NVDA's speech history."
+msgstr "查看上一条 NVDA 朗读历史项目"
+
+#. Translators: Documentation string for next speech history item script
+#: addon\globalPlugins\speechHistory.py:83
+msgid "Review the next item in NVDA's speech history."
+msgstr "查看下一条 NVDA 朗读历史项目"
+
+#. Translators: the label/title for the Speech History settings panel.
+#: addon\globalPlugins\speechHistory.py:114
+msgid "Speech History"
+msgstr "朗读历史"
+
+#. Translators: the label for the preference to choose the maximum number of stored history entries
+#: addon\globalPlugins\speechHistory.py:119
+msgid ""
+"&Maximum number of history entries (requires NVDA restart to take effect)"
+msgstr "最大历史条目数 （&M） （需要重新启动 NVDA 才能生效）"
+
+#. Translators: the label for the preference to trim whitespace from the start of text
+#: addon\globalPlugins\speechHistory.py:122
+msgid "Trim whitespace from &start when copying text"
+msgstr "复制文本时去除开头空白（&S）"
+
+#. Translators: the label for the preference to trim whitespace from the end of text
+#: addon\globalPlugins\speechHistory.py:125
+msgid "Trim whitespace from &end when copying text"
+msgstr "复制文本时去除结尾空白（&E）"
+
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+#: buildVars.py:17
+msgid "Speech history review and copying"
+msgstr "朗读历史查看与复制"
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:20
+msgid ""
+"This add-on allows you to review the most recent strings spoken by NVDA, by "
+"default using Shift+F11 and Shift+F12.  Additionally, you can copy any "
+"spoken item to the clipboard by pressing F12.  Use the settings panel for "
+"the add-on to increase or decrease the maximum number of stored history "
+"entries, and decide whether whitespace should be trimmed from the start or "
+"end of text.  Use NVDA's Input Gestures dialog to change the supplied "
+"keystrokes."
+msgstr ""
+"该插件允许您使用默认的快捷键 Shift + F11 和 F12 查看 NVDA 最近的朗读历史。 接着， 您可通过按 F12 将任何一条朗读过的内容复制到剪切板。"
+"使用该插件的设置面板可调整存储历史的最大条目数, 并设置从文本的开头还是结尾删除空白。 使用 NVDA 的输入首饰对话框更改提供的快捷键。"
