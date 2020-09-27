@@ -18,14 +18,14 @@ from queueHandler import eventQueue, queueFunction
 import speech
 import speechViewer
 import tones
-import ui
-
+from logHandler import log 
 from globalCommands import SCRCAT_SPEECH
 
 addonHandler.initTranslation()
 
 oldSpeak = speech.speak
 history_pos = 0
+lastSpokenText: str = '' 
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
@@ -45,6 +45,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		speech.speak = self.mySpeak
 
 	def script_copyLast(self, gesture):
+		log.info(str(self._history))
 		text = self.getSequenceText(self._history[history_pos])
 		if config.conf['speechHistory']['trimWhitespaceFromStart']:
 			text = text.lstrip()
@@ -100,7 +101,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			queueFunction(eventQueue, self.append_to_history, sequence)
 
 	def getSequenceText(self, sequence):
-		return speechViewer.SPEECH_ITEM_SEPARATOR.join([x for x in sequence if isinstance(x, str)])
+		global lastSpokenText
+		lastSpokenText =  speechViewer.SPEECH_ITEM_SEPARATOR.join([x for x in sequence if isinstance(x, str)])
+		return lastSpokenText
 
 	__gestures = {
 		"kb:f12":"copyLast",
@@ -119,10 +122,12 @@ class SpeechHistorySettingsPanel(gui.SettingsPanel):
 		maxHistoryLengthLabelText = _('&Maximum number of history entries (requires NVDA restart to take effect)')
 		self.maxHistoryLengthEdit = helper.addLabeledControl(maxHistoryLengthLabelText, nvdaControls.SelectOnFocusSpinCtrl, min=1, max=5000, initial=config.conf['speechHistory']['maxHistoryLength'])
 		# Translators: the label for the preference to trim whitespace from the start of text
-		self.trimWhitespaceFromStartCB = helper.addItem(wx.CheckBox(self, label=_('Trim whitespace from &start when copying text')))
+		self.trimWhitespaceFromStartCB = helper.addItem(
+			wx.CheckBox(self, label=_('Trim whitespace from &start when copying text')))
 		self.trimWhitespaceFromStartCB.SetValue(config.conf['speechHistory']['trimWhitespaceFromStart'])
 		# Translators: the label for the preference to trim whitespace from the end of text
-		self.trimWhitespaceFromEndCB = helper.addItem(wx.CheckBox(self, label=_('Trim whitespace from &end when copying text')))
+		self.trimWhitespaceFromEndCB = helper.addItem(
+			wx.CheckBox(self, label=_('Trim whitespace from &end when copying text')))
 		self.trimWhitespaceFromEndCB.SetValue(config.conf['speechHistory']['trimWhitespaceFromEnd'])
 
 	def onSave(self):
