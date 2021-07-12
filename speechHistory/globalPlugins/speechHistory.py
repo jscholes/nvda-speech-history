@@ -17,11 +17,8 @@ import speech
 import speechViewer
 import tones
 from globalCommands import SCRCAT_SPEECH
-import logging
 from eventHandler import FocusLossCancellableSpeechCommand
 addonHandler.initTranslation()
-
-
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
