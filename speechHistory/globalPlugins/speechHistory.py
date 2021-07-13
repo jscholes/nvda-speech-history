@@ -6,6 +6,7 @@
 
 from collections import deque
 import wx
+
 import addonHandler
 import api
 import config
@@ -18,7 +19,10 @@ import speechViewer
 import tones
 from globalCommands import SCRCAT_SPEECH
 from eventHandler import FocusLossCancellableSpeechCommand
+
+
 addonHandler.initTranslation()
+
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
