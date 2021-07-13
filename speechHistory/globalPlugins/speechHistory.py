@@ -10,6 +10,7 @@ import wx
 import addonHandler
 import api
 import config
+from eventHandler import FocusLossCancellableSpeechCommand
 from globalCommands import SCRCAT_SPEECH
 import globalPluginHandler
 import gui
@@ -19,8 +20,6 @@ import speech
 import speechViewer
 import tones
 import versionInfo
-
-from eventHandler import FocusLossCancellableSpeechCommand
 
 
 addonHandler.initTranslation()
