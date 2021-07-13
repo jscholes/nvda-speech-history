@@ -10,6 +10,7 @@ import wx
 import addonHandler
 import api
 import config
+from globalCommands import SCRCAT_SPEECH
 import globalPluginHandler
 import gui
 from gui import nvdaControls
@@ -17,7 +18,8 @@ from queueHandler import eventQueue, queueFunction
 import speech
 import speechViewer
 import tones
-from globalCommands import SCRCAT_SPEECH
+import versionInfo
+
 from eventHandler import FocusLossCancellableSpeechCommand
 
 
