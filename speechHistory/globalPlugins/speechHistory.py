@@ -24,6 +24,8 @@ import versionInfo
 
 addonHandler.initTranslation()
 
+BUILD_YEAR = getattr(versionInfo, 'version_year', 2021)
+
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
@@ -37,8 +39,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(SpeechHistorySettingsPanel)
 
 		self._history = deque(maxlen=config.conf['speechHistory']['maxHistoryLength'])
-		self.oldSpeak = speech.speech.speak
-		speech.speech.speak = self.mySpeak
+		self._patch()
+
+	def _patch(self):
+		if BUILD_YEAR >= 2021:
+			self.oldSpeak = speech.speech.speak
+			speech.speech.speak = self.mySpeak
+		else:
+			self.oldSpeak = speech.speak
+			speech.speak = self.mySpeak
 
 	def script_copyLast(self, gesture):
 		text = self.getSequenceText(self._history[self.history_pos])
@@ -70,13 +79,16 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.history_pos += 1
 
 		self.oldSpeak(self._history[self.history_pos])
-# Translators: Documentation string for next speech history item script
+	# Translators: Documentation string for next speech history item script
 	script_nextString.__doc__ = _('Review the next item in NVDA\'s speech history.')
 	script_nextString.category = SCRCAT_SPEECH
 
 	def terminate(self, *args, **kwargs):
 		super().terminate(*args, **kwargs)
-		speech.speech.speak = self.oldSpeak
+		if BUILD_YEAR >= 2021:
+			speech.speech.speak = self.oldSpeak
+		else:
+			speech.speak = self.oldSpeak
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(SpeechHistorySettingsPanel)
 
 	def append_to_history(self, seq):
