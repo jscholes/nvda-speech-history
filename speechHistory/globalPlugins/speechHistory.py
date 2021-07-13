@@ -1,6 +1,6 @@
 # NVDA Add-on: Speech History
 # Copyright (C) 2012 Tyler Spivey
-# Copyright (C) 2015-2017 James Scholes
+# Copyright (C) 2015-2021 James Scholes
 # This add-on is free software, licensed under the terms of the GNU General Public License (version 2).
 # See the file LICENSE for more details.
 
