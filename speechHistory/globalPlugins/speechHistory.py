@@ -75,10 +75,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(SpeechHistorySettingsPanel)
 
 	def append_to_history(self, seq):
-		for command in list(seq):
-			if isinstance(command, FocusLossCancellableSpeechCommand):
-				seq.remove(command)
-
+		seq = [command for command in seq if not isinstance(command, FocusLossCancellableSpeechCommand)]
 		self._history.appendleft(seq)
 		self.history_pos = 0
 
