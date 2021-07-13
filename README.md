@@ -1,22 +1,10 @@
-# Speech History #
+# NVDA Speech History
 
-* Author: James Scholes
-* Download [stable version][1]
-* Download [development version][2]
-* NVDA compatibility: 2017.3 to 2019.3.
+This is an updated version of the Clip Copy add-on for NVDA, initially created by Tyler Spivey in 2012.  Please note that it is compatible with NVDA 2019.3 and 2019.3.1, but nothing newer (including alphas of 2020.x).
 
+The original version of the add-on offered two keystrokes:
 
-An updated version of the Clip Copy add-on, initially created by Tyler Spivey.
+* F12: Copy the most recent spoken text to the clipboard
+* Shift+F12: Toggle an optional beep on new text
 
-The add-on allows you to review the most recent 100 items spoken by NVDA, as well as copy the selected item to the clipboard.
-
-By default, use Shift+F11 to move back through the history, Shift+F12 to move forwards and F12 on its own to copy the selected item.
-
-If F12 is pressed once, copies without removing the blanks at the beginning and end of the text, if pressed twice, copies by deleting them.
-
-These hotkeys can be updated from within the Speech category of NVDA's Input gestures dialog.
-
-
-[1]: https://addons.nvda-project.org/files/get.php?file=sps
-
-[2]: https://addons.nvda-project.org/files/get.php?file=sps-dev
+This version adds the ability to review the 500 most recent items spoken by NVDA, by default using the hotkeys Shift+F11 and Shift+F12.  Pressing F12 will copy the currently selected item from the history, which is updated to be the most recent each time NVDA speaks.  In other words, F12 still behaves as it did in the older add-on, unless you've specifically selected an older spoken item to copy.  The beep on new text function has been removed.

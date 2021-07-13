@@ -4,101 +4,114 @@
 # This add-on is free software, licensed under the terms of the GNU General Public License (version 2).
 # See the file LICENSE for more details.
 
+from collections import deque
+import wx
 import addonHandler
 import api
 import sys
+import config
 import globalPluginHandler
+import gui
+from gui import nvdaControls
 from queueHandler import eventQueue, queueFunction
 import speech
+import speechViewer
 import tones
-import ui
-
 from globalCommands import SCRCAT_SPEECH
-
+from eventHandler import FocusLossCancellableSpeechCommand
 addonHandler.initTranslation()
 str = basestring if sys.version_info.major == 2 else str
-oldSpeak = speech.speak
-oldSpeakSpelling = speech.speakSpelling
-data = ''
-history = []
-history_pos = 0
-
-def append_to_history(string):
-	global history, history_pos
-	if len(history) == 100:
-		history.pop()
-	history.insert(0, string)
-	history_pos = 0
-
-def mySpeak(sequence, *args, **kwargs):
-	global data
-	oldSpeak(sequence, *args, **kwargs)
-	text = u' '.join([x for x in sequence if isinstance(x, str)])
-	if text:
-		data = text
-		queueFunction(eventQueue, append_to_history, text)
-
-def mySpeakSpelling(text, *args, **kwargs):
-	global data
-	oldSpeakSpelling(text, *args, **kwargs)
-	if text:
-		data = text
-
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
-		super(GlobalPlugin, self).__init__(*args, **kwargs)
-		global oldSpeak, oldSpeakSpelling
-		oldSpeak = speech.speak
-		speech.speak = mySpeak
-		oldSpeakSpelling = speech.speakSpelling
-		speech.speakSpelling = mySpeakSpelling
+		super().__init__(*args, **kwargs)
+		confspec = {
+			'maxHistoryLength': 'integer(default=500)',
+			'trimWhitespaceFromStart': 'boolean(default=false)',
+			'trimWhitespaceFromEnd': 'boolean(default=false)',
+		}
+		config.conf.spec['speechHistory'] = confspec
+		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(SpeechHistorySettingsPanel)
+
+		self._history = deque(maxlen=config.conf['speechHistory']['maxHistoryLength'])
+		self.oldSpeak = speech.speech.speak
+		speech.speech.speak = self.mySpeak
 
 	def script_copyLast(self, gesture):
-		import scriptHandler
-		repeat = scriptHandler.getLastScriptRepeatCount()
-		if repeat > 0:
-			if api.copyToClip(history[history_pos].strip()):
-				tones.beep(1500, 120)
-		else:
-			if api.copyToClip(history[history_pos]):
-				tones.beep(1000, 120)
+		text = self.getSequenceText(self._history[self.history_pos])
+		if config.conf['speechHistory']['trimWhitespaceFromStart']:
+			text = text.lstrip()
+		if config.conf['speechHistory']['trimWhitespaceFromEnd']:
+			text = text.rstrip()
+		if api.copyToClip(text):
+			tones.beep(1500, 120)
 
 	# Translators: Documentation string for copy currently selected speech history item script
-	script_copyLast.__doc__ = _('Copy the currently selected speech history item to the clipboard, which by default will be the most recently spoken text by NVDA. If pressed once, copies without removing the blanks at the beginning and end of the text, if pressed twice, copies by deleting them.')
+	script_copyLast.__doc__ = _('Copy the currently selected speech history item to the clipboard, which by default will be the most recently spoken text by NVDA.')
 	script_copyLast.category = SCRCAT_SPEECH
 
 	def script_prevString(self, gesture):
-		global history_pos
-		history_pos += 1
-		if history_pos > len(history) - 1:
+		self.history_pos += 1
+		if self.history_pos > len(self._history) - 1:
 			tones.beep(200, 100)
-			history_pos -= 1
-
-		oldSpeak([history[history_pos]])
-
+			self.history_pos -= 1
+		self.oldSpeak(self._history[self.history_pos])
 	# Translators: Documentation string for previous speech history item script
 	script_prevString.__doc__ = _('Review the previous item in NVDA\'s speech history.')
 	script_prevString.category = SCRCAT_SPEECH
 
 	def script_nextString(self, gesture):
-		global history_pos
-		history_pos -= 1
-		if history_pos < 0:
+		self.history_pos -= 1
+		if self.history_pos < 0:
 			tones.beep(200, 100)
-			history_pos += 1
+			self.history_pos += 1
 
-		oldSpeak([history[history_pos]])
-
-	# Translators: Documentation string for next speech history item script
+		self.oldSpeak(self._history[self.history_pos])
+# Translators: Documentation string for next speech history item script
 	script_nextString.__doc__ = _('Review the next item in NVDA\'s speech history.')
 	script_nextString.category = SCRCAT_SPEECH
 
-	def terminate(self):
-		speech.speak = oldSpeak
-		speech.speakSpelling = oldSpeakSpelling
+	def terminate(self, *args, **kwargs):
+		super().terminate(*args, **kwargs)
+		speech.speech.speak = self.oldSpeak
+		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(SpeechHistorySettingsPanel)
+
+	def append_to_history(self, seq):
+		seq = [command for command in seq if not isinstance(command, FocusLossCancellableSpeechCommand)]
+		self._history.appendleft(seq)
+		self.history_pos = 0
+
+	def mySpeak(self, sequence, *args, **kwargs):
+		self.oldSpeak(sequence, *args, **kwargs)
+		text = self.getSequenceText(sequence)
+		if text.strip():
+			queueFunction(eventQueue, self.append_to_history, sequence)
+
+	def getSequenceText(self, sequence):
+		return speechViewer.SPEECH_ITEM_SEPARATOR.join([x for x in sequence if isinstance(x, str)])
 
 	__gestures = {
 		"kb:f12":"copyLast",
 		"kb:shift+f11":"prevString",
 		"kb:shift+f12":"nextString",
 	}
+
+class SpeechHistorySettingsPanel(gui.SettingsPanel):
+	# Translators: the label/title for the Speech History settings panel.
+	title = _('Speech History')
+
+	def makeSettings(self, settingsSizer):
+		helper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		# Translators: the label for the preference to choose the maximum number of stored history entries
+		maxHistoryLengthLabelText = _('&Maximum number of history entries (requires NVDA restart to take effect)')
+		self.maxHistoryLengthEdit = helper.addLabeledControl(maxHistoryLengthLabelText, nvdaControls.SelectOnFocusSpinCtrl, min=1, max=5000, initial=config.conf['speechHistory']['maxHistoryLength'])
+		# Translators: the label for the preference to trim whitespace from the start of text
+		self.trimWhitespaceFromStartCB = helper.addItem(wx.CheckBox(self, label=_('Trim whitespace from &start when copying text')))
+		self.trimWhitespaceFromStartCB.SetValue(config.conf['speechHistory']['trimWhitespaceFromStart'])
+		# Translators: the label for the preference to trim whitespace from the end of text
+		self.trimWhitespaceFromEndCB = helper.addItem(wx.CheckBox(self, label=_('Trim whitespace from &end when copying text')))
+		self.trimWhitespaceFromEndCB.SetValue(config.conf['speechHistory']['trimWhitespaceFromEnd'])
+
+	def onSave(self):
+		config.conf['speechHistory']['maxHistoryLength'] = self.maxHistoryLengthEdit.GetValue()
+		config.conf['speechHistory']['trimWhitespaceFromStart'] = self.trimWhitespaceFromStartCB.GetValue()
+		config.conf['speechHistory']['trimWhitespaceFromEnd'] = self.trimWhitespaceFromEndCB.GetValue()
