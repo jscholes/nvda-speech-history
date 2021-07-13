@@ -19,7 +19,7 @@ addon_info = {
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 	"addon_description" : _("""This add-on allows you to review the 100 most recent strings spoken by NVDA, by default using Shift+F11 and Shift+F12.  Additionally, you can copy any spoken item to the clipboard by pressing F12."""),
 	# version
-	"addon_version" : "2020.01.07",
+	"addon_version" : "2021.1",
 	# Author(s)
 	"addon_author" : u"Tyler Spivey, James Scholes",
 	# URL for the add-on documentation support
