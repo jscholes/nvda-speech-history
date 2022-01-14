@@ -89,8 +89,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		super().terminate(*args, **kwargs)
 		if BUILD_YEAR >= 2021:
 			speech.speech.speak = self.oldSpeak
-		else:
-			speech.speak = self.oldSpeak
+		speech.speak = self.oldSpeak
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(SpeechHistorySettingsPanel)
 
 	def append_to_history(self, seq):
