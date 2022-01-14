@@ -45,6 +45,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if BUILD_YEAR >= 2021:
 			self.oldSpeak = speech.speech.speak
 			speech.speech.speak = self.mySpeak
+			# Some add-ons still use the older speech.speak, so patch that as well.
+			speech.speak = self.mySpeak
 		else:
 			self.oldSpeak = speech.speak
 			speech.speak = self.mySpeak
