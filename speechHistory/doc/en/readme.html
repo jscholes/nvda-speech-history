@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link rel="stylesheet" type="text/css" href="../style.css" media="screen"/>
+<title>Speech History Readme</title>
+</head>
+<body>
+<h1>Speech History</h1>
+<p>This add-on allows you to review and coppy any item or block of text NVDA has spoken. This can have many use cases.<br>
+This addon was created by Tyler Spivey in 2012, maintained by James Scholes from 2015 to present. Version 2021.3 contributions and readme made by daniel Ingraham.</p>
+<h2>Disclaimer</h2>
+<p>As the user of this addon, you are responsible for any and all data recorded by its use, and are held responsible for any and every feature that may be seen as a security risk or be used in an illegal manner.<br>
+These actions may include but are not limited to:<ol>
+<li>Copying and pasting items to use them in an inappropriate manner.</li>
+<li>Exporting or saving data into files that contain personal details of one or more individuals without consent.</li>
+<li>Exporting or saving data into files that contain sensitive and/or private information without permission to do so in a business setting.</li>
+</ol>
+Neither NvAccess nor the developers of this Speech History software are responsible for any misconduct that result from the use of this product.</p>
+<h2>Downloads</h2>
+<p>The project is maintained on <a href= "https://github.com/jscholes/nvda-speech-history" target= "blank">Git Hub by James Scholes</a>.<br>
+View this addon's page on the <a href= "https://addons.nvda-project.org/addons/speech_history.en.html" target= "blank">NVDA community addons website</a>.<br>
+View this addon's page on the <a href= "https://nvda-addons.org/addon.php?id=63" target= "blank">NVDA international store</a>.</p>
+<h2>A Work Around For Phonetic Punctuation</h2>
+<p>The phonetic punctuation addon blocks this addon from working, so users have to choose one over the other. However, I have found a solution to get both working.<br>
+You must have phonetic punctuation installed before doing this, as it comes with default sounds. It does not have to be enabled after installation.<br>
+I have slightly modified phonetic punctuation in order for it to work in the developer scratchpad directory. Download the <a href= "https://daniel_ingraham.keybase.pub/Nvda%20Add-ons/phoneticPunctuation.py?dl=1">modified phonetic punctuation (1.6) file</a>, and place it in the "globalPlugins" folder of that directory.<br>
+If you do not know where that directory is located, open NVDA settings and select advanced. There is a button to enable and open it.<br>
+To load the modified script, reload plugins by pressing NVDA control F3, or restart NVDA.<br>
+Optionally you can disable phonetic punctuation from the manage addons dialog, as the scratchpad script will be used from now on.<br>
+If you want to stay up to date, this work around must be done each time a new version of phonetic punctuation is released. This solution is all we have until the issue is resolved appropriately.<br>
+If speech history ever stops working, do this process again. Cut the script outside the "globalPlugins" folder, reload plugins/restart, cut it back in, reload plugins/restart once more. If that still doesn't fix it, report the issue.</p>
+<h2>Keystrokes</h2>
+<p>All keys can be configured in the input gestures dialog, under the speech category.<ul>
+<li>Shift+F11: previous history item.</li>
+<li>Shift+F12: next history item.</li>
+<li>Control+Shift+F11: first history item (oldest).</li>
+<li>Control+Shift+F12: last history item (newest).</li>
+<li>F12: copy current history item to clipboard.</li>
+<li>Control+F11: change where the cursor should move when NVDA speaks.<br>
+By default the cursor will focus on the newest item.</li>
+<li>Control+F12: open search dialog and history viewer.</li>
+</ul></p>
+<h2>Settings Panel</h2>
+<p>NVDA menu> Preferences> Settings> Speech History.<ul>
+<li>Maximum number of history entries (requires NVDA restart to take effect): default 10000, maximum 100000.<br>
+The maximum number of items the history will store. Items are added to the history until the max length is reached. From that point onwards, the older items are deleted to make room for the newer ones.<br>
+For example, the maximum is 20. Item 1 will be deleted, item 2 will become item 1, item 20 will be 19, while item 20 is the newest item.</li>
+<li>Trim whitespace from start: default yes.<br>
+Whitespace is described as characters like tabs, spaces, and empty lines, most widely used in indentation and formatting.<br>
+If there are any of these characters before the contents of the item, they will be removed in your clipboard entry.</li>
+<li>Trim whitespace from end: default yes.<br>
+Whitespace is described as characters like tabs, spaces, and empty lines, most widely used in indentation and formatting.<br>
+If there are any of these characters after the contents of the item, they will be removed in your clipboard entry.</li>
+<li>When NVDA speaks, the cursor should: default move focus to the new item.<br>
+This setting can also be changed using control f11. There are 3 options: <ol>
+<li>Moving to the newest item will ensure the cursor is keeping up to date with what is happening so you do not need to scroll to the bottom.<br>
+If you move your cursor to another position, it will automatically reset to the latest item when a new one is added.</li>
+<li>Syncing focus with the current item is useful to keep the current context without having to scroll back constantly. When a new item is added, the cursor will move back one position.<br>
+When the currently focused item becomes the last item in the history after the max length is reached for the first time, you will hear a beep to indicate that the currently focused item is about to be deleted. Once the cursor loses focus, it will stay at the oldest position until it is focused on a new item.</li>
+<li>Keeping the cursor at the current index will not affect the focus at all. As items are added, the contents under the cursor will change, but the position will not.<br>
+Keeping your cursor at the latest position with this option is the same as having the focus move to the newest item. Of course without having it reset whenever you move the cursor again.</li>
+</ol></li>
+<li>Automatically export history when the max length is reached and when NVDA restarts: default no.<br>
+This setting saves items into a json file before they are deleted. The way it saves items is by using cycles. Rather than immediately saving each item before it is deleted, it saves in increments of the max length. In otherwords, it saves every time the history has completely new items.<br>
+As for when NVDA restarts, it only exports the remaining items that have not been processed yet, so that items are not duplicated.<br>
+For example, max length is 1000. The total item count is 1365. Items 1 to 1000 have already been processed, so this cycle only contains 1001 to 1365.<br>
+Saving based on a cycle count is also beneficial, as you are able to toggle the setting during a cycle without any items being ignored. As long as the setting is enabled when the item count is at the end of a cycle, all items will be saved.</li>
+</ul></p>
+<h2>Search Dialog</h2>
+<p>This feature allows for advanced functionalities in this addon. There are 2 parts to this feature, along with an options dialog.<br>
+When you press control f12, NVDA will announce that a search has been launched. The window may not take focus automatically.</p>
+<h3>Search Window</h3>
+<p>The first part of this feature is searching for text in strings or an index that is in the history.<br>
+When the search button is pressed, or whenever a character is typed when query results as you type is enabled, A list of results will be shown.<br>
+Choosing one of these results will jump you to that position in the history when you open the history viewer. If there are no results, the position will default to the oldest item.<br>
+NVDA does not announce this, but the shortcut to focus the results list is alt plus r.<br>
+The read history index button refers to the same value as the one in the history list, it does not mean the index in the results list.<br>
+While this window is open, any items spoken will not be used in this current search session. The update history button will update the history with any new items since the search was launched.</p>
+<h3>Search Options</h3>
+<p>There are 5 options you can use for specific search criteria.<ul>
+<li>Search by: default text.<br>
+Searching by text looks through all strings in the history to find any matches based on your search criteria.<br>
+Searching by index only shows one result, the text of the item at that position in the history. All other search options except for query results as you type are ignored.</li>
+<li>where in string: default anywhere.<br>
+Available options: anywhere, full, beginning, middle, end, nowhere.<br>
+Most of these options are self explanitory, aside from full and middle.<br>
+Full is an exact match. No characters before or after the text. Middle is anywhere that is not the start or end, it does not mean the exact middle range of the text.</li>
+<li>Case sensitive: default no.<br>
+This is self explanitory, items in the history will be compared against the capitalization of the search term.</li>
+<li>Query results as you type: default no.<br>
+This will automatically update the results list each time you type a character rather than you having to press the search button. As such, the search button is removed.<br>
+When searching by index, any invalid characters will be deleted immediately after an error message.</li>
+<li>Sequence indexes to search or exclude: default 0.<br>
+This setting doesn't serve any useful purpose, but I thought I would include it. It may be confusing for some who do not understand NVDA development and how NVDA speaks.<br>
+When NVDA speaks, it does not speak one string of text, it speaks a list of strings called a sequence.<br>
+For example, when browsing through files in file explorer, you may receive 2 pieces of information. The file name, and the position in the list. Those are 2 separate strings.<br>
+However, depending on the way you navigate, the strings could be in a different order.<br>
+For example, pressing h: my website  heading level 1, or pressing up/down arrow: heading level 1  my website.<br>
+By default it searches all indexes. This is done by having 0 as a value in the list. However, you can choose specific indexes from the sequence to search or exclude.<br>
+For example, if you only want to show items from a list with 40 items, you would select sequence index 2, with the search term  "of 40", and set where in string to end.<br>
+If you want to search or exclude multiple indexes, write numbers with a space in between<br>
+For example, "1 4". This will only search indexes 1 and 4. Or to exclude them, "!1 4".</li>
+</ul></p>
+<h3>History Viewer</h3>
+<p>The second part of this feature is selecting items from the history to use for various reasons. This feature has just been released, so there are not many functions at the moment.<br>
+There are 2 tabs, history and selection. They have similar layouts, but different operations.<br>
+At the bottom is a button to return to the results from your last search, and a button to close the search session. Going back to the results list focuses on the index that you selected in the search results, and the items in the selection tab are not deleted.<br>
+Pressing escape will press the back button unless there is a multi step operation in progress, in which case it will cancel.<br>
+When performing multi step operations, controls will automatically show and hide when needed. This keeps the ui clean and prevents the user from making unnecessary errors.</p>
+<h4>Selecting Items</h4>
+<p>When you make a selection or removal, you are selecting a range of items. If you only want a single item, don't move the index.<br>
+There is no indication for you to check the selected item once you start, so don't forget your starting point! Setting the end point above the starting point will give an error.<br>
+You can not start a removal if a selection is in progress, and you can not start a selection if a removal is in progress.<br>
+I am aware that this system is very basic and not the most efficient way to select items. But this is a starting point, at least it works. There may be improvements to this system in the future, but no promises!</p>
+<h4>History Tab</h4>
+<p>This tab is for selecting items to put into the selection tab.<br>
+The history list (alt + h), shows the items in your current history. It does not show previously deleted items. The reset focus button will move the index to the initial position when the viewer was opened.<br>
+Once you have selected a range, you must choose where to place it in the selection list; the selection is not automatically placed at the bottom.<br>
+Press the place selection button to confirm this placement. You can see the items in the selection list from the selection tab.</p>
+<h4>Selection Tab</h4>
+<p>This tab is for managing the items in the history that you have selected.<br>
+The selection list (alt + s), shows all the items you have selected and in the order you requested. The clear selection button will remove everything.<br>
+The read history index button refers to the same value as the one in the history list, it does not mean the index in the selection list.<br>
+The removal button is selecting a range of items just like selections, however this operation will remove them from the selection list.<br>
+This is used for giving rid of items inside a range that you didn't want to copy, but you had to because there is no way to exclude items when originally making a selection.<br>
+After selecting the end point, you are asked to confirm the removal.<br>
+As for true features:<ul>
+<li>Copy to clipboard: by default items are separated by 1 new line.</li>
+<li>Export to json file: this is exactly like the auto export feature, but using a custom list.<br>
+You can also append the number of items to the filename. If this file already exists, it will be overwritten.</li>
+</ul>You can choose whether the text field values in this tab are reset after each use.</p>
+<h2>Additional information</h2>
+<p><ul>
+<li>If the addon isn't working, it is most likely due to the phonetic punctuation addon. If that is not on your system either via an installed version or using the developer scratchpad, please report this issue.</li>
+<li>The insertion point in text fields will never be changed automatically unless the value is reset, in which case the insertion point will be after the last character.</li>
+<li>To insert a tab character into a text field, you can press control tab if the window has no tab control. Otherwise you must copy and paste from another application.</li>
+<li>Auto and custom exports are stored in "{user config}/speechLogs".</li>
+<li>Json is a form of recording data that is easy to read by both humans and machines. You can open a json file with any text editor and read it.</li>
+</ul></p>
+<h2>Changelog</h2>
+<p>Changes from 2021.3 onwards. Each version also has a developer change log below its changes.</p>
+<h3>2021.3</h3>
+<p><ul>
+<li>Updated manifest: description has been shorttened, lastTestedNVDAVersion is now "2021.3", added Daniel ingraham as an author, readme now available to use.</li>
+<li>Created a readme file for this add-on, English only.</li>
+<li>Increased the maximum length from 5000 to 100000. Default has been changed from 500 to 10000.</li>
+<li>Added control shift F11 and F12 to focus on first and last history items.</li>
+<li>Added a feature to automatically backup the history each time the max length is reached and when NVDA restarts. Accessible in the settings panel.</li>
+<li>Added a feature to change the behavior that the history cursor should take when NVDA speaks. Invoked with control f11 and accessible in the settings panel.</li>
+<li>Added a search feature, along with a vertical and/or horizontal list to view history items. Invoked with control F12.</li>
+</ul></p>
+<h4>Developer Changes</h4>
+<p><ul>
+<li>New modules imported: log from logHandler, json, globalVars, os, time.</li>
+<li>addonHandler.initTranslation() will now log a warning if running from scratchpad or otherwise failing.</li>
+<li>Added 3 global variables, one for the config folder path, one for storing the new history length upon restart, and one for the total number of history items during the current session.</li>
+<li>Added new items to the confspec: moveFocus (string), autoExport (boolian), searchBy (string), whereInString (option), caseSensitive (boolian), queryResultsAsYouType (boolian), sequenceIndexes (string), inverseIndexes (boolian), resetFields (boolian).</li>
+<li>Declared the history_pos variable at the top of the class, and added a history length>0 check for the script keys.</li>
+<li>Added a reset function in the class to verify variable cleanup when reloading as a plugin and may have other uses in the future.</li>
+<li>Most of the code inside the copyLast script function has been moved to a global function called copyText, since it is now used universally.</li>
+<li>The append_to_history function has new code: does not append the item if the active window contains "Speech History" in the title, exports the history if a new cycle of max length is reached, moves focus based on the user's preference.</li>
+<li>In the settings panel, we use the maxItems variable to refer to the updated max length in the edit box and store the new history length rather than using the config variable. This fixes issues with syncing the cursor, checking the cycle remainder, exporting history, etc. We assign the config variable to maxItems when terminating NVDA.</li>
+<li>Added class LB for wx.listBox functions, and 5 new major classes: SearchDialog, HistoryViewer, HistoryPanel, SelectionPanel, SearchOptions.</li>
+<li>Added 8 global functions: copyText, getSequenceIndexes, concatinateSequence, dequeToList, cycleRemainder, exportHistory, saveJson, loadJson.</li>
+</ul></p>
+</body>
+</html>
