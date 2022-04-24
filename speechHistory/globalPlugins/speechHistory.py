@@ -5,6 +5,7 @@
 # See the file LICENSE for more details.
 
 from collections import deque
+import weakref
 import wx
 
 import addonHandler
@@ -14,7 +15,10 @@ from eventHandler import FocusLossCancellableSpeechCommand
 from globalCommands import SCRCAT_SPEECH
 import globalPluginHandler
 import gui
+from gui import guiHelper
 from gui import nvdaControls
+from gui.dpiScalingHelper import DpiScalingHelperMixin, DpiScalingHelperMixinWithoutInit
+
 from queueHandler import eventQueue, queueFunction
 import speech
 import speechViewer
@@ -105,10 +109,17 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def getSequenceText(self, sequence):
 		return speechViewer.SPEECH_ITEM_SEPARATOR.join([x for x in sequence if isinstance(x, str)])
 
+	def script_showHistorial(self, gesture):
+		gui.mainFrame.prePopup()
+		HistoryDialog(gui.mainFrame, [self.getSequenceText(k) for k in self._history]).Show()
+		gui.mainFrame.postPopup()
+
+
 	__gestures = {
 		"kb:f12":"copyLast",
 		"kb:shift+f11":"prevString",
 		"kb:shift+f12":"nextString",
+		"kb:nvda+control+f12":"showHistorial",
 	}
 
 
@@ -132,3 +143,160 @@ class SpeechHistorySettingsPanel(gui.SettingsPanel):
 		config.conf['speechHistory']['maxHistoryLength'] = self.maxHistoryLengthEdit.GetValue()
 		config.conf['speechHistory']['trimWhitespaceFromStart'] = self.trimWhitespaceFromStartCB.GetValue()
 		config.conf['speechHistory']['trimWhitespaceFromEnd'] = self.trimWhitespaceFromEndCB.GetValue()
+
+
+
+class HistoryDialog(
+		DpiScalingHelperMixinWithoutInit,
+		gui.contextHelp.ContextHelpMixin,
+		wx.Dialog  # wxPython does not seem to call base class initializer, put last in MRO
+):
+	@classmethod
+	def _instance(cls):
+		""" type: () -> HistoryDialog
+		return None until this is replaced with a weakref.ref object. Then the instance is retrieved
+		with by treating that object as a callable.
+		"""
+		return None
+
+	helpId = "SpeechHistoryElementsList"
+
+	def __new__(cls, *args, **kwargs):
+		instance = HistoryDialog._instance()
+		if instance is None:
+			return super(HistoryDialog, cls).__new__(cls, *args, **kwargs)
+		return instance
+
+	def __init__(self, parent, history):
+		if HistoryDialog._instance() is not None:
+			return
+		HistoryDialog._instance = weakref.ref(self)
+		# Translators: The title of the history elements Dialog
+		title = _("Speech histori elements")
+		super().__init__(
+			parent,
+			title=title,
+			style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER | wx.MAXIMIZE_BOX,
+		)
+		# the original speech history messages list.
+		self.history = history
+		# the results of a search, initially equals to history
+		self.searchHistory = history
+		# indexes of search, to save the selected item in a specific search.
+		self.searches = {"": 0}
+		# the current search, initially "".
+		self.curSearch = ""
+
+		szMain = guiHelper.BoxSizerHelper(self, sizer=wx.BoxSizer(wx.VERTICAL))
+		szBottom = guiHelper.BoxSizerHelper(self, sizer=wx.BoxSizer(wx.HORIZONTAL))
+
+		# Translators: the label for the search text field in the speech history add-on.
+		self.searchTextFiel = szMain.addLabeledControl(_("&Search"),
+			wx.TextCtrl,
+			style =wx.TE_PROCESS_ENTER
+		)
+		self.searchTextFiel.Bind(wx.EVT_TEXT_ENTER, self.onSearch)
+
+		# Translators: the label for the history elements list in the speech history add-on.
+		entriesLabel = _("History list")
+		self.historyList = nvdaControls.AutoWidthColumnListCtrl(
+			parent=self,
+			autoSizeColumn=1,
+			style=wx.LC_REPORT|wx.LC_SINGLE_SEL|wx.LC_NO_HEADER
+			)
+		
+		szMain.addItem(
+			self.historyList,
+			flag=wx.EXPAND,
+			proportion=1,
+		)
+		# This list consists of only one column.
+		# The provided column header is just a placeholder, as it is hidden due to the wx.LC_NO_HEADER style flag.
+		self.historyList.InsertColumn(0, entriesLabel)
+		self.historyList.Bind(wx.EVT_LIST_ITEM_FOCUSED, self.onListItemSelected)
+
+		# a multiline text field containing the text from the current selected element.
+		self.currentTextElement = szMain.addItem(
+			wx.TextCtrl(self, style =wx.TE_MULTILINE|wx.TE_READONLY),
+			flag=wx.EXPAND,
+			proportion=1
+		)
+
+		szMain.addItem(
+			wx.StaticLine(self),
+			border=guiHelper.BORDER_FOR_DIALOGS,
+			flag=wx.ALL | wx.EXPAND
+		)
+
+		# Translators: the label for the copy button in the speech history add-on.
+		self.copyButton = szBottom.addItem(wx.Button(self, label=_("&Copy item")))
+		self.copyButton.Bind(wx.EVT_BUTTON, self.onCopy)
+
+		# Translators: the label for the copy all button in the speech history add-on. This is based on the current search.
+		self.copyAllButton = szBottom.addItem(wx.Button(self, label=_("Copy &all")))
+		self.copyAllButton.Bind(wx.EVT_BUTTON, self.onCopyAll)
+
+		# Translators: The label of a button to close the speech history dialog.
+		closeButton = wx.Button(self, label=_("C&lose"), id=wx.ID_CLOSE)
+		closeButton.Bind(wx.EVT_BUTTON, lambda evt: self.Close())
+		szBottom.addItem(closeButton)
+		self.Bind(wx.EVT_CLOSE, self.onClose)
+		self.EscapeId = wx.ID_CLOSE
+
+		szMain.addItem(
+			szBottom.sizer,
+			border=guiHelper.BORDER_FOR_DIALOGS,
+			flag=wx.ALL | wx.EXPAND,
+			proportion=1,
+		)
+		szMain = szMain.sizer
+		szMain.Fit(self)
+		self.SetSizer(szMain)
+		self.doSearch()
+
+		self.SetMinSize(szMain.GetMinSize())
+		# Historical initial size, result of L{self.historyList} being (550, 350)
+		# Setting an initial size on L{self.historyList} by passing a L{size} argument when
+		# creating the control would also set its minimum size and thus block the dialog from being shrunk.
+		self.SetSize(self.scaleSize((763, 509)))
+		self.CentreOnScreen()
+		self.historyList.SetFocus()
+
+	def onListItemSelected(self, evt):
+		index=evt.GetIndex()
+		self.currentTextElement.SetValue(self.history[index])
+
+	def onSearch(self, evt):
+		t = self.searchTextFiel.GetValue().lower()
+		self.searches[self.curSearch] = self.historyList.GetFirstSelected()
+		self.curSearch = t
+		self.doSearch(t)
+
+	def doSearch(self, text=""):
+		if not text:
+			self.searchHistory = self.history
+		else:
+			self.searchHistory = [k for k in self.searchHistory if text in k.lower()]
+		self.historyList.DeleteAllItems()
+		for k in self.searchHistory: self.historyList.Append((k[0:100],))
+		if len(self.searchHistory) >0:
+			if text not in self.searches:
+				self.searches[text] = 0
+			index = self.searches[text]
+			self.historyList.Select(index, on=1)
+			self.historyList.SetItemState(index,wx.LIST_STATE_FOCUSED,wx.LIST_STATE_FOCUSED)
+
+	def onClose(self,evt):
+		self.DestroyChildren()
+		self.Destroy()
+
+	def onCopy(self,evt):
+		t = self.currentTextElement.GetValue()
+		if t:
+			api.copyToClip(t)
+
+	def onCopyAll(self, evt):
+		t = ""
+		for k in self.searchHistory: t+= k+"\n"
+		if t:
+			api.copyToClip(t)
