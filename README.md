@@ -1,6 +1,6 @@
 # NVDA Speech History
 
-This is an updated version of the Clip Copy add-on for NVDA, initially created by Tyler Spivey in 2012.  The add-on is compatible with NVDA versions from 2019.3 to 2022.1.
+This is an updated version of the Clip Copy add-on for NVDA, initially created by Tyler Spivey in 2012.  The add-on is compatible with NVDA versions from 2020.4 to 2023.1.
 
 The original version of the add-on offered two keystrokes:
 
