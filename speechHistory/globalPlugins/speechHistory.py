@@ -21,12 +21,18 @@ import speech
 import speechViewer
 import tones
 import versionInfo
+from enum import Enum
 
 
-addonHandler.initTranslation()
+#addonHandler.initTranslation()
 
 
 BUILD_YEAR = getattr(versionInfo, 'version_year', 2021)
+
+class CursorBehaviors(Enum):
+	latest= _('move focus to the new item')
+	context= _('sync focus with the current context')
+	index= _('keep focus on the current index')
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
@@ -36,11 +42,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			'maxHistoryLength': 'integer(default=500)',
 			'trimWhitespaceFromStart': 'boolean(default=false)',
 			'trimWhitespaceFromEnd': 'boolean(default=false)',
+			'cursorBehavior': 'string(default=latest)',
 		}
 		config.conf.spec['speechHistory'] = confspec
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(SpeechHistorySettingsPanel)
 
 		self._history = deque(maxlen=config.conf['speechHistory']['maxHistoryLength'])
+		self.history_pos = 0
 		self._recorded = []
 		self._recording = False
 		self._patch()
@@ -87,6 +95,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_nextString.__doc__ = _('Review the next item in NVDA\'s speech history.')
 	script_nextString.category = SCRCAT_SPEECH
 
+	def script_moveCursor(self, gesture):
+		behaviors= [o.name for o in CursorBehaviors]
+		index= behaviors.index(config.conf['speechHistory']['cursorBehavior'])+1
+		if index== len(behaviors):
+			index=0
+		config.conf['speechHistory']['cursorBehavior']= behaviors[index]
+		# Translators: cursor behavior changed
+		self.oldSpeak([CursorBehaviors[behaviors[index]].value])
+
+	# Translators: Documentation string for cursor behavior script
+	script_moveCursor.__doc__ = _('Change where the speech history cursor should move when NVDA speaks.')
+	script_moveCursor.category = SCRCAT_SPEECH
+
 	def script_startRecording(self, gesture):
 		if self._recording:
 			# Translators: Message spoken when speech recording is already active
@@ -126,7 +147,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def append_to_history(self, seq):
 		seq = [command for command in seq if not isinstance(command, FocusLossCancellableSpeechCommand)]
 		self._history.appendleft(seq)
-		self.history_pos = 0
+		if config.conf['speechHistory']['cursorBehavior']== 'latest':
+			self.history_pos = 0
+		elif config.conf['speechHistory']['cursorBehavior']== 'context':
+			if len(self._history)>1 and self.history_pos< config.conf['speechHistory']['maxHistoryLength']-1:
+				self.history_pos += 1
+				if self.history_pos== config.conf['speechHistory']['maxHistoryLength']-1:
+					tones.beep(750, 200)
 		if self._recording:
 			self._recorded.append(self.getSequenceText(seq))
 
@@ -143,6 +170,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:f12":"copyLast",
 		"kb:shift+f11":"prevString",
 		"kb:shift+f12":"nextString",
+		"kb:control+f11":"moveCursor",
 		"kb:NVDA+shift+f11":"startRecording",
 		"kb:NVDA+shift+f12":"stopRecording",
 	}
@@ -163,8 +191,15 @@ class SpeechHistorySettingsPanel(gui.settingsDialogs.SettingsPanel):
 		# Translators: the label for the preference to trim whitespace from the end of text
 		self.trimWhitespaceFromEndCB = helper.addItem(wx.CheckBox(self, label=_('Trim whitespace from &end when copying text')))
 		self.trimWhitespaceFromEndCB.SetValue(config.conf['speechHistory']['trimWhitespaceFromEnd'])
+		# Translators: the label for the preference to set the cursor behavior
+		moveCursorLabelText= _('When NVDA Speaks, The &Cursor Should')
+		behaviors= [o.name for o in CursorBehaviors]
+		self.moveCursorChoice = helper.addLabeledControl(moveCursorLabelText, wx.Choice, choices = [o.value for o in CursorBehaviors])
+		self.moveCursorChoice.SetSelection(behaviors.index(config.conf['speechHistory']['cursorBehavior']))
 
 	def onSave(self):
 		config.conf['speechHistory']['maxHistoryLength'] = self.maxHistoryLengthEdit.GetValue()
 		config.conf['speechHistory']['trimWhitespaceFromStart'] = self.trimWhitespaceFromStartCB.GetValue()
 		config.conf['speechHistory']['trimWhitespaceFromEnd'] = self.trimWhitespaceFromEndCB.GetValue()
+		behaviors= [o.name for o in CursorBehaviors]
+		config.conf['speechHistory']['cursorBehavior'] = behaviors[self.moveCursorChoice.GetCurrentSelection()]
