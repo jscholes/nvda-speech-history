@@ -21,10 +21,14 @@ import speech
 import speechViewer
 import tones
 import versionInfo
+from logHandler import log
 from enum import Enum
 
 
-#addonHandler.initTranslation()
+try:
+	addonHandler.initTranslation()
+except addonHandler.AddonError:
+	log.warning('Unable to init translations. This may be because the addon is running from NVDA scratchpad.')
 
 
 BUILD_YEAR = getattr(versionInfo, 'version_year', 2021)
