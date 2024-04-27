@@ -95,6 +95,24 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_nextString.__doc__ = _('Review the next item in NVDA\'s speech history.')
 	script_nextString.category = SCRCAT_SPEECH
 
+	def script_firstString(self, gesture):
+		self.history_pos = len(self._history)-1
+		tones.beep(350, 150)
+		self.oldSpeak(self._history[self.history_pos])
+
+	# Translators: Documentation string for first speech history item script
+	script_firstString.__doc__ =_('Review the first item in NVDA\'s speech history.')
+	script_firstString.category = SCRCAT_SPEECH
+
+	def script_lastString(self, gesture):
+		self.history_pos = 0
+		tones.beep(350, 150)
+		self.oldSpeak(self._history[self.history_pos])
+
+	# Translators: Documentation string for last speech history item script
+	script_lastString.__doc__ =_('Review the last item in NVDA\'s speech history.')
+	script_lastString.category = SCRCAT_SPEECH
+
 	def script_moveCursor(self, gesture):
 		behaviors= [o.name for o in CursorBehaviors]
 		index= behaviors.index(config.conf['speechHistory']['cursorBehavior'])+1
@@ -170,6 +188,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:f12":"copyLast",
 		"kb:shift+f11":"prevString",
 		"kb:shift+f12":"nextString",
+		"kb:control+shift+f11":"firstString",
+		"kb:control+shift+f12":"lastString",
 		"kb:control+f11":"moveCursor",
 		"kb:NVDA+shift+f11":"startRecording",
 		"kb:NVDA+shift+f12":"stopRecording",
