@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link rel="stylesheet" type="text/css" href="../style.css" media="screen"/>
+<title>Speech History Documentation</title>
+</head>
+<body>
+<h1>Speech History</h1>
+<p>This add-on allows you to review and coppy any item or block of text NVDA has spoken. This can have many use cases.<br>
+This addon was created by Tyler Spivey in 2012, maintained by James Scholes from 2015 to present.</p>
+<h2>Usage Disclaimer</h2>
+<p>As the user of this addon, you are responsible for any and all data recorded by its use, and are held responsible for any and every feature that may be seen as a security risk or be used in an improper manner.<br>
+These actions may include but are not limited to:<ol>
+<li>Recording, copying, and/or pasting text to use them in an inappropriate manner.</li>
+<li>Exporting or saving data into files that contain personal details of one or more individuals without consent.</li>
+<li>Exporting or saving data into files that contain sensitive and/or private information without permission to do so in a business or other legal setting.</li>
+</ol>
+Neither NvAccess nor the developers of this Speech History software are responsible for any misconduct that result from the use of this plugin.</p>
+<h2>Downloads</h2>
+<p>The project is maintained on <a href= "https://github.com/jscholes/nvda-speech-history" target= "blank">Git Hub by James Scholes</a>.<br>
+View this addon's page on the <a href= "https://addons.nvda-project.org/addons/speech_history.en.html" target= "blank">NVDA community addons website</a>.<br>
+View this addon's page on the <a href= "https://nvda-addons.org/addon.php?id=63" target= "blank">NVDA international store</a>.</p>
+<h2>Speech History not working</h2>
+<p>Some addons that process speech such as phonetic punctuation block this addon from working; however there is an easy solution to get both working in some cases.<br>
+By default, The folder location is "C:\Users\name\AppData\Roaming\nvda\addons\speechHistory".<br>
+Simply rename the addon folder to something alphabetically above the addon that is blocking speech history. For example "customSpeechHistory" then "phoneticPunctuation". Restart NVDA to apply the change.<br>
+That's all you have to do. However the folder name will revert after reinstalling/updating speech history, so you will have to do it each time the addon is updated.</p>
+Note: if there is another addon blocking speech history, running from scratchpad will not work, even if those addons are disabled.</p>
+<h2>inputGestures</h2>
+<p>All keys can be configured in the input gestures dialog, under the speech category.<ul>
+<li>F12: copy current history item to clipboard.</li>
+<li>Shift+F11: previous history item.</li>
+<li>Shift+F12: next history item.</li>
+<li>Control+Shift+F11: first history item (oldest).</li>
+<li>Control+Shift+F12: last history item (newest).</li>
+<li>Control+F11: change where the cursor should move when NVDA speaks.<br>
+By default the cursor will focus on the newest item.</li>
+<li>NVDA+Shift+F11: start recording multiple announcements.</li>
+<li>NVDA+Shift+F12: stop recording and copy the announcements to the clipboard. Entries are separated via a new line "\n" character.</li>
+</ul></p>
+<h2>Settings Panel</h2>
+<p>NVDA menu> Preferences> Settings> Speech History.<ul>
+<li>Maximum number of history entries (requires NVDA restart to take effect): default 500, maximum 5000.<br>
+The maximum number of items the history will store. Items are added to the history until the max length is reached. From that point onwards, the older items are deleted to make room for the newer ones.<br>
+For example, the maximum is 20. Item 1 will be deleted, item 2 will become item 1, item 20 will be 19, while item 20 is the newest item.</li>
+<li>Trim whitespace from start/end: default yes.<br>
+Whitespace is described as characters like tabs, spaces, and empty lines, most widely used in indentation and formatting.<br>
+If there are any of these characters before/after the contents of the item, they will be removed in your clipboard entry.</li>
+<li>When NVDA speaks, the cursor should: default move focus to the new item.<br>
+This setting can also be changed using control f11. There are 3 options: <ol>
+<li>Moving to the newest item will ensure the cursor is keeping up to date with what is happening so you do not need to scroll to the bottom.<br>
+If you move your cursor to another position, it will automatically reset to the latest item when a new one is added.</li>
+<li>Syncing focus with the current item is useful to keep the current context without having to scroll back constantly. When a new item is added, the cursor will move back one position.<br>
+When the currently focused item becomes the last item in the history after the max length is reached for the first time, you will hear a beep to indicate that the currently focused item is about to be deleted. Once the cursor loses focus, it will stay at the oldest position until it is focused on a new item.</li>
+<li>Keeping the cursor at the current index will not affect the focus at all. As items are added, the contents under the cursor will change, but the position will not.<br>
+Keeping your cursor at the latest position with this option is the same as having the focus move to the newest item. Of course without having it reset whenever you move the cursor again.</li>
+</ol></p>
+<h2>Changes</h2>
+<h3>2024.1.1</h3>
+<p><ul>
+<li>Added cursor behavior feature to change where the cursor should move when NVDA speaks.</li>
+<li>Added gestures to jump to the first and last items in the history.</li>
+<li>The addon can now run in the developer scratchpad directory without needing to comment out the addonHandler translation line.</li>
+<li>Readme html documentation has been provided.</li>
+<li>In manifest, extended description and added docFileName attribute.</li>
+</ul></p>
+<h3>2024.1</h3>
+<p><ul>
+<li>Added recording feature to copy multiple items at once.</li>
+<li>Updated manifest: lastTestedNVDAVersion is now 2024.1, and minimum version changed from 2019.3 to 2020.4.</li>
+</ul></p>
+</body>
+</html>
