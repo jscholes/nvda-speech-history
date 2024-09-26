@@ -1,0 +1,2364 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Histórico de falas NVDA\n"
+"Report-Msgid-Bugs-To: nvda-translations@freelists.org\n"
+"POT-Creation-Date: 2022-05-07 16:49-0300\n"
+"PO-Revision-Date: 2022-05-07 16:52-0300\n"
+"Last-Translator: Ângelo Abrantes <ampa4374@gmail.com>\n"
+"Language-Team: Pedro-hdias (pedro.voxtec@gmail.com\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+"X-Poedit-Basepath: ../../../globalPlugins\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: speechHistory.py\n"
+"X-Poedit-SearchPathExcluded-0: ../../AppData/Roaming/nvda/addons/"
+"NVDAExtensionGlobalPlugin/globalPlugins/NVDAExtensionGlobalPlugin/utilities\n"
+"X-Poedit-SearchPathExcluded-1: ../../AppData/Roaming/nvda/addons/"
+"NVDAExtensionGlobalPlugin/globalPlugins/NVDAExtensionGlobalPlugin/"
+"utilitiesPy3\n"
+
+#: speechHistory.py:62
+msgid ""
+"Copy the currently selected speech history item to the clipboard, which by "
+"default will be the most recently spoken text by NVDA."
+msgstr ""
+"Copie o item do histórico de fala atualmente selecionado para a área de "
+"transferência, que por padrão será o texto falado mais recentemente pelo "
+"NVDA."
+
+#: speechHistory.py:72
+msgid "Review the previous item in NVDA's speech history."
+msgstr "Revise o item anterior no histórico de fala do NVDA."
+
+#: speechHistory.py:83
+msgid "Review the next item in NVDA's speech history."
+msgstr "Revise o próximo item no histórico de fala do NVDA."
+
+#: speechHistory.py:117
+msgid "Speech History"
+msgstr "Histórico de fala"
+
+#: speechHistory.py:122
+msgid ""
+"&Maximum number of history entries (requires NVDA restart to take effect)"
+msgstr ""
+"&Número máximo de entradas do histórico (requer reinicialização do NVDA para "
+"ter efeito)"
+
+#: speechHistory.py:125
+msgid "Trim whitespace from &start when copying text"
+msgstr "Apagar espaços em branco do &início ao copiar texto"
+
+#: speechHistory.py:128
+msgid "Trim whitespace from &end when copying text"
+msgstr "Apagar espaços em branco do &fim ao copiar texto"
+
+#~ msgid "NVDA global commands extension"
+#~ msgstr "Extensão de comandos globais do NVDA"
+
+#~ msgid ""
+#~ "This add-on has been developed with the participation of Daniel Poiraud.\n"
+#~ "It adds to NVDA:\n"
+#~ "1- The features\n"
+#~ "some features can be enabled or disabled individually.\n"
+#~ "* Display of the list of icons in the notification area ,\n"
+#~ "* Display of the windows list of running applications,\n"
+#~ "* Help in the composition of a symbol that is complex such as, for "
+#~ "example, a a e related, a symbol power of 2\n"
+#~ "\tand possibility to add its own categories and symbols,\n"
+#~ "* Extension of the functionality of the virtual buffer\n"
+#~ "\tfor browsers Mozilla Firefox, Microsoft Internet Explorer, Microsoft "
+#~ "Edge, and Google Chrome:\n"
+#~ "\n"
+#~ "\t* new commands for navigation mode (paragraph, division, anchor, main "
+#~ "area,\n"
+#~ "\t* new types of elements for the dialog box opened by \"NVDA+F7\" (radio "
+#~ "button, paragraph, frame, checkBox, etc) with the announcement of the "
+#~ "number of items found,\n"
+#~ "\t* commands for the tables:\n"
+#~ "\tannounce the cells of a row /column , go to first/last cell in the row/"
+#~ "current column, move the column/row preceding or following with "
+#~ "announcement possible of the cells in that row/column,\n"
+#~ "\t* announcement of the URL of the document,\n"
+#~ "\t* navigate in loop,\n"
+#~ "* Announcement of the function associated with editing commands\n"
+#~ "\tstyle Copy, Paste, etc.,\n"
+#~ "* Announcement of the name of the folder pre-selected in the dialog boxes "
+#~ "like \"Open\",\"Save\", \"Save as\",etc.,\n"
+#~ "* display of information on the focused application:\n"
+#~ "\t* the current profile configuration,\n"
+#~ "\t* the name and version number of the application,\n"
+#~ "\t* the add-on loaded for the application,\n"
+#~ "*\tNVDA logs tools:\n"
+#~ "\t* Opening the previous or current log,\n"
+#~ "\t* copy of current Log path to the clipboard,\n"
+#~ "\n"
+#~ "* history of voice speechs,\n"
+#~ "* renaming keyboard keys,\n"
+#~ "* selective announcement of command keyboard keys ,\n"
+#~ "* simple countdown timer,\n"
+#~ "* display of visible elements making up the object in the foreground,\n"
+#~ "* fast switching of voice profile,\n"
+#~ "* remanence of the modifier keys,\n"
+#~ "* shutdown, reboot or hybernate the computer,\n"
+#~ "* control the main or NVDA volume:\n"
+#~ "\t* mute or unmute volume for the focused application,\n"
+#~ "\t* establishment of the main Windows or NVDA volume at the start of add-"
+#~ "on,\n"
+#~ "\t* modification of main volume or audio stream's volume of focused "
+#~ "application.\n"
+#~ "* Tools for development of add-on\n"
+#~ "* supplements regarding the date and time: copy date and time to "
+#~ "clipboard, report time with seconds\n"
+#~ "\n"
+#~ "\n"
+#~ "2- The options\n"
+#~ "* remove the announcement from the description of the objects in the "
+#~ "Windows ribbons ,\n"
+#~ "* proclaim the word focused when deleting a word (for NVDA versions lower "
+#~ "than 2020.3),\n"
+#~ "* automatically maximize the foreground window,\n"
+#~ "* announce punctuations and symbols when moving by word in a document.\n"
+#~ "\n"
+#~ "3- The advanced options\n"
+#~ "* report, with a sound, the registration of an error in the NVDA log also "
+#~ "for the final versions and release candidate of NVDA,\n"
+#~ "* Caption dialog title with the name of the addon,\n"
+#~ "* Do not take account of the option called Report object descriptions "
+#~ "during the display of the dialog box style confirmation,\n"
+#~ "* use numeric keypad's keys conventionally.\n"
+#~ "\n"
+#~ "\n"
+#~ "4- Various other elements\n"
+#~ "* presentation formatting of the text in a dialog box,\n"
+#~ "* sub-menus to explore the program folders or configuration,\n"
+#~ "* script to quickly restart NVDA.\n"
+#~ msgstr ""
+#~ "Este conjunto de extras foi desenvolvido com a participação de Daniel "
+#~ "Poiraud .\n"
+#~ "Este extra adiciona ao NVDA:\n"
+#~ "1- As seguintes funcionalidades (algumas podem ser activadas ou "
+#~ "desactivadas individualmente):\n"
+#~ " - Mostrar a lista de ícones da barra de notificações;\n"
+#~ " - Mostrar a lista das janelas das aplicações abertas;\n"
+#~ " - Ajuda à edição de símbolos complexos, como, por exemplo, \"ñ\", ponto "
+#~ "de interrogação invertido, etc... e possibilidade de adicionar as suas "
+#~ "próprias categorias e símbolos;\n"
+#~ " - Extensão das funcionalidades da virtualização de documentos para os "
+#~ "navegadores Mozilla Firefox, Microsoft Internet Explorer , Microsoft Edge "
+#~ "e Google Chrome:\n"
+#~ "\t* novos comandos para o modo de navegação: parágrafo, divisão, âncora e "
+#~ "região principal;\n"
+#~ "\t* novos tipos de elementos, que passam a ser apresentados em lista, no "
+#~ "diálogo Lista de elementos\", aberta com NVDA+f7: (lista, caixa de "
+#~ "verificação, parágrafo, divisão, gráfico, etc) e anúncio do número de "
+#~ "elementos correspondente a cada elemento seleccionado;\n"
+#~ "\t* Novas funcionalidades para tabelas:      anúncio da posição da célula "
+#~ "actual, ir para a coluna/linha seguinte ou anterior com leitura das "
+#~ "células que a compôem, ir para a primeira /última célula da linha/coluna, "
+#~ "anúncio  das células da coluna/linha actual;\n"
+#~ "\t* anúncio  do endereço (URL) do documento.\n"
+#~ "\t* navegação em looping.\n"
+#~ "* Anúncio dos comandos da área de edição e de transferência;\n"
+#~ " - Anúncio da pasta pré-seleccionada nos diálogos \"Abrir\", \"Guardar\" "
+#~ "e \"guardar como\";\n"
+#~ " - Anunciar ou mostrar as informações da aplicação em  foco, como versão, "
+#~ "perfil de configurações activo, etc;\n"
+#~ " - Abertura dos ficheiros de registo do NVDA, antigo ou actual, e cópia "
+#~ "do caminho deste último para a área de transferência;\n"
+#~ " - Histórico de falas;\n"
+#~ " - Renomear as teclas do teclado.\n"
+#~ " - Apresentação das informações de formatação do texto num diálogo, em "
+#~ "vez de num documento HTML (desactivado por padrão (NVDA+f));\n"
+#~ " - Renomear teclas;\n"
+#~ " - Anúncio selectivo de teclas de comando;\n"
+#~ " - Conta minutos;\n"
+#~ " - Mostrar itens visíveis que constituem o objeto em primeiro plano;\n"
+#~ " - Mudar rapidamente de perfil de voz;\n"
+#~ " - Teclas presas;\n"
+#~ " - Desligar, reiniciar ou hibernar o computador;\n"
+#~ " - controlo do volume principal e do NVDA:\n"
+#~ "\t* cortar ou restabelecer o som para a aplicação em foco;\n"
+#~ "\t* Restablecimento automático do volume principal e do NVDA ao iniciar o "
+#~ "extra.\n"
+#~ "2- As opções seguintes:\n"
+#~ " - Supressão do anúncio da descrição dos objectos nos frisos do "
+#~ "Windowssupprimer  l'annonce de la description des objets dans les rubans "
+#~ "Windows;\n"
+#~ " - \tAnúncio da palavra em foco após apagar uma palavra;\n"
+#~ " - Maximização automática das janelas;\n"
+#~ " - Anúncio sistemático da pontuação ao navegar por palavra.\n"
+#~ "3- As opções avançadas seguintes:\n"
+#~ " -  Sinalização por um som do registo de um erro no ficheiro de registo "
+#~ "do NVDA;\n"
+#~ " - Títulos dos diálogos específicos de extras com o nome dos extras.\n"
+#~ "4- e diversos outros melhoramentos como:\n"
+#~ " - Menu para explorar a pasta das suas configurações ou a pasta de "
+#~ "programas do NVDA;\n"
+#~ " - Reiniciar o NVDA, com o nível de registo definido para depuração, com "
+#~ "um só comando.\n"
+
+#~ msgid "Do you want to keep previous add-on configuration settings?"
+#~ msgstr "Deseja manter as configurações anteriores do extra?"
+
+#, python-format
+#~ msgid "%s - installation"
+#~ msgstr "%s - instalação"
+
+#, python-format
+#~ msgid ""
+#~ "Attention, you must uninstall \"%s\" add-on because it is now included in "
+#~ "this add-on"
+#~ msgstr ""
+#~ "Atenção! deve desinstalar o extra %s porque agora está incluído neste."
+
+#~ msgid "Voice profile switching"
+#~ msgstr "Alternar &perfil de voz"
+
+#~ msgid ""
+#~ "Display the running application windows's list with opportunity to put "
+#~ "one of them on the foreground or destroy it"
+#~ msgstr ""
+#~ "Mostra a lista de janelas da aplicação em execução com a oportunidade de "
+#~ "colocar uma delas em primeiro plano ou destruí-la"
+
+#~ msgid "Shows the list of buttons on the System Tray"
+#~ msgstr "Mostra a lista de botões na barra de notificações"
+
+#~ msgid "Display the dialog to shutdown, reboot or hibernate the computer"
+#~ msgstr "Mostra o diálogo para desligar, reiniciar ou hibernar o computador."
+
+#~ msgid "Shutdown the computer"
+#~ msgstr "Desligar o computador"
+
+#~ msgid "Reboot the computer"
+#~ msgstr "Reiniciar o computador"
+
+#~ msgid "Hibernate the computer"
+#~ msgstr "Hibernar o computador"
+
+#~ msgid "Allow you to copy or type complex symbol"
+#~ msgstr "Permite-lhe copiar ou escrever um símbolo"
+
+#~ msgid "Display the list of last used complex symbols"
+#~ msgstr "Mostra a lista dos últimos símbolos complexos utilizados"
+
+#~ msgid "Display the list's visible items making up current foreground object"
+#~ msgstr ""
+#~ "mostra a lista dos itens visíveis que constituem o objecto actual em "
+#~ "primeiro plano"
+
+#~ msgid "If pressed twice: display the list's visible items making up it"
+#~ msgstr ""
+#~ "Se pressionado duas vezes: mostra os itens visíveis da lista que o compõem"
+
+#~ msgid "{systrayIconsDoc}. Twice, {activeWindowsDoc}"
+#~ msgstr "{systrayIconsDoc}. Duas vezes, {activeWindowsDoc}"
+
+#~ msgid "Report the application 's name and version"
+#~ msgstr "Informa o nome e a versão da aplicação "
+
+#~ msgid ""
+#~ "Speaks the filename of the active application along with the name of the "
+#~ "currently loaded appModule python file. Pressing this key twice,speak the "
+#~ "name and state of the current configuration profile"
+#~ msgstr ""
+#~ "Diz o nome do ficheiro da aplicação activa junto com o nome do appModule "
+#~ "actualmente carregado. Pressionando duas vezes, anuncia o nome e o estado "
+#~ "do perfil de configuração actual"
+
+#~ msgid ""
+#~ "Report the name and version number of add-on activated for focused "
+#~ "application"
+#~ msgstr ""
+#~ "Diz o nome e o número da versão do extra activado para aplicação carregada"
+
+#~ msgid "Display informations about the focused application"
+#~ msgstr "Mostra informações acerca da aplicação em foco."
+
+#~ msgid ""
+#~ "Display dialog to start the minute timer. If minute timer already "
+#~ "started, display dialog to report duration"
+#~ msgstr ""
+#~ "Mostra o diálogo para iniciar o cronómetro. Se o cronómetro já estiver em "
+#~ "curso, apresenta o diálogo para indicar a duração."
+
+#~ msgid "Display add-on user's guide"
+#~ msgstr "Mostra o guia do utilizador do extra"
+
+#~ msgid "Display the list of commands of the commands interpreter"
+#~ msgstr "Mostra a lista de comandos do \"intérprete de comandos\"."
+
+#~ msgid "Open a dialog to manage NVDA logs"
+#~ msgstr "Abre um diálogo para gerir os ficheiros de registo do NVDA"
+
+#~ msgid ""
+#~ "Open current NVDA log file. Pressing this key twice, open the old NVDA "
+#~ "log file. Pressing third, copy current log path to the clipboard"
+#~ msgstr ""
+#~ "Abre o ficheiro de registo actual do NVDA. Pressionando duas vezes, abre "
+#~ "o ficheiro antigo de registro do NVDA. Pressionando três vezes, copia o "
+#~ "caminho do registo actual para a área de transferência"
+
+#~ msgid ""
+#~ "report the name of current selected folder in the open or Save dialog "
+#~ "box. Twice: report full path"
+#~ msgstr ""
+#~ "Indica o nome da pasta actualmente seleccionada na caixa de diálogo abrir "
+#~ "ou Guardar. Duas vezes: indica o caminho completo"
+
+#~ msgid ""
+#~ "report the name of current selected folder in the open or Save dialog box"
+#~ msgstr ""
+#~ "Indica o nome da pasta actualmente seleccionada na caixa de diálogo abrir "
+#~ "ou Guardar"
+
+#~ msgid ""
+#~ "report the full path of current selected folder in the open or Save "
+#~ "dialog box"
+#~ msgstr ""
+#~ "Indica o caminho completo da pasta actualmente seleccionada na caixa de "
+#~ "diálogo abrir ou Guardar"
+
+#~ msgid "Explore my user configuration's folder"
+#~ msgstr "Ver a pasta das configurações do utilizador"
+
+#~ msgid "Explore NVDA program's folder"
+#~ msgstr "Ver a pasta do NVDA."
+
+#~ msgid "Display speech history records"
+#~ msgstr "Mostra o registo das falas do NVDA"
+
+#~ msgid ""
+#~ "Report previous record of the speech history and copy it to clipboard"
+#~ msgstr ""
+#~ "Mostra o histórico do registo anterior da fala e copia-o para a área de "
+#~ "transferência"
+
+#~ msgid ""
+#~ "Report current record of the speech history and copy it to clipboard. "
+#~ "Twice: display speech history"
+#~ msgstr ""
+#~ "mostra o registo actual da fala e copia-o para a área de transferência. "
+#~ "Duas vezes: mostra o historial da fala"
+
+#~ msgid "Report next record of the speech history and copy it to clipboard"
+#~ msgstr ""
+#~ "Lê o próximo registo do histórico de fala e copia-o para a área de "
+#~ "transferência"
+
+#~ msgid "Restart NVDA. Twice: restart with log level set to debug"
+#~ msgstr ""
+#~ "Reinicia o NVDA. Pressionado duas vezes, reinicia com o nível de registo "
+#~ "para depuração."
+
+#~ msgid "Toggle voice profile switch mode"
+#~ msgstr "Alternar modo de troca de perfil de voz"
+
+#~ msgid "Display dialog to manage voice profile selectors"
+#~ msgstr "Mostra o diálogo para gerir os selectores de perfil de voz"
+
+#~ msgid ""
+#~ "Go backward to the first selector associated to a voice profile and set "
+#~ "this voice profile as current voice profile"
+#~ msgstr ""
+#~ "Retroceder ao primeiro selector associado a um perfil de voz e definir "
+#~ "esse perfil de voz como o perfil de voz actual"
+
+#~ msgid ""
+#~ "Go to forward to the first selector associated to a voice profile and set "
+#~ "this voice profile as current voice profile"
+#~ msgstr ""
+#~ "Ir para a frente para o primeiro selector associado a um perfil de voz e "
+#~ "definir esse perfil como o perfil de voz actual"
+
+#~ msgid "Display keyboard keys renaming dialog"
+#~ msgstr "Mostra o diálogo Renomear teclas"
+
+#~ msgid "Display command key selective announcement dialog"
+#~ msgstr "Mostra o diálogo Anúncio selectivo de teclas de comando"
+
+#~ msgid ""
+#~ "Report the current time. Twice: report the current date. Third: copy date "
+#~ "and time to the clipboard"
+#~ msgstr ""
+#~ "Mostra a hora actual. pressionado duas vezes, informa a data actual. três "
+#~ "vezes: copia a data e a hora para a área de transferência."
+
+#~ msgid "Copy date and time to the clipboard"
+#~ msgstr "Copia a data e a hora para a área de transferência "
+
+#~ msgid ""
+#~ "Display, in dialog box, formatting informations for the current review "
+#~ "cursor position within a document"
+#~ msgstr ""
+#~ "Mostra um diálogo com as informações de formatação para a posição actual "
+#~ "do cursor de revisão, num documento."
+
+#~ msgid "Launch commands's interpreter of add-on"
+#~ msgstr "activa o interpretador de comandos do extra"
+
+#~ msgid ""
+#~ "Set selector 1 as current selector and set, if possible, its associated "
+#~ "voice profile as current voice profile"
+#~ msgstr ""
+#~ "Define o selector 1 como selector actual e define, se possível, o perfil "
+#~ "de voz associado ao perfil de voz actual"
+
+#~ msgid ""
+#~ "Set selector 2 as current selector and set, if possible, its associated "
+#~ "voice profile as current voice profile"
+#~ msgstr ""
+#~ "Define o selector 2 como selector actual e define, se possível, o perfil "
+#~ "de voz associado ao perfil de voz actual"
+
+#~ msgid ""
+#~ "Set selector 3 as current selector and set, if possible, its associated "
+#~ "voice profile as current voice profile"
+#~ msgstr ""
+#~ "Define o selector 3 como selector actual e define, se possível, o perfil "
+#~ "de voz associado ao perfil de voz actual"
+
+#~ msgid ""
+#~ "Set selector 4 as current selector and set, if possible, its associated "
+#~ "voice profile as current voice profile"
+#~ msgstr ""
+#~ "Define o selector 4 como selector actual e define, se possível, o perfil "
+#~ "de voz associado ao perfil de voz actual"
+
+#~ msgid ""
+#~ "Set selector 5 as current selector and set, if possible, its associated "
+#~ "voice profile as current voice profile"
+#~ msgstr ""
+#~ "Define o selector 5 como selector actual e define, se possível, o perfil "
+#~ "de voz associado ao perfil de voz actual"
+
+#~ msgid ""
+#~ "Set selector 6 as current selector and set, if possible, its associated "
+#~ "voice profile as current voice profile"
+#~ msgstr ""
+#~ "Define o selector 6 como selector actual e define, se possível, o perfil "
+#~ "de voz associado ao perfil de voz actual"
+
+#~ msgid ""
+#~ "Set selector 7 as current selector and set, if possible, its associated "
+#~ "voice profile as current voice profile"
+#~ msgstr ""
+#~ "Define o selector 7 como selector actual e define, se possível, o perfil "
+#~ "de voz associado ao perfil de voz actual"
+
+#~ msgid ""
+#~ "Set selector 8 as current selector and set, if possible, its associated "
+#~ "voice profile as current voice profile"
+#~ msgstr ""
+#~ "Define o selector 8 como selector actual e define, se possível, o perfil "
+#~ "de voz associado ao perfil de voz actual"
+
+#~ msgid "Displays the dialog to manage the input gestures configured by user"
+#~ msgstr ""
+#~ "Mostra o diálogo para gerir os comandos configurados pelo utilizador"
+
+#~ msgid "Display tools for add-on development dialog "
+#~ msgstr "Mostra as ferramentas para o diálogo de desenvolvimento de extras."
+
+#~ msgid ""
+#~ "Click the left mouse button at navigator object position. Twice: click "
+#~ "twice this button at this position"
+#~ msgstr ""
+#~ "Pressiona o botão esquerdo do rato na posição do navegador de objectos. "
+#~ "Duas vezes: pressiona duas vezes este botão nesta posição"
+
+#~ msgid ""
+#~ "Click the right mouse button at navigator object position. Twice: click "
+#~ "twice this button at this position"
+#~ msgstr ""
+#~ "Pressiona o botão direito do rato na posição do navegador de objectos. "
+#~ "Duas vezes: prime duas vezes este botão nesta posição."
+
+#~ msgid "Display add-on settings dialog"
+#~ msgstr "Mostra o diálogo de configurações do extra"
+
+#~ msgid "Enable or disable the standard use of numeric keypad"
+#~ msgstr "Activa ou desactiva o uso padrão do bloco numérico."
+
+#~ msgid "Close all opened windows"
+#~ msgstr "Fecha todas as janelas abertas"
+
+#~ msgid "Display running add-ons list"
+#~ msgstr "Mostra a lista dos extras activos"
+
+#~ msgid "Report current speech settings. Twice: display them"
+#~ msgstr "Indica as configurações correntes da voz. Duas vezes: mostra-as"
+
+#~ msgid "Report current speech settings"
+#~ msgstr "Mostra as definições actuais de voz"
+
+#~ msgid "Display current speech settings"
+#~ msgstr "Mostra as configurações actuais de voz "
+
+#, python-format
+#~ msgid "(command: %s)"
+#~ msgstr "(comando: %s)"
+
+#, python-format
+#~ msgid "%s add-on configuration menu"
+#~ msgstr "Menu de configuração do extra %s"
+
+#~ msgid "Settings..."
+#~ msgstr "Configurações..."
+
+#~ msgid "Keyboard Keys renaming..."
+#~ msgstr "Renomear teclas..."
+
+#~ msgid "Command keys selective announcement..."
+#~ msgstr "Anúncio selectivo de teclas de comando..."
+
+#~ msgid "Reset configuration to default values"
+#~ msgstr "Restaurar a configuração para os valores padrão"
+
+#~ msgid "Explore &NVDA"
+#~ msgstr "Explorar o &NVDA"
+
+#~ msgid ""
+#~ "Menu to explore the NVDA program folder or the user configuration folder"
+#~ msgstr "Menu para ver o NVDA ou a configuração do utilizador."
+
+#~ msgid "My &configuration's folder"
+#~ msgstr "Pasta das minhas &configurações"
+
+#~ msgid "NVDA &Program folder"
+#~ msgstr "Pasta do &programa NVDA"
+
+#~ msgid "Please wait"
+#~ msgstr "Espere, por favor!"
+
+#~ msgid "{0} copied to clipboard"
+#~ msgstr "{0} Copiado para a área de transferência"
+
+#~ msgid "Configuration's profile {profileName} {state}"
+#~ msgstr "Perfil de configurações {profileName} {state}"
+
+#~ msgid "{0} version {1}"
+#~ msgstr "{0} versão {1}"
+
+#~ msgid "Product name and version has been copied to clipboard"
+#~ msgstr ""
+#~ "O nome do produto e a versão foram copiados para a área de transferência"
+
+#~ msgid "add-on: {name}, version: {version}"
+#~ msgstr "extra: {name},  versão: {version}"
+
+#~ msgid "No add-on"
+#~ msgstr "Sem addon."
+
+#~ msgid "Configuration profile: {profileName} {state}"
+#~ msgstr "perfil de configuração: {profileName} {state}"
+
+#~ msgid "Application: {appName} {appVersion}"
+#~ msgstr "Aplicação: {appName} {appVersion}"
+
+#~ msgid "{summary}, version: {version}"
+#~ msgstr "{summary}, versão: {version}"
+
+#, python-format
+#~ msgid "Active add-on: %s"
+#~ msgstr "Add-on activo: %s"
+
+#, python-format
+#~ msgid "add-on's path: %s"
+#~ msgstr "Caminho do addon: %s"
+
+#~ msgid ""
+#~ "Warning: it seems that others add-ons are installed and activated for "
+#~ "this application"
+#~ msgstr ""
+#~ "Aviso: parece que outros add-ons estão instalados e activados para esta "
+#~ "aplicação"
+
+#, python-format
+#~ msgid "Loaded python module: %s"
+#~ msgstr "Módulo de python carregado: %s"
+
+#~ msgid "Application context's informations"
+#~ msgstr "Informação'ões' de contexto da aplicação"
+
+#~ msgid "Current log file path copied to clipboard"
+#~ msgstr ""
+#~ "Caminho do ficheiro de registo actual copiado para a área de "
+#~ "transferência."
+
+#~ msgid "Current log file path cannot be copied to clipboard"
+#~ msgstr ""
+#~ "O caminho do ficheiro de registo actual não pode ser copiado para a área "
+#~ "de transferência."
+
+#~ msgid "Previous log file cannot be opened"
+#~ msgstr "O ficheiro de registo anterior não pode ser aberto"
+
+#~ msgid "Current log file cannot be opened"
+#~ msgstr "O ficheiro de registo actual não pode ser aberto"
+
+#~ msgid "File open Error"
+#~ msgstr "Erro de abertura de ficheiro"
+
+#~ msgid "Current speech settings"
+#~ msgstr "Configurações actuais de voz."
+
+#~ msgid "Voice profile switch mode on"
+#~ msgstr "Modo de comutação de perfil de voz activado."
+
+#~ msgid "Voice profile switch mode off"
+#~ msgstr "Modo de comutação de perfil de voz desactivado."
+
+#, python-format
+#~ msgid "Selector %s is free"
+#~ msgstr "O selector %s está livre."
+
+#~ msgid "There was no change of input gesture made by the user"
+#~ msgstr "Não houve alterações aos comandos feitas pelo utilizador"
+
+#~ msgid "Double left click"
+#~ msgstr "Duplo clique esquerdo."
+
+#~ msgid "Object has no location"
+#~ msgstr "O objecto não tem localização."
+
+#~ msgid "Double right click"
+#~ msgstr "Duplo clique direito."
+
+#~ msgid ""
+#~ "This functionnality is only available if \"command keys selective "
+#~ "announcement\" functionnality or \"keys's remanence\" functionnality is "
+#~ "installed"
+#~ msgstr ""
+#~ "Esta funcionalidade só estará disponível se for instalado o \"anúncio "
+#~ "selectivo de teclas de comando\" ou a \"funcionalidade de remanência de "
+#~ "teclas\"."
+
+#~ msgid "The standard use of the numeric keypad is not allowed"
+#~ msgstr "O uso padrão do bloco numérico não é permitido."
+
+#~ msgid "Are you sure you want to close all windows?"
+#~ msgstr "Tem a certeza que quer fechar todas as janelas?"
+
+#~ msgid "Confirmation"
+#~ msgstr "Confirmação"
+
+#~ msgid "global"
+#~ msgstr "global"
+
+#~ msgid "application"
+#~ msgstr "Aplicação"
+
+#~ msgid "speech synthesizer driver"
+#~ msgstr "Driver do sintetizador de voz"
+
+#~ msgid "braille display driver"
+#~ msgstr "Driver da linha braille"
+
+#~ msgid "mixed"
+#~ msgstr "misturado"
+
+#, python-format
+#~ msgid "%s add-on type:"
+#~ msgstr "%s tipos de extras"
+
+#~ msgid "any"
+#~ msgstr "qualquer"
+
+#~ msgid "Running add-ons"
+#~ msgstr "A correr os extras"
+
+#~ msgid "Shell's scripts"
+#~ msgstr "Shell's scripts"
+
+#~ msgid "Description: command"
+#~ msgstr "Descrição: comando"
+
+#~ msgid "&Run script"
+#~ msgstr "&Executar o script"
+
+#~ msgid "Start menu|Charm Bar"
+#~ msgstr "Start menu|Charm Bar"
+
+#~ msgid "List of windows"
+#~ msgstr "Lista de janelas"
+
+#~ msgid "Minimized"
+#~ msgstr "Minimizada"
+
+#~ msgid "Maximized"
+#~ msgstr "maximizada"
+
+#~ msgid "Current &applications"
+#~ msgstr "&Aplicações actuais"
+
+#~ msgid "&Switch to"
+#~ msgstr "&Trocar para"
+
+#~ msgid "&Destroy"
+#~ msgstr "&Destruir"
+
+#~ msgid "Destro&y all"
+#~ msgstr "Destru&ir todos"
+
+#~ msgid "Impossible to destroy desktop window"
+#~ msgstr "Impossível apagar a janela de desktop"
+
+#~ msgid "Impossible to destroy the window"
+#~ msgstr "Impossível apagar a janela"
+
+#~ msgid "Warning"
+#~ msgstr "Atenção"
+
+#~ msgid "No label"
+#~ msgstr "Sem etiqueta"
+
+#~ msgid "Form field"
+#~ msgstr "Campo de formulário"
+
+#~ msgid "Report current table row's cells"
+#~ msgstr "Anuncia as células da linha actual da tabela"
+
+#~ msgid "Report current table column's cells"
+#~ msgstr "Anuncia as células da coluna actual da tabela "
+
+#~ msgid "Move to and report next table row"
+#~ msgstr "Move para a próxima linha da tabela e lê-a"
+
+#~ msgid "Move to and report previous table row"
+#~ msgstr "Move para a linha anterior da tabela e lê-a"
+
+#~ msgid "Move to and report next table column"
+#~ msgstr "Move para a próxima coluna da tabela e lê-a"
+
+#~ msgid "Move to and report previous table column"
+#~ msgstr "Move para a coluna anterior da tabela e lê-a"
+
+#~ msgid "Report current table cell position"
+#~ msgstr "Anuncia a posição da célula actual da tabela"
+
+#~ msgid "Move to first cell of table row"
+#~ msgstr "Move para a primeira célula da linha da tabela"
+
+#~ msgid "Move to last cell of table row"
+#~ msgstr "Move para a última célula da linha da tabela"
+
+#~ msgid "Move to first cell of table column"
+#~ msgstr "Move para a primeira célula da coluna da tabela"
+
+#~ msgid "Move to last cell of table column"
+#~ msgstr "Move para a última célula da coluna da tabela"
+
+#~ msgid "Anchor"
+#~ msgstr "Âncora"
+
+#, python-format
+#~ msgid "%s elements"
+#~ msgstr "%s elementos"
+
+#~ msgid "One element"
+#~ msgstr "Um elemento"
+
+#~ msgid "no element"
+#~ msgstr "Sem elementos"
+
+#~ msgid "moves to the next paragraph"
+#~ msgstr "Move para o próximo parágrafo"
+
+#~ msgid "no next paragraph"
+#~ msgstr "Sem próximo parágrafo"
+
+#~ msgid "moves to the previous paragraph"
+#~ msgstr "Move para o parágrafo anterior"
+
+#~ msgid "no previous paragraph"
+#~ msgstr "Sem parágrafo anterior"
+
+#~ msgid "moves to the next division"
+#~ msgstr "Move para a próxima divisão"
+
+#~ msgid "no next division"
+#~ msgstr "Sem próxima divisão"
+
+#~ msgid "moves to the previous division"
+#~ msgstr "Move para a divisão anterior"
+
+#~ msgid "no previous division"
+#~ msgstr "Sem divisão anterior"
+
+#~ msgid "moves to the next main landmark"
+#~ msgstr "Move para a próxima região"
+
+#~ msgid "no next main landmark"
+#~ msgstr "Não há próxima região"
+
+#~ msgid "moves to the previous main landmark"
+#~ msgstr "Move para a região anterior"
+
+#~ msgid "no previous main landmark"
+#~ msgstr "Não há região anterior"
+
+#~ msgid "moves to the next clickable element"
+#~ msgstr "Move para o próximo elemento pressionável."
+
+#~ msgid "no next clickable element"
+#~ msgstr "Sem próximo elemento pressionável."
+
+#~ msgid "moves to the previous clickable element"
+#~ msgstr "Move para o elemento anterior pressionável"
+
+#~ msgid "no previous clickable element"
+#~ msgstr "Sem elemento anterior pressionável."
+
+#~ msgid "Copied to clipboard"
+#~ msgstr "Copiado para a área de transferência"
+
+#~ msgid "Cannot copy to clipboard"
+#~ msgstr "Impossível copiar para a área de transferência"
+
+#~ msgid "Report document 's address (URL). Twice: copy it to clipboard"
+#~ msgstr ""
+#~ "Anuncia o endereço do documento (URL). Pressionado Duas vezes, copia para "
+#~ "a área de transferência"
+
+#~ msgid "Return to bottom of page"
+#~ msgstr "Voltar ao fim da página"
+
+#~ msgid "Return to top of page"
+#~ msgstr "Voltar ao início da página"
+
+#~ msgid "Cut"
+#~ msgstr "Cortar"
+
+#~ msgid "Paste"
+#~ msgstr "Colar"
+
+#~ msgid "Copy"
+#~ msgstr "Copiar"
+
+#~ msgid "Undo"
+#~ msgstr "Desfazer"
+
+#~ msgid "select all"
+#~ msgstr "Seleccionar tudo"
+
+#~ msgid " one selected object"
+#~ msgstr "Um objecto seleccionado"
+
+#, python-format
+#~ msgid "%s selected objects"
+#~ msgstr "%s objectos selecionados"
+
+#~ msgid "Any key with modifier key combination"
+#~ msgstr "Qualquer tecla com combinação de teclas modificadoras"
+
+#~ msgid "Keys's remanence activation on"
+#~ msgstr "Teclas presas ligadas"
+
+#~ msgid "Keys's remanence activation off"
+#~ msgstr "Teclas presas desligadas"
+
+#~ msgid "Standard use of the numeric keypad enabled"
+#~ msgstr "Uso padrão do bloco numérico activado"
+
+#~ msgid "Standard use of the numeric keypad disabled"
+#~ msgstr "Uso padrão do bloco numérico desactivado"
+
+#~ msgid "Command keys selective Announcement"
+#~ msgstr "Anúncio selectivo das teclas de comando"
+
+#~ msgid "Check &excluded keys:"
+#~ msgstr "Marcar as teclas a &excluir"
+
+#~ msgid "Pressed W&ith modifier key combination:"
+#~ msgstr "Combinação de teclas modificadoras de C&T pressionadas:"
+
+#~ msgid "&Check all modifier combinations"
+#~ msgstr "&Marcar todas as combinações de teclas modificadoras"
+
+#~ msgid "&Uncheck all modifier combinations"
+#~ msgstr "&Desmarcar todas as combinações de teclas modificadoras"
+
+#~ msgid "Do not speak command &keys"
+#~ msgstr "Não anunciar &teclas de comando"
+
+#, python-format
+#~ msgid "Do you want to save changes made in \"%s\" mode?"
+#~ msgstr "Deseja guardar as alterações feitas no modo \"%s\""
+
+#~ msgid "No more checked command key"
+#~ msgstr "Não há mais teclas de comando marcadas"
+
+#, python-format
+#~ msgid ""
+#~ "For these keys, you must check at least one item of the modifier key "
+#~ "combinations list:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Para estas teclas , é necessário verificar pelo menos um item da lista de "
+#~ "combinações de teclas modificadoras:\n"
+#~ "%s"
+
+#~ msgid "Help for complex symbols edition"
+#~ msgstr "Ajuda para  edição de símbolos complexos"
+
+#~ msgid "&Categories:"
+#~ msgstr "&Categorias:"
+
+#~ msgid "S&ymbols:"
+#~ msgstr "S&ímbolos:"
+
+#~ msgid "&Copy to clipboard"
+#~ msgstr "&Copiar para área de transferência"
+
+#~ msgid "&Paste"
+#~ msgstr "&Colar"
+
+#~ msgid "&Manage your symbols"
+#~ msgstr "&Gerir os seus símbolos"
+
+#~ msgid "No symbol selected"
+#~ msgstr "Nenhum símbolo selecionado"
+
+#~ msgid "{0} pasted"
+#~ msgstr "{0} passados"
+
+#~ msgid "Symbol cannot copied to the clipboard"
+#~ msgstr "O símbolo não pôde ser copiado para a área de transferência"
+
+#~ msgid "{0} copied"
+#~ msgstr "{0} Copiado"
+
+#~ msgid "Error: no basic symbols installed"
+#~ msgstr "Erro: Os símbolos básicos não estão instalados"
+
+#~ msgid "User symbols manager"
+#~ msgstr "Gestor de símbolos do utilizador"
+
+#~ msgid "&Add a symbol"
+#~ msgstr "Adicionar &símbolo"
+
+#~ msgid "&Delete the symbol"
+#~ msgstr "&Apagar símbolo"
+
+#~ msgid "Add a &category"
+#~ msgstr "Adicionar &categoria"
+
+#~ msgid "De&lete the category"
+#~ msgstr "&Apagar categoria"
+
+#~ msgid "&Save"
+#~ msgstr "&Guardar"
+
+#, python-format
+#~ msgid "%s symbol deleted"
+#~ msgstr "Símbolo %s apagado"
+
+#~ msgid "No symbol entered"
+#~ msgstr "Não escreveu qualquer símbolo"
+
+#~ msgid "Symbol is not valid"
+#~ msgstr "O símbolo não é válido"
+
+#~ msgid "There is no description for the symbol"
+#~ msgstr "Sem descrição para o símbolo"
+
+#, python-format
+#~ msgid ""
+#~ "The symbol is already in this category under \"%s\" description. Do you "
+#~ "want to replace it?"
+#~ msgstr ""
+#~ "O símbolo já está incluído nesta categoria com a descrição \"%s\". Quer "
+#~ "substituí-lo ?"
+
+#~ msgid ""
+#~ "The symbol is allready in \"{oldCat}\" category. Do you want to add this "
+#~ "symbol also in \"{newCat}\" category?"
+#~ msgstr ""
+#~ "O símbolo já está na categoria {oldCat}. Quer adicionar este símbolo "
+#~ "também na categoria {newCat}?"
+
+#, python-format
+#~ msgid "%s symbol has been added"
+#~ msgstr "O símbolo %s foi adicionado"
+
+#~ msgid "Enter category name:"
+#~ msgstr "Escreva o nome da categoria:"
+
+#~ msgid "Adding category"
+#~ msgstr "A adicionar a categoria"
+
+#, python-format
+#~ msgid "\"%s\" category already exists"
+#~ msgstr "A categoria %s já existe"
+
+#~ msgid "You cannot delete this basic category."
+#~ msgstr "Não pode apagar esta cateboria básica"
+
+#~ msgid "Do you really want to delete this category and all its symbols?"
+#~ msgstr "Quer realmente apagar esta categoria e todos os seus símbolos?"
+
+#, python-format
+#~ msgid "\"%s\" category has been deleted"
+#~ msgstr "A categoria %s foi apagada"
+
+#, python-format
+#~ msgid "Adding Symbol in %s category"
+#~ msgstr "A adicionar o símbolo na categoria %s"
+
+#~ msgid "Enter the Symbol:"
+#~ msgstr "Escreva o símbolo: "
+
+#~ msgid "Enter the Description:"
+#~ msgstr "Escreva a descrição:"
+
+#~ msgid "Last used complex symbols"
+#~ msgstr "Últimos símbolos complexos utilizados"
+
+#~ msgid "&Symbols:"
+#~ msgstr "&Símbolos:"
+
+#~ msgid "&Past"
+#~ msgstr "&Colar"
+
+#~ msgid "&Delete all"
+#~ msgstr "&Apagar todos"
+
+#~ msgid "Do you really want to delete all symbols of the list?"
+#~ msgstr "Quer mesmo apagar todos os símbolos da lista?"
+
+#~ msgid "There is no symbol recorded"
+#~ msgstr "Não existe nenhum símbolo guardado"
+
+#~ msgid "Open"
+#~ msgstr "Abrir"
+
+#~ msgid "Save"
+#~ msgstr "Guardar"
+
+#~ msgid "Save as"
+#~ msgstr "Guardar como"
+
+#~ msgid "Find in"
+#~ msgstr "encontrar em"
+
+#~ msgid "Selected folder name not found"
+#~ msgstr "Nome da pasta seleccionada não encontrado"
+
+#, python-format
+#~ msgid "Folder %s"
+#~ msgstr "Pasta %s"
+
+#~ msgid "Computer shutdown"
+#~ msgstr "Desligar o computador"
+
+#~ msgid "&Hibernate"
+#~ msgstr "&Hibernar"
+
+#~ msgid "&Shutdown"
+#~ msgstr "&Desligar"
+
+#~ msgid "&Reboot"
+#~ msgstr "&Reiniciar"
+
+#~ msgid "F&orce running programs to close without warning"
+#~ msgstr "&Forçar os programas activos a fechar sem aviso"
+
+#~ msgid "&Delay before shutdown or reboot between {min} and {max} seconds"
+#~ msgstr ""
+#~ "&intervalo antes de desligar ou reiniciar: (entre {min} e {max} segundos)"
+
+#~ msgid "Shut down ..."
+#~ msgstr "Desligar..."
+
+#~ msgid "Computer's rebooting ..."
+#~ msgstr "A reiniciar o computador..."
+
+#~ msgid "Hibernate isn't available. So, sleep mode is activated."
+#~ msgstr "Hibernar não está disponível. Modo de suspensão activado."
+
+#~ msgid "Volume"
+#~ msgstr "Volume"
+
+#~ msgid "Volume on"
+#~ msgstr "Volume activado"
+
+#~ msgid "volume off"
+#~ msgstr "Volume desactivado"
+
+#~ msgid "No audio controller for this application"
+#~ msgstr "Sem controlador de áudio para esta aplicação"
+
+#~ msgid "percent"
+#~ msgstr "por cento"
+
+#~ msgid "Unavailable for NVDA"
+#~ msgstr "Não disponível para o NVDA"
+
+#, python-format
+#~ msgid ""
+#~ "Impossible, the volume level cannot be lower than the configured recovery "
+#~ "threshold equal to %s"
+#~ msgstr ""
+#~ "Impossível, o nível de volume não pode ser inferior ao limiar de "
+#~ "recuperação configurado igual a %s"
+
+#~ msgid "Volume control"
+#~ msgstr "Controlo do volume"
+
+#, python-format
+#~ msgid "Set the volume of current focused application to %s percent"
+#~ msgstr "Definir o volume da aplicação focalizada actual para %s porcento"
+
+#, python-format
+#~ msgid "Set the main volume to %s"
+#~ msgstr "Definir o volume principal para %s"
+
+#~ msgid "Set on main and NVDA volume"
+#~ msgstr "Definir o volume principal e do NVDA"
+
+#~ msgid "Toggle current focused application volume mute"
+#~ msgstr "Alternar entre activar e desactivar o volume da aplicação actual"
+
+#~ msgid "Increase volume of current focused application"
+#~ msgstr "Aumenta o volume da aplicação actualmente sob o foco"
+
+#~ msgid "Decrease volume of current focused application"
+#~ msgstr "Diminui o volume da aplicação actualmente sob o foco"
+
+#~ msgid "Maximize volume of current focused application"
+#~ msgstr "Maximiza o volume da aplicação actualmente sob o foco"
+
+#~ msgid "Minimize volume of current focused application"
+#~ msgstr "Minimiza o volume da aplicação actualmente sob o foco"
+
+#~ msgid "Increase volume of speakers"
+#~ msgstr "Aumentar o volume dos auto-falantes"
+
+#~ msgid "Decrease volume of speakers"
+#~ msgstr "Diminuir o volume dos alto-falantes"
+
+#~ msgid "Maximize volume of speakers"
+#~ msgstr "Maximizar o volume dos alto-falantes"
+
+#~ msgid "Minimize volume of speakers"
+#~ msgstr "Minimizar o volume dos alto-falantes"
+
+#~ msgid "Set the volume of current focused application to previous level"
+#~ msgstr "Definir o volume da aplicação sob o foco para o nível anterior"
+
+#~ msgid "Set the main volume to previous level"
+#~ msgstr "Definir o volume principal para o nível anterior"
+
+#~ msgid "Not available on this operating's system"
+#~ msgstr "Indisponível neste sistema operativo"
+
+#~ msgid ""
+#~ "The main volume and that of NVDA are established and their level sets to "
+#~ "the one in the configuration"
+#~ msgstr ""
+#~ "O volume principal e o do NVDA foram restabelecidos e o seu nível "
+#~ "definido para o configurado"
+
+#~ msgid "Keyboard Keys's renaming"
+#~ msgstr "Renomear teclas..."
+
+#~ msgid "NVDA defined key labels:"
+#~ msgstr "Etiquetas das teclas definidas pelo NVDA:"
+
+#~ msgid "Modified label:"
+#~ msgstr "Etiqueta modificada"
+
+#~ msgid "&Modify"
+#~ msgstr "&Modificar"
+
+#~ msgid "&Remove"
+#~ msgstr "&Remover"
+
+#~ msgid "R&emove all"
+#~ msgstr "R&emover todas"
+
+#, python-format
+#~ msgid "Redefined in %s"
+#~ msgstr "Redefinida para %s"
+
+#~ msgid "Enter new label:"
+#~ msgstr "Escreva a nova etiqueta"
+
+#~ msgid "Key label redifinition"
+#~ msgstr "Redefinição de etiqueta de tecla"
+
+#~ msgid "New name is removed"
+#~ msgstr "Novo nome removido"
+
+#~ msgid "No modification"
+#~ msgstr "Sem modificação"
+
+#~ msgid "All replacement labels have been removed"
+#~ msgstr "Todas as etiquetas substitutas foram removidas"
+
+#, python-format
+#~ msgid "End duration in %s minutes"
+#~ msgstr "Final da contagem em %s minutos"
+
+#~ msgid "End duration in one minute"
+#~ msgstr "Final da contagem em 1 minuto"
+
+#~ msgid "End of minutetimer"
+#~ msgstr "Final da contagem actual do cronómetro"
+
+#~ msgid "Launch of the Minute timer"
+#~ msgstr "Início do conta minutos"
+
+#~ msgid "Enter the minute timer &duration (in minutes):"
+#~ msgstr "Escreva a &duração da contagem, em minutos"
+
+#~ msgid "Enter the &announce to be spoken at the end of duration:"
+#~ msgstr "Escreva a mensagem a ser &anunciada no final da contagem"
+
+#~ msgid "Delay to be alerted before ending (in minutes):"
+#~ msgstr "Diferença para ser alertado antes de terminar (em minutos):"
+
+#~ msgid "Ring's &Options"
+#~ msgstr "&Opções de toque"
+
+#~ msgid "Duration is not valid"
+#~ msgstr "A duração não é válida"
+
+#~ msgid ""
+#~ "The Delay to be notified before duration ending must be smaller than "
+#~ "duration"
+#~ msgstr "o tempo de antecedência deve ser menor que a duração da contagem"
+
+#, python-format
+#~ msgid "Minute timer started for %s minutes"
+#~ msgstr "Conta minutos iniciado para %s minutos"
+
+#~ msgid "Ring options"
+#~ msgstr "Opções de toque"
+
+#~ msgid "&Number of rings:"
+#~ msgstr "&Número de toques"
+
+#~ msgid "&Delay between rings (in milliseconds):"
+#~ msgstr "&Intervalo entre toques (em mili-segundos)"
+
+#~ msgid "Current minute timer"
+#~ msgstr "Contagem actual"
+
+#~ msgid "Remaining duration:"
+#~ msgstr "Tempo restante"
+
+#~ msgid "&Stop"
+#~ msgstr "&Parar"
+
+#~ msgid "Minute timer is stopped"
+#~ msgstr "O Conta minutos está parado"
+
+#, python-format
+#~ msgid "%s seconds"
+#~ msgstr "%s segundos"
+
+#~ msgid "{minutes} minutes {seconds}"
+#~ msgstr "{minutes} minutos e {seconds} segundos"
+
+#~ msgid "NVDA logs management"
+#~ msgstr "Gestão dos ficheiros de registo do NVDA"
+
+#~ msgid "Open current &log"
+#~ msgstr "Abrir &registo actual;"
+
+#~ msgid "Open &previous log"
+#~ msgstr "Abrir o registo &anterior"
+
+#~ msgid "Copy log &path to clipboard"
+#~ msgstr "Copiar o &caminho do Registo para a área de transferência;"
+
+#~ msgid "Open Error"
+#~ msgstr "Erro de abertura"
+
+#, python-format
+#~ msgid "%s dialog is allready open"
+#~ msgstr "O diálogo %s já está aberto"
+
+#~ msgid "Font:"
+#~ msgstr "Tipo de letra:"
+
+#, python-format
+#~ msgid "Family: %s"
+#~ msgstr "Família: %s"
+
+#, python-format
+#~ msgid "Name: %s"
+#~ msgstr "Nome: %s"
+
+#, python-format
+#~ msgid "Size: %s"
+#~ msgstr "Tamanho: %s"
+
+#, python-format
+#~ msgid "Text's alignment: %s"
+#~ msgstr "Alinhamento de texto: %s"
+
+#, python-format
+#~ msgid "Attributes: %s"
+#~ msgstr "Atributos: %s"
+
+#, python-format
+#~ msgid "Vertical alignment: %s"
+#~ msgstr "Alinhamento vertical: %s"
+
+#, python-format
+#~ msgid "Position: %s"
+#~ msgstr "Posição: %s"
+
+#, python-format
+#~ msgid "Paragraph's indentation: %s"
+#~ msgstr "Indentação de parágrafos: %s"
+
+#, python-format
+#~ msgid "style: %s"
+#~ msgstr "Estilo: %s"
+
+#, python-format
+#~ msgid "Line spacing: %s"
+#~ msgstr "Espaçamento de linhas: %s"
+
+#, python-format
+#~ msgid "Indentation: %s"
+#~ msgstr "Indentação: %s"
+
+#~ msgid "Formatting's Informations"
+#~ msgstr "Informações de formatação"
+
+#~ msgid "It's time"
+#~ msgstr "Terminou o tempo!"
+
+#~ msgid ""
+#~ "Some changes have been made. You must save the configuration and restart "
+#~ "NVDA for these changes to take effect. Would you like to do it now?"
+#~ msgstr ""
+#~ "Foram feitas Algumas alterações. Deve guardar estas modificações e "
+#~ "reiniciar o NVDA para que estas mudanças entrem em vigor. Quer reiniciar "
+#~ "agora?"
+
+#~ msgid ""
+#~ "Don't forget to save the configuration for the changes to take effect !"
+#~ msgstr ""
+#~ "Não se esqueça de guardar as configurações para que as alterações "
+#~ "obtenham os resultados esperados."
+
+#~ msgid "Features's installation"
+#~ msgstr "Instalação de funcionalidades:"
+
+#~ msgid "Do not install"
+#~ msgstr "Não instalar"
+
+#~ msgid "Install"
+#~ msgstr "Instalar"
+
+#~ msgid "Install without gesture"
+#~ msgstr "Instalar sem teclas de comando"
+
+#~ msgid "Display &systray icons and running application windows list:"
+#~ msgstr ""
+#~ "Mostra a lista de ícones da barra de &notificações ou das aplicações "
+#~ "abertas"
+
+#~ msgid "&Complex symbols edition help:"
+#~ msgstr "&Ajuda na edição de símbolos complexos"
+
+#~ msgid "&Focused application's informations:"
+#~ msgstr "&Informações da aplicação sob o foco"
+
+#~ msgid "&Extended Virtual Buffer:"
+#~ msgstr "[Extensão das funcionalidades da virtualização de &documentos"
+
+#~ msgid "C&lipboard command announcement:"
+#~ msgstr "anúncio de comandos da &área de transferência"
+
+#~ msgid ""
+#~ "Anno&uncement of the preselected folder  in \"Open\", \"Save\", \"Save as"
+#~ "\" dialog boxes:"
+#~ msgstr ""
+#~ "Anúncio da pasta pré-seleccionada, nos diálogos de \"guardar\" e "
+#~ "\"guardar como\""
+
+#~ msgid "&NVDA's log Files:"
+#~ msgstr "&Ficheiros de registo do NVDA"
+
+#~ msgid "Speech &history:"
+#~ msgstr "&Histórico de falas"
+
+#~ msgid "&Keyboard keys renaming:"
+#~ msgstr "&Renomear teclas..."
+
+#~ msgid "C&ommand keys selective announcement:"
+#~ msgstr "Anúncio &selectivo de teclas de comando"
+
+#~ msgid "Minute &timer:"
+#~ msgstr "&Conta minutos"
+
+#~ msgid "NVDA's &restart:"
+#~ msgstr "&Reiniciar o NVDA"
+
+#~ msgid "Display visible items making up the foreground &object:"
+#~ msgstr "Mostrar itens visíveis que constituem o &objeto em primeiro plano"
+
+#~ msgid "&Voice profile switching:"
+#~ msgstr "Alternar &perfis de voz"
+
+#~ msgid "Ke&ys's remanence:"
+#~ msgstr "Prender &teclas"
+
+#~ msgid "Volu&me's control:"
+#~ msgstr "Controlo de &volumes"
+
+#~ msgid "&Development's tools:"
+#~ msgstr "Ferramentas para o desenvolvimento de extras"
+
+#~ msgid "&Date and time - supplements:"
+#~ msgstr "Suplementos de &data e hora"
+
+#~ msgid "NVDA enhancements"
+#~ msgstr "Melhorias para o NVDA"
+
+#~ msgid "Editing"
+#~ msgstr "A editar"
+
+#~ msgid "&Report next word on deletion"
+#~ msgstr "&Anunciar a próxima palavra ao apagar uma palavra"
+
+#~ msgid "maximum number of last &used symbols recorded:"
+#~ msgstr "Número máximo de símbolos &utilizados guardados:"
+
+#~ msgid "Cursor's moving"
+#~ msgstr "Movimento do cursor"
+
+#~ msgid "&Punctuation/symbol level on word movement:"
+#~ msgstr "&Nível de Pontuação/símbolo, ao navegar por palavra:"
+
+#~ msgid "Current configuration profile's level"
+#~ msgstr "Nível actual dos perfis de configuração"
+
+#~ msgid "&Number the records "
+#~ msgstr "&Numerar os registos"
+
+#~ msgid "&Display records in ascending order"
+#~ msgstr "Mostrar registos em or&dem ascendente"
+
+#~ msgid "Browser"
+#~ msgstr "Navegador"
+
+#~ msgid "&Browse in loop"
+#~ msgstr "&Navegar em &loop"
+
+#~ msgid "Computer"
+#~ msgstr "computador"
+
+#~ msgid "Windows"
+#~ msgstr "Windows"
+
+#~ msgid "&No object description in Windows ribbons"
+#~ msgstr ""
+#~ "Supressão do anúncio da descrição dos objectos nos &frisos do Windows "
+
+#~ msgid "Automatically &maximize windows"
+#~ msgstr "&Maximizar as janelas automaticamente"
+
+#~ msgid "Report &windows clock's time with seconds"
+#~ msgstr "Anunciar horas do relógio do &Windows com segundos"
+
+#~ msgid "Main and NVDA volume"
+#~ msgstr "Definir o volume principal e do NVDA"
+
+#~ msgid "Set on &volume at the loading of the add-on"
+#~ msgstr "Definir o &volume no carregamento do extra"
+
+#~ msgid "Main volume"
+#~ msgstr "Nível do volume principal"
+
+#~ msgid "&Threshold of recovery of the volume:"
+#~ msgstr "&Limite de recuperação do volume:"
+
+#~ msgid "Recovery &level:"
+#~ msgstr "&Nivel de recuperação"
+
+#~ msgid "NVDA volume"
+#~ msgstr "Nível do volume do NVDA"
+
+#~ msgid "T&hreshold of recovery of the volume:"
+#~ msgstr "&Limite da recuperação do volume:"
+
+#~ msgid "&Recovery level:"
+#~ msgstr "&Nivel de recuperação"
+
+#~ msgid "Volume c&hange"
+#~ msgstr "Altera&ção do volume"
+
+#~ msgid "Ste&ps's size:"
+#~ msgstr "Tamanho do &intervalo:"
+
+#~ msgid "R&eport volume changes"
+#~ msgstr "Comunicar alteraçõ&es de volume"
+
+#~ msgid "&Announce application volume level in percent"
+#~ msgstr "&Anunciar o volume da aplicação em percentagem"
+
+#~ msgid "advanced"
+#~ msgstr "Opções avançadas"
+
+#~ msgid "For No NVDA's version"
+#~ msgstr "Para nenhuma versão do NVDA"
+
+#~ msgid "For Only the NVDA's snapshot versions"
+#~ msgstr "Apenas nas versões de desenvolvimento"
+
+#~ msgid "Only until the next NVDA restart"
+#~ msgstr "Apenas até ao próximo reinício do NVDA"
+
+#~ msgid "For all NVDA's versions"
+#~ msgstr "Em todas as versões do NVDA"
+
+#~ msgid "&Play sound on logged errors:"
+#~ msgstr "&Reproduzir som ao registar erros:"
+
+#~ msgid "&Title dialog with add-on name"
+#~ msgstr "&Título do Diálogo com o nome do extra"
+
+#~ msgid "&Delay between repeat of same gesture:"
+#~ msgstr "&Espera entre repetições do mesmo comando:"
+
+#~ msgid ""
+#~ "&Do not take account of the option called \"Report object descriptions\" "
+#~ "during the display of the dialog box same as confirmation"
+#~ msgstr ""
+#~ "&Não ter em conta a opção para anunciar a descrição de objectos durante a "
+#~ "visualização de diálogos de confirmação "
+
+#~ msgid "Keyboard"
+#~ msgstr "Teclado"
+
+#~ msgid "Keys's remanence"
+#~ msgstr "Prender teclas"
+
+#~ msgid "&Only NVDA key in remanence"
+#~ msgstr "&Apenas a tecla do NVDA presa"
+
+#~ msgid "Activate &remanence at NVDA's start"
+#~ msgstr "Activar a prisão de teclas no início do NVDA"
+
+#~ msgid "&Remanence's delay (in milliseconds):"
+#~ msgstr "&Atraso de &teclas presas (em milissegundos)"
+
+#~ msgid "Play &sound at the start of remanence"
+#~ msgstr "Tocar &som no início das teclas presas"
+
+#~ msgid "Play sound at the &end of remanence"
+#~ msgstr "Tocar som no &final das teclas presas"
+
+#~ msgid "Special remanence for &Gmail.com"
+#~ msgstr "Prisão de teclas especial para gmail.com"
+
+#~ msgid "Numeric keypad"
+#~ msgstr "Numeric keypad"
+
+#~ msgid "&Allow the standard use of the numeric keypad"
+#~ msgstr "&Permitir o uso padrão do bloco numérico"
+
+#~ msgid "&Enable the standard use of the numeric keypad at NVDA's start"
+#~ msgstr "&Activar o uso padrão do bloco numérico, no início do NVDA."
+
+#~ msgid "&Enable / disable numeric keypad's standard use with num lock key"
+#~ msgstr ""
+#~ "&Activar/desactivar O uso das teclas numéricas padrão com a tecla do "
+#~ "bloco numérico."
+
+#~ msgid "Update"
+#~ msgstr "Actualização"
+
+#~ msgid "Automatically check for &updates"
+#~ msgstr "Procurar automaticamente por &actualizações"
+
+#~ msgid "Update also release versions to &development versions"
+#~ msgstr "Actualizar versões estáveis para  versões de &desenvolvimento"
+
+#~ msgid "&Check for update"
+#~ msgstr "&Procurar actualização"
+
+#~ msgid "View &history"
+#~ msgstr "&Ver histórico"
+
+#~ msgid "Settings"
+#~ msgstr "Configurações"
+
+#, python-format
+#~ msgid ""
+#~ "The configuration file of \"%s\" add-on contains errors. The add-on "
+#~ "configuration has been reset to default configuration"
+#~ msgstr ""
+#~ "O ficheiro de configuração do extra %s contém erros. A configuração do "
+#~ "extra foi redefinida para a configuração padrão"
+
+#, python-format
+#~ msgid ""
+#~ "The old configuration file of %s add-on contains errors. It's not "
+#~ "possible to keep previous configuration"
+#~ msgstr ""
+#~ "O ficheiro de configuração do antigo extra %s contém erros. Não é "
+#~ "possível manter a configuração anterior"
+
+#~ msgid ""
+#~ "The add-on configuration will be reset to factory values and NVDA will be "
+#~ "restarted. Would you like to continue?"
+#~ msgstr ""
+#~ "A configuração do extra será restaurada para os valores iniciais e o NVDA "
+#~ "será reiniciado. Deseja continuar ?"
+
+#~ msgid "Configuration reset"
+#~ msgstr "Restaurar configuração."
+
+#~ msgid "There is No speech announcement recorded"
+#~ msgstr "Não há nenhum anúncio de discurso registado"
+
+#~ msgid "Records:"
+#~ msgstr "Registos"
+
+#~ msgid ""
+#~ "The current configuration of the \"Voice profile switching\"feature is "
+#~ "not compatible with this add-on's version, All selectors have been "
+#~ "released and the voice profiles deleted. Sorry for the inconvenience."
+#~ msgstr ""
+#~ "A configuração actual do recurso \"Comutação de perfil de voz\" não é "
+#~ "compatível com a versão actual do extra, todos os selectores foram "
+#~ "libertados e os perfis de voz foram excluídos. Desculpe pela "
+#~ "inconveniência."
+
+#~ msgid "warning"
+#~ msgstr "Aviso!"
+
+#~ msgid ""
+#~ "Impossible, the synthesizer of voice profile {voiceProfileName} "
+#~ "associated to selector {selector} is not available. Do you want to free "
+#~ "this selector?"
+#~ msgstr ""
+#~ "Impossível, o sintetizador do perfil de voz {voiceProfileName} associado "
+#~ "ao selector {selector} não está disponível. Quer libertar este selector?"
+
+#~ msgid "Synthesizer error"
+#~ msgstr "Erro de Sintetizador"
+
+#~ msgid "Selector {selector}: {name}"
+#~ msgstr "Selector {selector}: {name}"
+
+#~ msgid "no other selector set to voice profile"
+#~ msgstr "Nenhum outro selector definido para o perfil de voz"
+
+#~ msgid "no selector set to voice profile"
+#~ msgstr "Sem selector definido para o perfil de voz"
+
+#~ msgid "yes"
+#~ msgstr "Sim"
+
+#~ msgid "no"
+#~ msgstr "Não"
+
+#~ msgid "{name} voice profile set to selector {selector}"
+#~ msgstr "Perfil de voz {name} definido para selector {selector}"
+
+#~ msgid "all selectors are freed from their vocal profile"
+#~ msgstr "todos os seletores libertados do seu perfil de voz"
+
+#~ msgid "Automatic language switching (when supported)"
+#~ msgstr "Alterar o idioma automaticamente (quando suportado)"
+
+#~ msgid "Automatic dialect switching (when supported)"
+#~ msgstr "Alterar o dialecto automaticamente (quando suportado)"
+
+#~ msgid "Punctuation/symbol level"
+#~ msgstr "Nível de pontuação/símbolo"
+
+#~ msgid "Trust voice's language when processing characters and symbols"
+#~ msgstr "Usar o idioma da voz ao processar caracteres e símbolos"
+
+#~ msgid ""
+#~ "Include Unicode Consortium data (including emoji) when processing "
+#~ "characters and symbols"
+#~ msgstr ""
+#~ "Incluir dados do Unicode Consortium (incluindo emojis) ao processar "
+#~ "caracteres e símbolos"
+
+#~ msgid "Capital pitch change percentage"
+#~ msgstr "Alterar a percentagem da entoação para letras maiúsculas"
+
+#~ msgid "Say cap before capitals"
+#~ msgstr "Anunciar maiúscula antes de letras maiúsculas"
+
+#~ msgid "Beep for capitals"
+#~ msgstr "Reproduzir bips para maiúsculas"
+
+#~ msgid "Use spelling functionality if supported"
+#~ msgstr "Utilizar funcionalidade de soletrar, se suportada"
+
+#, python-format
+#~ msgid "selector: %s"
+#~ msgstr "Selector: %s"
+
+#, python-format
+#~ msgid "Voice profile name: %s"
+#~ msgstr "Nome do perfil de voz: %s"
+
+#, python-format
+#~ msgid "Associated under %s configuration profile"
+#~ msgstr "Associado ao perfil de configuração do %s"
+
+#, python-format
+#~ msgid "Synthesizer: %s"
+#~ msgstr "Sintetizador: %s"
+
+#, python-format
+#~ msgid "Output device: %s"
+#~ msgstr "Dispositivo de saída: %s"
+
+#, python-format
+#~ msgid "Voice profile selectors's Management of profile %s"
+#~ msgstr "Gestão dos selectores de perfis de voz do perfil de configuração %s"
+
+#~ msgid "&Selectors"
+#~ msgstr "&Selectores: "
+
+#~ msgid "free"
+#~ msgstr "Livre"
+
+#~ msgid "&Use selectors associated under normal cconfiguration's profile"
+#~ msgstr "&Usar selectores associados ao perfil de configuração normal"
+
+#~ msgid "&Activate voice profile"
+#~ msgstr "&Activar perfil de voz"
+
+#~ msgid "A&ssociate voice profile"
+#~ msgstr "A&ssociar perfil de voz"
+
+#~ msgid "&Modify voice profile"
+#~ msgstr "&Modificar perfil de voz"
+
+#~ msgid "&Free selector"
+#~ msgstr "&Libertar selector"
+
+#~ msgid "&Free all selectors"
+#~ msgstr "Libertar &todos os selectores"
+
+#~ msgid "Voice profile's &informations"
+#~ msgstr "&Informações do perfil de voz"
+
+#~ msgid "Voice profile 's informations"
+#~ msgstr "Informações do perfil de voz"
+
+#~ msgid ""
+#~ "Selector {selector} is already set to {voiceProfileName} voice profile. "
+#~ "Do you want to replace this voice profile?"
+#~ msgstr ""
+#~ "O selector {selector} já está definido para o perfil de voz "
+#~ "{voiceProfileName}. quer substituir este perfil de voz?"
+
+#~ msgid ""
+#~ "Do you really want to free selector {selector} associated to the voice "
+#~ "profile \"{voiceProfileName}\"?"
+#~ msgstr ""
+#~ "quer mesmo libertar o seletor {selector} associado ao perfil de voz "
+#~ "{voiceProfileName}?"
+
+#~ msgid ""
+#~ "Do you really want to free all selectors set to this configuration "
+#~ "profile?"
+#~ msgstr ""
+#~ "Quer mesmo libertar todos os selectores configurados para este perfil de "
+#~ "configuração?"
+
+#~ msgid "Modify voice profile "
+#~ msgstr "Modificar perfil de voz"
+
+#~ msgid "voice profile name:"
+#~ msgstr "Nome do perfil de voz"
+
+#~ msgid "&Default"
+#~ msgstr "&Padrão"
+
+#~ msgid "You must set the name of voice profile"
+#~ msgstr "Deve definir o nome do perfil de voz"
+
+#~ msgid "Voice profile association"
+#~ msgstr "Associação do perfil de voz"
+
+#~ msgid "System tray icons 's list"
+#~ msgstr "Lista dos ícones da barra do sistema"
+
+#~ msgid "&Icons"
+#~ msgstr "&Ícones"
+
+#~ msgid "&Right click"
+#~ msgstr "Clique di&reito"
+
+#~ msgid "&Left click"
+#~ msgstr "C&lique esquerdo"
+
+#~ msgid "Dou&ble left click"
+#~ msgstr "&Duplo clique esquerdo"
+
+#~ msgid "Error: buildVars.py file is not found"
+#~ msgstr "Erro:O ficheiro buildVars.py não foi encontrado"
+
+#~ msgid "error"
+#~ msgstr "Erro"
+
+#, python-format
+#~ msgid "Cannot get add-on translated manifest of %s language"
+#~ msgstr ""
+#~ "Não é possível obter o \"manifest\" do extra traduzido para o idioma %s"
+
+#~ msgid "Creation of HTML documentation files"
+#~ msgstr "Criação de ficheiros HTML de documentação."
+
+#~ msgid "No documentation file to convert"
+#~ msgstr "Sem qualquer ficheiro de documentação para converter."
+
+#~ msgid "No file converted"
+#~ msgstr "Nenhum ficheiro convertido"
+
+#, python-format
+#~ msgid "%s files converted"
+#~ msgstr "%s ficheiros convertidos"
+
+#~ msgid "Creation of manifest.ini file"
+#~ msgstr "Criação do ficheiro manifest.ini"
+
+#~ msgid ""
+#~ "The manifest.ini file already exists. Do you really want to update it?"
+#~ msgstr "O ficheiro manifest.ini já existe. Deseja actualizá-lo?"
+
+#~ msgid "manifest.ini file has been updated"
+#~ msgstr "O ficheiro nanifest.ini foi actualizado."
+
+#~ msgid "Creation of localization manifest.ini file"
+#~ msgstr "Criação do ficheiro local manifest.ini"
+
+#~ msgid "No language for this add-on"
+#~ msgstr "Sem idioma para este extra."
+
+#, python-format
+#~ msgid "Error: %s file is not found"
+#~ msgstr "Erro: o ficheiro %s não foi encontrado"
+
+#, python-format
+#~ msgid "Some translation strings are missing for \"%s\" language"
+#~ msgstr "Faltam algumas cadeias de texto para o idioma \"%s\""
+
+#, python-format
+#~ msgid "%s localization manifest.ini files created"
+#~ msgstr "Os ficheiros %s de localização manifest.ini foram criados."
+
+#~ msgid "No localization manifest.ini file created"
+#~ msgstr "Não foram criados ficheiros de localização manifest.ini"
+
+#, python-format
+#~ msgid "Creation of POT file of %s add-on"
+#~ msgstr "Criação de ficheiros pot para o extra %s "
+
+#, python-format
+#~ msgid "%s file created"
+#~ msgstr "%s ficheiro criado"
+
+#~ msgid ""
+#~ "Impossible to create POT file: no source file defined in buildVars.py"
+#~ msgstr ""
+#~ "Foi impossível criar o ficheiro POT: nenhum ficheiro de origem se "
+#~ "encontra definido em buildVars.py"
+
+#~ msgid "Impossible to create POT file"
+#~ msgstr "Impossível criar o ficheiro pot."
+
+#, python-format
+#~ msgid "Prepare %s add-on"
+#~ msgstr "Preparar o Extra %s "
+
+#~ msgid "Prepare add-on start"
+#~ msgstr "Preparar o arranque do extra"
+
+#~ msgid "Manifest.ini file updated"
+#~ msgstr "O ficheiro manifest.ini foi actualizado"
+
+#, python-format
+#~ msgid "%s localization manifest.ini files created or updated"
+#~ msgstr ""
+#~ "Os ficheiros %s de localização manifest.ini foram criados ou actualizados"
+
+#, python-format
+#~ msgid "But for these languages,  some strings are not translated: %s"
+#~ msgstr "Mas para estes idiomas algumas cadeias não estão traduzidas: %s"
+
+#~ msgid "one file converted"
+#~ msgstr "1 ficheiro convertido"
+
+#, python-format
+#~ msgid "%s HTML files created"
+#~ msgstr "%s ficheiros HTML criados"
+
+#~ msgid "{count} poFiles compiled on {nb}"
+#~ msgstr "{count} ficheiros po compilados em {nb}"
+
+#~ msgid "Add-on bundle could not be created"
+#~ msgstr "Não foi possível criar o pacote do extra."
+
+#~ msgid "The {name} file has been created and recorded in {dir} folder"
+#~ msgstr "O ficheiro {name} está a ser criado e gravado na pasta {dir}"
+
+#~ msgid "Completed"
+#~ msgstr "Completo"
+
+#~ msgid "Creation of buildVars.py file"
+#~ msgstr "Criação do ficheiro buildVars.py"
+
+#~ msgid "Warning: buildVars.py already exists. Do you want to replace it?"
+#~ msgstr "Aviso! o ficheiro buildVars.py já existe. Deseja substitui-lo?"
+
+#~ msgid "buildVars.py file created"
+#~ msgstr "O ficheiro buildVars.py foi criado"
+
+#~ msgid "Tools for add-on development"
+#~ msgstr "Ferramentas para o desenvolvimento de extras"
+
+#~ msgid "&Add-ons:"
+#~ msgstr "&Extras"
+
+#~ msgid "Update add-on &version"
+#~ msgstr "Actualizar a &versão do extra"
+
+#~ msgid "&Update manifest.ini file"
+#~ msgstr "&Actualizar o ficheiro manifest.ini"
+
+#~ msgid "Create P&OT file"
+#~ msgstr "criar o ficheiro P&OT"
+
+#~ msgid "&Prepare addon"
+#~ msgstr "%Preparar o extra"
+
+#~ msgid "&Languages:"
+#~ msgstr "&Idiomas"
+
+#~ msgid "Create &localization manifest.ini file"
+#~ msgstr "Criar o ficheiro de &localização manifest.ini"
+
+#~ msgid "Create &HTML documentation files"
+#~ msgstr "Criar os ficheiros de documentação &HTML"
+
+#~ msgid "Create &buildVars file"
+#~ msgstr "Criar o ficheiro &buildVars"
+
+#~ msgid "&Explore add-on folder"
+#~ msgstr "&Explorar a pasta do extra"
+
+#~ msgid "All"
+#~ msgstr "tudo"
+
+#~ msgid "Update add-on version"
+#~ msgstr "Actualizar a versão do extra"
+
+#~ msgid "Error: buildVars.py file has no add-on version line"
+#~ msgstr "Erro: O ficheiro buildVars.py não tem a versão do extra"
+
+#~ msgid "Version of buildVars.py file has been updated"
+#~ msgstr "A versão do ficheiro buildVars.py foi actualizada"
+
+#~ msgid "Entry add-on version:"
+#~ msgstr "Escreva a versão do extra"
+
+#~ msgid "No add-on installed"
+#~ msgstr "Nenhum extra instalado"
+
+#~ msgid ""
+#~ "The update is not compatible with this version of NVDA. Minimum NVDA "
+#~ "version: {minYear}.{minMajor}, last tested: {testedYear}.{testedMajor}."
+#~ msgstr ""
+#~ "A actualização é incompatível com esta versão do NVDA. Versão nínima do "
+#~ "NVDA: {minYear}{minMajor}, última testada: {testedYear}.{testedMajor}."
+
+#~ msgid "Downloading {name}"
+#~ msgstr "A baixar {name}"
+
+#~ msgid "Error downloading update for {name}."
+#~ msgstr "Erro ao baixar a actualização para {name}."
+
+#~ msgid "Cannot update {name} - missing file or invalid file format"
+#~ msgstr ""
+#~ "Impossível actualizar {name} - Ficheiro em falta ou formato inválido de "
+#~ "ficheiro."
+
+#~ msgid "Updating"
+#~ msgstr "A baixar."
+
+#~ msgid "Please wait while the add-on is being updated."
+#~ msgstr "Por favor, aguarde, enquanto o extra está a ser actualizado."
+
+#~ msgid "Failed to update {name} add-on"
+#~ msgstr "Falha na actualização do extra {name}"
+
+#~ msgid "{summary} - update"
+#~ msgstr "Actualização {summary}"
+
+#~ msgid ""
+#~ "The service is temporarily under maintenance. Please, try again later."
+#~ msgstr "O serviço está em manutenção, por favor, tente mais tarde."
+
+#, python-format
+#~ msgid "New version%s is available. Do you want to download it now?"
+#~ msgstr "Nova versão disponível, versão %s. Quer baixá-la agora?"
+
+#, python-format
+#~ msgid "You are up-to-date. %s is the latest version."
+#~ msgstr "O extra está actualizado. %s é a última versão."
+
+#~ msgid "Oops! There was a problem checking for updates. Please retry later"
+#~ msgstr ""
+#~ "Ops! Houve um problema na verificação de actualizações. Por favor tente "
+#~ "novamente mais tarde"
+
+#~ msgid "&Yes"
+#~ msgstr "&Sim"
+
+#~ msgid "&No"
+#~ msgstr "&Não"
+
+#~ msgid "&Later"
+#~ msgstr "&Mais tarde"
+
+#~ msgid "Wha&t's new"
+#~ msgstr "O que há de novo"
+
+#~ msgid "User input Gestures"
+#~ msgstr "Comandos alterados pelo utilizador"
+
+#~ msgid "Remove &all"
+#~ msgstr "Remover &todos"
+
+#~ msgid "{main} ({source})"
+#~ msgstr "{main} ({source})"
+
+#~ msgid ""
+#~ "Do you really want to erase all the modifications of input gesture that "
+#~ "have been made?"
+#~ msgstr ""
+#~ "Quer apagar todas as modificações de comandos que tenham sido feitas?"
+
+#~ msgid "Deleted gestures"
+#~ msgstr "Comandos apagados"
+
+#~ msgid "Informations"
+#~ msgstr "Informações"
+
+#~ msgid "Co&py to Clipboard"
+#~ msgstr "Co&piar para a área de transferência"
+
+#~ msgid "Copied"
+#~ msgstr "Copiado"
+
+#~ msgid "Error, the information cannot be copied to the clipboard"
+#~ msgstr ""
+#~ "Erro. A informação não pode ser copiada para a área de transferência"
+
+#~ msgid "interrupted"
+#~ msgstr "Interrompido"
+
+#, python-format
+#~ msgid "\"%s\" dialog is already open"
+#~ msgstr "O diálogo %s já está aberto"
+
+#~ msgid "List, list's item"
+#~ msgstr "Lista, item da lista"
+
+#~ msgid "Tab"
+#~ msgstr "Tab;"
+
+#~ msgid "table item"
+#~ msgstr "item da tabela"
+
+#~ msgid "menu item"
+#~ msgstr "item de menu"
+
+#~ msgid "list of visible items making up the object in the foreground"
+#~ msgstr "lista de itens visíveis que formam o objeto em primeiro plano"
+
+#~ msgid "Ignore untagged items"
+#~ msgstr "Ignorar itens não etiquetados"
+
+#~ msgid "&Type: "
+#~ msgstr "&Tipo: "
+
+#~ msgid "Elements:"
+#~ msgstr "Elementos:"
+
+#~ msgid "Move &navigator object to it"
+#~ msgstr "Move o &navegador de objectos para ele"
+
+#~ msgid "Elements's searching"
+#~ msgstr "A Procura de elementos"
+
+#~ msgid "Windows'list"
+#~ msgstr "Lista de janelas"
+
+#~ msgid "Link"
+#~ msgstr "Link"
+
+#~ msgid "Heading"
+#~ msgstr "Cabeçalho"
+
+#~ msgid "Button"
+#~ msgstr "Botão"
+
+#~ msgid "Landmark"
+#~ msgstr "Região "
+
+#~ msgid "Radio button"
+#~ msgstr "Botão de opção"
+
+#~ msgid "Paragraph"
+#~ msgstr "parágrafo"
+
+#~ msgid "Check box"
+#~ msgstr "Caixa de verificação"
+
+#~ msgid "Combo box"
+#~ msgstr "Caixa combinada"
+
+#~ msgid "Table"
+#~ msgstr "Tabela"
+
+#~ msgid "Edit"
+#~ msgstr "campo de edição"
+
+#~ msgid "List"
+#~ msgstr "Lista"
+
+#~ msgid "Graphic"
+#~ msgstr "gráfico"
+
+#~ msgid "Separator"
+#~ msgstr "Separador"
+
+#~ msgid "Frame"
+#~ msgstr "Frame"
+
+#~ msgid "Division"
+#~ msgstr "Divisão"
+
+#~ msgid "Blocquote"
+#~ msgstr "Citação"
+
+#~ msgid "List item"
+#~ msgstr "ítem de lista"
+
+#~ msgid "Embedded object"
+#~ msgstr "Objecto Embutido"
+
+#~ msgid "Clickable"
+#~ msgstr "Pressionável."
+
+#~ msgid "UnDo"
+#~ msgstr "Desfazer"
+
+#~ msgid "End ofduration"
+#~ msgstr "Final da contagem"
+
+#~ msgid "Current log file path   cannot be copied to clipboard"
+#~ msgstr ""
+#~ "O caminho do ficheiro de registo actual não pode ser copiado para a área "
+#~ "de transferência"
+
+#~ msgid "C&urrent folder report:"
+#~ msgstr "Anúncio da &pasta pré-seleccionada"
+
+#~ msgid "Main and NVDA"
+#~ msgstr "Definir o volume principal e do NVDA"
+
+#~ msgid "No html file converted"
+#~ msgstr "Nenhum ficheiro HTML convertido"
+
+#~ msgid "NVDAExtensionGlobalPlugin add-on - warning"
+#~ msgstr "Aviso do Extra Extensão de funcionalidades do NVDA"
+
+#~ msgid "Tree view, treeview's item"
+#~ msgstr "Vista de árvore, item da vista de árvore"
+
+#~ msgid "ComboBox"
+#~ msgstr "Caixa combinada"
+
+#~ msgid "Slider"
+#~ msgstr "Slider"
+
+#~ msgid "Container (Tools bar, panel, application, ...)"
+#~ msgstr "Recipiente (barra de ferramentas, painel, aplicativo, ...)"
+
+#~ msgid "Text"
+#~ msgstr "Texto"
+
+#~ msgid "Switch voice profile"
+#~ msgstr "Alternar o perfil de voz "
+
+#~ msgid "Display commands shell's list"
+#~ msgstr "Mostra a lista de comandos em camadas"
+
+#~ msgid "Toggle current application's volume mute"
+#~ msgstr "Alternar entre volume activado ou desactivado, no aplicativo actual"
+
+#, python-format
+#~ msgid "Launch  %s commands's shell"
+#~ msgstr "Inicia os comandos em camada %s"
+
+#~ msgid "Numeric pad navigation mode toggle is not  available"
+#~ msgstr "Numeric pad navigation mode toggle is not  available"
+
+#~ msgid "stronger"
+#~ msgstr "mais forte"
+
+#~ msgid "strongest"
+#~ msgstr "O mais forte"
+
+#~ msgid "max"
+#~ msgstr "máximo"
+
+#~ msgid "min"
+#~ msgstr "mínimo"
+
+#~ msgid "At maximum"
+#~ msgstr "No máximo"
+
+#~ msgid "At minimum"
+#~ msgstr "No mínimo"
+
+#~ msgid "Current log file  path  copied to clipboard"
+#~ msgstr ""
+#~ "Caminho do ficheiro de registo actual copiado para a área de transferência"
+
+#, python-format
+#~ msgid "Color: %s"
+#~ msgstr "Cor: %s"
+
+#~ msgid "Th&reshold of recovery of the volume:"
+#~ msgstr "Limite de &recuperação do volume"
+
+#~ msgid "R&ecovery level:"
+#~ msgstr "Nível de R&ecuperação"
+
+#~ msgid "Parameters"
+#~ msgstr "Configurações"
+
+#~ msgid "No more recorded vocal announce"
+#~ msgstr "Não há mais registos de falas"
+
+#~ msgid "Oldest recorded announce"
+#~ msgstr "Registo de fala mais antigos"
+
+#~ msgid "Last recorded announce"
+#~ msgstr "Último registo gravado"
+
+#~ msgid "Creation  of locale manifest.ini file"
+#~ msgstr "Criação do ficheiro locale manifest.ini."
+
+#~ msgid "Not available for this NVDA version"
+#~ msgstr "Indisponível para esta versão do NVDA."
+
+#~ msgid "The update is not compatible with this version of Windows."
+#~ msgstr "A actualização é incompatível com esta versão do windows"
+
+#~ msgid "Nnumeric keypad's arrow keys enabled"
+#~ msgstr "Teclas de seta do teclado numérico activadas"
+
+#~ msgid "Nnumeric keypad's arrow keys disabled"
+#~ msgstr "Teclas de seta do teclado numérico desactivadas"
+
+#~ msgid "Various"
+#~ msgstr "Diversos"
+
+#~ msgid "Volume's control"
+#~ msgstr "Controlo do volume"
+
+#~ msgid "NVDAExtensionGlobalPlugin add-on installation"
+#~ msgstr "Instalação do Extra Extensão de funcionalidades do NVDA"
+
+#~ msgid "none"
+#~ msgstr "Nenhum"
+
+#~ msgid "{} symbol copied to clipboard"
+#~ msgstr "{} símbolo copiado para a área de transferência"
+
+#~ msgid "Options"
+#~ msgstr "Opções"
+
+#~ msgid "&Minimum main volume level:"
+#~ msgstr "Nível mínimo do volume &principal"
+
+#~ msgid "Minimum &NVDA volume level:"
+#~ msgstr "Nível mínimo do volume do &NVDA"
+
+#~ msgid ""
+#~ "Voice profile Informations  cannot be displayed. You must  before, re-"
+#~ "associate  the selector"
+#~ msgstr ""
+#~ "As informações do Perfil de voz não podem ser mostradas. deve, antes, "
+#~ "associar novamente o selector"
+
+#~ msgid "{addonSummary}'s add-on - {dialogTitle}"
+#~ msgstr "{dialogTitle} - {addonSummary}"
+
+#~ msgid ""
+#~ "Display dialog to convert to HTML the documentation's files of one of "
+#~ "installed add-ons"
+#~ msgstr ""
+#~ "Mostra o diálogo  para converter para HTML a documentação de um extra "
+#~ "instalado"
+
+#~ msgid "Shell Commands's  list"
+#~ msgstr "Lista de comandos em camada"
+
+#~ msgid "doc folder is not present"
+#~ msgstr "A pasta \"doc\" não está presente"
+
+#~ msgid "The cssstyle  file is not present in doc folder"
+#~ msgstr "O ficheiro \"cssStyle\" não está presente na pasta \"doc\""
+
+#~ msgid "End's conversion  of doc files of %s folder"
+#~ msgstr "Fim da conversão  dos ficheiros \"doc\" da pasta %s"
+
+#~ msgid "Convert to HTML"
+#~ msgstr "Converter para HTML"
+
+#~ msgid "Con&vert"
+#~ msgstr "&Converter"
+
+#~ msgid "Conver&t all"
+#~ msgstr "Converter &todos"
+
+#~ msgid "NVDAExtensionGlobalPlugin settings..."
+#~ msgstr "Configurações do NVDAExtensionGlobalPlugin..."
+
+#~ msgid "NVDAExtensionGlobalPlugin settings menu"
+#~ msgstr "Menu de configurações do NVDAExtensionGlobalPlugin"
+
+#~ msgid "&Features's installation..."
+#~ msgstr "Instalação de &funcionalidades..."
+
+#~ msgid "Shows a dialog to manage features 's installation"
+#~ msgstr "Mostra um diálogo para gerir a instalação de  funcionalidades"
+
+#~ msgid "Shows a dialog to set options"
+#~ msgstr "Mostra um diálogo para definir as opções"
+
+#~ msgid "&Advanced Options..."
+#~ msgstr "Opções &avançadas"
+
+#~ msgid "Shows a dialog to set advanced options"
+#~ msgstr "Mostra um diálogo para definir as opções avançadas"
