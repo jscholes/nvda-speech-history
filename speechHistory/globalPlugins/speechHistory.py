@@ -28,12 +28,25 @@ addonHandler.initTranslation()
 
 CONFIG_SECTION = 'speechHistory'
 
+
+DEFAULT_HISTORY_ENTRIES = 500
+MIN_HISTORY_ENTRIES = 1
+MAX_HISTORY_ENTRIES = 10000000
+
 POST_COPY_NOTHING = 'nothing'
 POST_COPY_BEEP = 'beep'
 POST_COPY_SPEAK = 'speak'
 POST_COPY_BOTH = 'speakAndBeep'
 
 DEFAULT_POST_COPY_ACTION = POST_COPY_BEEP
+
+DEFAULT_BEEP_FREQUENCY = 1500 # Hz
+MIN_BEEP_FREQUENCY = 1 # Hz
+MAX_BEEP_FREQUENCY = 20000 # Hz
+
+DEFAULT_BEEP_DURATION = 120 # ms
+MIN_BEEP_DURATION = 1 # ms
+MAX_BEEP_DURATION = 500 # ms
 
 BUILD_YEAR = getattr(versionInfo, 'version_year', 2021)
 
@@ -42,8 +55,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		confspec = {
-			'maxHistoryLength': 'integer(default=500)',
+			'maxHistoryLength': f'integer(default={DEFAULT_HISTORY_ENTRIES}, min={MIN_HISTORY_ENTRIES}, max={MAX_HISTORY_ENTRIES})',
 			'postCopyAction': f'string(default={DEFAULT_POST_COPY_ACTION})',
+			'beepFrequency': f'integer(default={DEFAULT_BEEP_FREQUENCY}, min={MIN_BEEP_FREQUENCY}, max={MAX_BEEP_FREQUENCY})',
+			'beepDuration': f'integer(default={DEFAULT_BEEP_DURATION}, min={MIN_BEEP_DURATION}, max={MAX_BEEP_DURATION})',
 			'trimWhitespaceFromStart': 'boolean(default=false)',
 			'trimWhitespaceFromEnd': 'boolean(default=false)',
 		}
@@ -73,7 +88,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		postCopyAction = config.conf[CONFIG_SECTION]['postCopyAction']
 		if api.copyToClip(text):
 			if postCopyAction in (POST_COPY_BEEP, POST_COPY_BOTH):
-				tones.beep(1500, 120)
+				tones.beep(config.conf[CONFIG_SECTION]['beepFrequency'], config.conf[CONFIG_SECTION]['beepDuration'])
 			if postCopyAction in (POST_COPY_SPEAK, POST_COPY_BOTH):
 				# Translators: A short confirmation message spoken after copying a speech history item.
 				self.oldSpeak([_('Copied')])
@@ -173,7 +188,7 @@ class SpeechHistorySettingsPanel(gui.settingsDialogs.SettingsPanel):
 
 		# Translators: the label for the preference to choose the maximum number of stored history entries
 		maxHistoryLengthLabelText = _('&Maximum number of history entries (requires NVDA restart to take effect)')
-		self.maxHistoryLengthEdit = helper.addLabeledControl(maxHistoryLengthLabelText, nvdaControls.SelectOnFocusSpinCtrl, min=1, max=5000, initial=config.conf[CONFIG_SECTION]['maxHistoryLength'])
+		self.maxHistoryLengthEdit = helper.addLabeledControl(maxHistoryLengthLabelText, nvdaControls.SelectOnFocusSpinCtrl, min=MIN_HISTORY_ENTRIES, max=MAX_HISTORY_ENTRIES, initial=config.conf[CONFIG_SECTION]['maxHistoryLength'])
 
 		# Translators: The label for the preference of what to do after copying a speech history item to the clipboard. The options are "Do nothing", "Beep", "Speak", or "Beep and speak".
 		postCopyActionComboText = _('&After copying speech:')
@@ -191,6 +206,21 @@ class SpeechHistorySettingsPanel(gui.settingsDialogs.SettingsPanel):
 		self.postCopyActionCombo = helper.addLabeledControl(postCopyActionComboText, wx.Choice, choices=postCopyActionChoices)
 		self.postCopyActionCombo.SetSelection(self.postCopyActionValues.index(config.conf[CONFIG_SECTION]['postCopyAction']))
 		self.postCopyActionCombo.defaultValue = self.postCopyActionValues.index(DEFAULT_POST_COPY_ACTION)
+		self.postCopyActionCombo.Bind(wx.EVT_CHOICE, lambda evt: self.refreshUI())
+
+		# Translators: The label for the speech history setting controlling the frequency of the post-copy beep (in Hz).
+		beepFrequencyLabelText = _('Beep &frequency (Hz)')
+		self.beepFrequencyEdit = helper.addLabeledControl(beepFrequencyLabelText, nvdaControls.SelectOnFocusSpinCtrl, min=MIN_BEEP_FREQUENCY, max=MAX_BEEP_FREQUENCY, initial=config.conf[CONFIG_SECTION]['beepFrequency'])
+
+		# Translators: The label for the speech history setting controlling the length of the post-copy beep (in milliseconds).
+		beepDurationLabelText = _('Beep &duration (ms)')
+		self.beepDurationEdit = helper.addLabeledControl(beepDurationLabelText, nvdaControls.SelectOnFocusSpinCtrl, min=MIN_BEEP_DURATION, max=MAX_BEEP_DURATION, initial=config.conf[CONFIG_SECTION]['beepDuration'])
+
+		# Translators: The label of a button in the Speech History settings panel for playing a sample beep to test the user's chosen frequency and duration settings.
+		self.beepButton = helper.addItem(wx.Button(self, label=_('&Play example beep')))
+		self.Bind(wx.EVT_BUTTON, self.onBeepButton, self.beepButton)
+
+		self.refreshUI()
 
 		# Translators: the label for the preference to trim whitespace from the start of text
 		self.trimWhitespaceFromStartCB = helper.addItem(wx.CheckBox(self, label=_('Trim whitespace from &start when copying text')))
@@ -200,8 +230,20 @@ class SpeechHistorySettingsPanel(gui.settingsDialogs.SettingsPanel):
 		self.trimWhitespaceFromEndCB = helper.addItem(wx.CheckBox(self, label=_('Trim whitespace from &end when copying text')))
 		self.trimWhitespaceFromEndCB.SetValue(config.conf[CONFIG_SECTION]['trimWhitespaceFromEnd'])
 
+	def refreshUI(self):
+		postCopyAction = self.postCopyActionValues[self.postCopyActionCombo.GetSelection()]
+		enableBeepSettings = postCopyAction in (POST_COPY_BEEP, POST_COPY_BOTH)
+		self.beepFrequencyEdit.Enable(enableBeepSettings)
+		self.beepDurationEdit.Enable(enableBeepSettings)
+		self.beepButton.Enable(enableBeepSettings)
+
+	def onBeepButton(self, event):
+		tones.beep(self.beepFrequencyEdit.GetValue(), self.beepDurationEdit.GetValue())
+
 	def onSave(self):
 		config.conf[CONFIG_SECTION]['maxHistoryLength'] = self.maxHistoryLengthEdit.GetValue()
 		config.conf[CONFIG_SECTION]['postCopyAction'] = self.postCopyActionValues[self.postCopyActionCombo.GetSelection()]
+		config.conf[CONFIG_SECTION]['beepFrequency'] = self.beepFrequencyEdit.GetValue()
+		config.conf[CONFIG_SECTION]['beepDuration'] = self.beepDurationEdit.GetValue()
 		config.conf[CONFIG_SECTION]['trimWhitespaceFromStart'] = self.trimWhitespaceFromStartCB.GetValue()
 		config.conf[CONFIG_SECTION]['trimWhitespaceFromEnd'] = self.trimWhitespaceFromEndCB.GetValue()
