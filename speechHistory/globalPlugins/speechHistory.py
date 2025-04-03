@@ -11,20 +11,29 @@ import wx
 import addonHandler
 import api
 import config
-from eventHandler import FocusLossCancellableSpeechCommand
-from globalCommands import SCRCAT_SPEECH
 import globalPluginHandler
 import gui
-from gui import nvdaControls
-from queueHandler import eventQueue, queueFunction
 import speech
 import speechViewer
 import tones
 import versionInfo
+from queueHandler import queueFunction, eventQueue
+from eventHandler import FocusLossCancellableSpeechCommand
+from gui import nvdaControls
+from globalCommands import SCRCAT_SPEECH
 
 
 addonHandler.initTranslation()
 
+
+CONFIG_SECTION = 'speechHistory'
+
+POST_COPY_NOTHING = 'nothing'
+POST_COPY_BEEP = 'beep'
+POST_COPY_SPEAK = 'speak'
+POST_COPY_BOTH = 'speakAndBeep'
+
+DEFAULT_POST_COPY_ACTION = POST_COPY_BEEP
 
 BUILD_YEAR = getattr(versionInfo, 'version_year', 2021)
 
@@ -34,13 +43,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		super().__init__(*args, **kwargs)
 		confspec = {
 			'maxHistoryLength': 'integer(default=500)',
+			'postCopyAction': f'string(default={DEFAULT_POST_COPY_ACTION})',
 			'trimWhitespaceFromStart': 'boolean(default=false)',
 			'trimWhitespaceFromEnd': 'boolean(default=false)',
 		}
-		config.conf.spec['speechHistory'] = confspec
+		config.conf.spec[CONFIG_SECTION] = confspec
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(SpeechHistorySettingsPanel)
 
-		self._history = deque(maxlen=config.conf['speechHistory']['maxHistoryLength'])
+		self._history = deque(maxlen=config.conf[CONFIG_SECTION]['maxHistoryLength'])
 		self._recorded = []
 		self._recording = False
 		self._patch()
@@ -55,12 +65,18 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def script_copyLast(self, gesture):
 		text = self.getSequenceText(self._history[self.history_pos])
-		if config.conf['speechHistory']['trimWhitespaceFromStart']:
+		if config.conf[CONFIG_SECTION]['trimWhitespaceFromStart']:
 			text = text.lstrip()
-		if config.conf['speechHistory']['trimWhitespaceFromEnd']:
+		if config.conf[CONFIG_SECTION]['trimWhitespaceFromEnd']:
 			text = text.rstrip()
+
+		postCopyAction = config.conf[CONFIG_SECTION]['postCopyAction']
 		if api.copyToClip(text):
-			tones.beep(1500, 120)
+			if postCopyAction in (POST_COPY_BEEP, POST_COPY_BOTH):
+				tones.beep(1500, 120)
+			if postCopyAction in (POST_COPY_SPEAK, POST_COPY_BOTH):
+				# Translators: A short confirmation message spoken after copying a speech history item.
+				self.oldSpeak([_('Copied')])
 
 	# Translators: Documentation string for copy currently selected speech history item script
 	script_copyLast.__doc__ = _('Copy the currently selected speech history item to the clipboard, which by default will be the most recently spoken text by NVDA.')
@@ -154,17 +170,38 @@ class SpeechHistorySettingsPanel(gui.settingsDialogs.SettingsPanel):
 
 	def makeSettings(self, settingsSizer):
 		helper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+
 		# Translators: the label for the preference to choose the maximum number of stored history entries
 		maxHistoryLengthLabelText = _('&Maximum number of history entries (requires NVDA restart to take effect)')
-		self.maxHistoryLengthEdit = helper.addLabeledControl(maxHistoryLengthLabelText, nvdaControls.SelectOnFocusSpinCtrl, min=1, max=5000, initial=config.conf['speechHistory']['maxHistoryLength'])
+		self.maxHistoryLengthEdit = helper.addLabeledControl(maxHistoryLengthLabelText, nvdaControls.SelectOnFocusSpinCtrl, min=1, max=5000, initial=config.conf[CONFIG_SECTION]['maxHistoryLength'])
+
+		# Translators: The label for the preference of what to do after copying a speech history item to the clipboard. The options are "Do nothing", "Beep", "Speak", or "Beep and speak".
+		postCopyActionComboText = _('&After copying speech:')
+		postCopyActionChoices = [
+			# Translators: A SpeechHistory option to have NVDA do nothing (no beep or speech) after copying a history item.
+			_('Do nothing'),
+			# Translators: A SpeechHistory option to have NVDA beep after copying a history item.
+			_('Beep'),
+			# Translators: A SpeechHistory option to have NVDA speak confirmation after copying a history item.
+			_('Speak'),
+			# Translators: A SpeechHistory option to have NVDA both beep and speak as confirmation after copying a history item.
+			_('Both beep and speak'),
+		]
+		self.postCopyActionValues = (POST_COPY_NOTHING, POST_COPY_BEEP, POST_COPY_SPEAK, POST_COPY_BOTH)
+		self.postCopyActionCombo = helper.addLabeledControl(postCopyActionComboText, wx.Choice, choices=postCopyActionChoices)
+		self.postCopyActionCombo.SetSelection(self.postCopyActionValues.index(config.conf[CONFIG_SECTION]['postCopyAction']))
+		self.postCopyActionCombo.defaultValue = self.postCopyActionValues.index(DEFAULT_POST_COPY_ACTION)
+
 		# Translators: the label for the preference to trim whitespace from the start of text
 		self.trimWhitespaceFromStartCB = helper.addItem(wx.CheckBox(self, label=_('Trim whitespace from &start when copying text')))
-		self.trimWhitespaceFromStartCB.SetValue(config.conf['speechHistory']['trimWhitespaceFromStart'])
+		self.trimWhitespaceFromStartCB.SetValue(config.conf[CONFIG_SECTION]['trimWhitespaceFromStart'])
+
 		# Translators: the label for the preference to trim whitespace from the end of text
 		self.trimWhitespaceFromEndCB = helper.addItem(wx.CheckBox(self, label=_('Trim whitespace from &end when copying text')))
-		self.trimWhitespaceFromEndCB.SetValue(config.conf['speechHistory']['trimWhitespaceFromEnd'])
+		self.trimWhitespaceFromEndCB.SetValue(config.conf[CONFIG_SECTION]['trimWhitespaceFromEnd'])
 
 	def onSave(self):
-		config.conf['speechHistory']['maxHistoryLength'] = self.maxHistoryLengthEdit.GetValue()
-		config.conf['speechHistory']['trimWhitespaceFromStart'] = self.trimWhitespaceFromStartCB.GetValue()
-		config.conf['speechHistory']['trimWhitespaceFromEnd'] = self.trimWhitespaceFromEndCB.GetValue()
+		config.conf[CONFIG_SECTION]['maxHistoryLength'] = self.maxHistoryLengthEdit.GetValue()
+		config.conf[CONFIG_SECTION]['postCopyAction'] = self.postCopyActionValues[self.postCopyActionCombo.GetSelection()]
+		config.conf[CONFIG_SECTION]['trimWhitespaceFromStart'] = self.trimWhitespaceFromStartCB.GetValue()
+		config.conf[CONFIG_SECTION]['trimWhitespaceFromEnd'] = self.trimWhitespaceFromEndCB.GetValue()
