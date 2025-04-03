@@ -16,6 +16,7 @@ import gui
 import speech
 import speechViewer
 import tones
+import ui
 import versionInfo
 from queueHandler import queueFunction, eventQueue
 from eventHandler import FocusLossCancellableSpeechCommand
@@ -49,6 +50,17 @@ MIN_BEEP_DURATION = 1 # ms
 MAX_BEEP_DURATION = 500 # ms
 
 BUILD_YEAR = getattr(versionInfo, 'version_year', 2021)
+
+
+HTML_CONTAINER_START = '<ul style="list-style: none">'
+HTML_CONTAINER_END = '</ul>'
+HTML_ITEM_START = '<li>'
+HTML_ITEM_END = '</li>'
+
+
+def makeHTMLList(strings):
+	listItems = ''.join((f'{HTML_ITEM_START}{string}{HTML_ITEM_END}' for string in strings))
+	return f'{HTML_CONTAINER_START}{listItems}{HTML_CONTAINER_END}'
 
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
@@ -146,6 +158,21 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_stopRecording.__doc__ = _('Stop recording NVDA\'s speech output, and copy the recorded announcements to the clipboard.')
 	script_stopRecording.category = SCRCAT_SPEECH
 
+	def script_showHistory(self, gesture):
+		if not self._history:
+			# Translators: A message shown when users try to view their speech history but it's empty.
+			message = _('No history items.')
+		else:
+			message = makeHTMLList((self.getSequenceText(item) for item in self._history))
+
+		# Translators: The title of the speech history window.
+		title = _('Speech History')
+
+		ui.browseableMessage(message=message, title=title, isHtml=True)
+	# Translators: Documentation string for show speech history script
+	script_showHistory.__doc__ = _("Show NVDA's speech history in a browseable list")
+	script_showHistory.category = SCRCAT_SPEECH
+
 	def terminate(self, *args, **kwargs):
 		super().terminate(*args, **kwargs)
 		if BUILD_YEAR >= 2021:
@@ -171,11 +198,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		return speechViewer.SPEECH_ITEM_SEPARATOR.join([x for x in sequence if isinstance(x, str)])
 
 	__gestures = {
-		"kb:f12":"copyLast",
-		"kb:shift+f11":"prevString",
-		"kb:shift+f12":"nextString",
-		"kb:NVDA+shift+f11":"startRecording",
-		"kb:NVDA+shift+f12":"stopRecording",
+		'kb:f12': 'copyLast',
+		'kb:shift+f11': 'prevString',
+		'kb:shift+f12': 'nextString',
+		'kb:NVDA+shift+f11': 'startRecording',
+		'kb:NVDA+shift+f12': 'stopRecording',
+		'kb:NVDA+h': 'showHistory',
 	}
 
 
