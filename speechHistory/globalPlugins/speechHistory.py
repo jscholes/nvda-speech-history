@@ -1,6 +1,6 @@
 # NVDA Add-on: Speech History
 # Copyright (C) 2012 Tyler Spivey
-# Copyright (C) 2015-2021 James Scholes
+# Copyright (C) 2015-2025 James Scholes
 # This add-on is free software, licensed under the terms of the GNU General Public License (version 2).
 # See the file LICENSE for more details.
 
@@ -23,12 +23,17 @@ from eventHandler import FocusLossCancellableSpeechCommand
 from gui import nvdaControls
 from globalCommands import SCRCAT_SPEECH
 
+try:
+	import nh3
+	BROWSE_MODE_HISTORY_SUPPORTED = True
+except ImportError:
+	BROWSE_MODE_HISTORY_SUPPORTED = False
+
 
 addonHandler.initTranslation()
 
-
+BUILD_YEAR = getattr(versionInfo, 'version_year', 2021)
 CONFIG_SECTION = 'speechHistory'
-
 
 DEFAULT_HISTORY_ENTRIES = 500
 MIN_HISTORY_ENTRIES = 1
@@ -49,9 +54,6 @@ DEFAULT_BEEP_DURATION = 120 # ms
 MIN_BEEP_DURATION = 1 # ms
 MAX_BEEP_DURATION = 500 # ms
 
-BUILD_YEAR = getattr(versionInfo, 'version_year', 2021)
-
-
 HTML_CONTAINER_START = '<ul style="list-style: none">'
 HTML_CONTAINER_END = '</ul>'
 HTML_ITEM_START = '<li>'
@@ -59,7 +61,7 @@ HTML_ITEM_END = '</li>'
 
 
 def makeHTMLList(strings):
-	listItems = ''.join((f'{HTML_ITEM_START}{string}{HTML_ITEM_END}' for string in strings))
+	listItems = ''.join((f'{HTML_ITEM_START}{string}{HTML_ITEM_END}' for string in map(nh3.clean_text, strings)))
 	return f'{HTML_CONTAINER_START}{listItems}{HTML_CONTAINER_END}'
 
 
@@ -159,7 +161,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_stopRecording.category = SCRCAT_SPEECH
 
 	def script_showHistory(self, gesture):
-		if not self._history:
+		if not BROWSE_MODE_HISTORY_SUPPORTED:
+			# Translators: A message shown when users try to view their speech history while running a version of NVDA where this function is not supported.
+			message = _('Viewing speech history is not supported in this version of NVDA for security reasons.')
+		elif not self._history:
 			# Translators: A message shown when users try to view their speech history but it's empty.
 			message = _('No history items.')
 		else:
@@ -168,7 +173,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Translators: The title of the speech history window.
 		title = _('Speech History')
 
-		ui.browseableMessage(message=message, title=title, isHtml=True)
+		try:
+			ui.browseableMessage(message=message, title=title, isHtml=True, closeButton=True, sanitizeHtmlFunc=lambda string: string)
+		except TypeError:
+			ui.browseableMessage(message=message, title=title, isHtml=True)
 	# Translators: Documentation string for show speech history script
 	script_showHistory.__doc__ = _("Show NVDA's speech history in a browseable list")
 	script_showHistory.category = SCRCAT_SPEECH
