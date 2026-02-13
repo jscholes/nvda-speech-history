@@ -181,6 +181,38 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_showHistory.__doc__ = _("Show NVDA's speech history in a browseable list")
 	script_showHistory.category = SCRCAT_SPEECH
 
+	def script_appendLast(self, gesture):
+		text = self.getSequenceText(self._history[self.history_pos])
+		if config.conf[CONFIG_SECTION]['trimWhitespaceFromStart']:
+			text = text.lstrip()
+		if config.conf[CONFIG_SECTION]['trimWhitespaceFromEnd']:
+			text = text.rstrip()
+
+		try:
+			currentClip = api.getClipData()
+		except:
+			currentClip = ""
+		
+		if not isinstance(currentClip, str):
+			currentClip = ""
+		if currentClip:
+			newContent = f"{currentClip}\n{text}"
+		else:
+			newContent = text
+
+		postCopyAction = config.conf[CONFIG_SECTION]['postCopyAction']
+		if api.copyToClip(newContent):
+			if postCopyAction in (POST_COPY_BEEP, POST_COPY_BOTH):
+				tones.beep(config.conf[CONFIG_SECTION]['beepFrequency'] + 200, config.conf[CONFIG_SECTION]['beepDuration'])
+			if postCopyAction in (POST_COPY_SPEAK, POST_COPY_BOTH):
+				# Translators: Message spoken when text is appended to clipboard
+				self.oldSpeak([_('Appended')])
+
+	# Translators: Documentation string for append speech history item script
+	script_appendLast.__doc__ = _('Append the currently selected speech history item to the clipboard content.')
+	script_appendLast.category = SCRCAT_SPEECH
+
+
 	def terminate(self, *args, **kwargs):
 		super().terminate(*args, **kwargs)
 		if BUILD_YEAR >= 2021:
@@ -212,6 +244,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		'kb:NVDA+shift+f11': 'startRecording',
 		'kb:NVDA+shift+f12': 'stopRecording',
 		'kb:NVDA+h': 'showHistory',
+		'kb:alt+f12': 'appendLast',
 	}
 
 
