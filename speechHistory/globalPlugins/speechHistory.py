@@ -57,6 +57,9 @@ DEFAULT_BEEP_DURATION = 120 # ms
 MIN_BEEP_DURATION = 1 # ms
 MAX_BEEP_DURATION = 500 # ms
 
+BOUNDARY_BEEP_FREQUENCY = 200 # Hz
+BOUNDARY_BEEP_DURATION = 100 # ms
+
 HTML_CONTAINER_START = '<ul style="list-style: none">'
 HTML_CONTAINER_END = '</ul>'
 HTML_ITEM_START = '<li>'
@@ -76,6 +79,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			'postCopyAction': f'string(default={DEFAULT_POST_COPY_ACTION})',
 			'beepFrequency': f'integer(default={DEFAULT_BEEP_FREQUENCY}, min={MIN_BEEP_FREQUENCY}, max={MAX_BEEP_FREQUENCY})',
 			'beepDuration': f'integer(default={DEFAULT_BEEP_DURATION}, min={MIN_BEEP_DURATION}, max={MAX_BEEP_DURATION})',
+			'beepBoundaryPanning': 'boolean(default=false)',
 			'trimWhitespaceFromStart': 'boolean(default=false)',
 			'trimWhitespaceFromEnd': 'boolean(default=false)',
 		}
@@ -110,6 +114,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Translators: A short confirmation message spoken after copying a speech history item.
 			self._speakMessage(_('Copied'))
 
+	def _beepHistoryBoundary(self, atBeginning):
+		if config.conf[CONFIG_SECTION]['beepBoundaryPanning']:
+			if atBeginning:
+				tones.beep(BOUNDARY_BEEP_FREQUENCY, BOUNDARY_BEEP_DURATION, 100, 0)
+			else:
+				tones.beep(BOUNDARY_BEEP_FREQUENCY, BOUNDARY_BEEP_DURATION, 0, 100)
+			return
+		tones.beep(BOUNDARY_BEEP_FREQUENCY, BOUNDARY_BEEP_DURATION)
+
 	def script_copyLast(self, gesture):
 		if not self._history:
 			# Translators: A message shown when users try to copy a history item but history is empty.
@@ -135,7 +148,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			return
 		self.history_pos += 1
 		if self.history_pos > len(self._history) - 1:
-			tones.beep(200, 100)
+			self._beepHistoryBoundary(atBeginning=False)
 			self.history_pos -= 1
 		self.oldSpeak(self._history[self.history_pos])
 	# Translators: Documentation string for previous speech history item script
@@ -149,7 +162,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			return
 		self.history_pos -= 1
 		if self.history_pos < 0:
-			tones.beep(200, 100)
+			self._beepHistoryBoundary(atBeginning=True)
 			self.history_pos += 1
 
 		self.oldSpeak(self._history[self.history_pos])
@@ -312,6 +325,10 @@ class SpeechHistorySettingsPanel(SettingsPanel):
 		self.trimWhitespaceFromEndCB = helper.addItem(wx.CheckBox(self, label=_('Trim whitespace from &end when copying text')))
 		self.trimWhitespaceFromEndCB.SetValue(config.conf[CONFIG_SECTION]['trimWhitespaceFromEnd'])
 
+		# Translators: The label for enabling left/right panning of boundary beeps while navigating history.
+		self.beepBoundaryPanningCB = helper.addItem(wx.CheckBox(self, label=_('Pan history boundary beeps to left/right channels')))
+		self.beepBoundaryPanningCB.SetValue(config.conf[CONFIG_SECTION]['beepBoundaryPanning'])
+
 	def refreshUI(self):
 		postCopyAction = self.postCopyActionValues[self.postCopyActionCombo.GetSelection()]
 		enableBeepSettings = postCopyAction in (POST_COPY_BEEP, POST_COPY_BOTH)
@@ -327,6 +344,7 @@ class SpeechHistorySettingsPanel(SettingsPanel):
 		config.conf[CONFIG_SECTION]['postCopyAction'] = self.postCopyActionValues[self.postCopyActionCombo.GetSelection()]
 		config.conf[CONFIG_SECTION]['beepFrequency'] = self.beepFrequencyEdit.GetValue()
 		config.conf[CONFIG_SECTION]['beepDuration'] = self.beepDurationEdit.GetValue()
+		config.conf[CONFIG_SECTION]['beepBoundaryPanning'] = self.beepBoundaryPanningCB.GetValue()
 		config.conf[CONFIG_SECTION]['trimWhitespaceFromStart'] = self.trimWhitespaceFromStartCB.GetValue()
 		config.conf[CONFIG_SECTION]['trimWhitespaceFromEnd'] = self.trimWhitespaceFromEndCB.GetValue()
 
