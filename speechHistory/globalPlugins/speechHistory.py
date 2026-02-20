@@ -5,6 +5,7 @@
 # See the file LICENSE for more details.
 
 from collections import deque
+import weakref
 
 import wx
 
@@ -20,7 +21,9 @@ import ui
 import versionInfo
 from queueHandler import queueFunction, eventQueue
 from eventHandler import FocusLossCancellableSpeechCommand
-from gui import nvdaControls
+from gui import guiHelper, nvdaControls
+from gui.dpiScalingHelper import DpiScalingHelperMixinWithoutInit
+from gui.settingsDialogs import NVDASettingsDialog, SettingsPanel
 from globalCommands import SCRCAT_SPEECH
 
 try:
@@ -77,11 +80,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			'trimWhitespaceFromEnd': 'boolean(default=false)',
 		}
 		config.conf.spec[CONFIG_SECTION] = confspec
-		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(SpeechHistorySettingsPanel)
+		NVDASettingsDialog.categoryClasses.append(SpeechHistorySettingsPanel)
 
 		self._history = deque(maxlen=config.conf[CONFIG_SECTION]['maxHistoryLength'])
 		self._recorded = []
 		self._recording = False
+		self.history_pos = 0
 		self._patch()
 
 	def _patch(self):
@@ -92,26 +96,43 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.oldSpeak = speech.speak
 			speech.speak = self.mySpeak
 
+	def _speakMessage(self, message):
+		self.oldSpeak([message])
+
+	def _performPostCopyFeedback(self):
+		postCopyAction = config.conf[CONFIG_SECTION]['postCopyAction']
+		if postCopyAction in (POST_COPY_BEEP, POST_COPY_BOTH):
+			tones.beep(
+				config.conf[CONFIG_SECTION]['beepFrequency'],
+				config.conf[CONFIG_SECTION]['beepDuration'],
+			)
+		if postCopyAction in (POST_COPY_SPEAK, POST_COPY_BOTH):
+			# Translators: A short confirmation message spoken after copying a speech history item.
+			self._speakMessage(_('Copied'))
+
 	def script_copyLast(self, gesture):
+		if not self._history:
+			# Translators: A message shown when users try to copy a history item but history is empty.
+			self._speakMessage(_('No history items.'))
+			return
 		text = self.getSequenceText(self._history[self.history_pos])
 		if config.conf[CONFIG_SECTION]['trimWhitespaceFromStart']:
 			text = text.lstrip()
 		if config.conf[CONFIG_SECTION]['trimWhitespaceFromEnd']:
 			text = text.rstrip()
 
-		postCopyAction = config.conf[CONFIG_SECTION]['postCopyAction']
 		if api.copyToClip(text):
-			if postCopyAction in (POST_COPY_BEEP, POST_COPY_BOTH):
-				tones.beep(config.conf[CONFIG_SECTION]['beepFrequency'], config.conf[CONFIG_SECTION]['beepDuration'])
-			if postCopyAction in (POST_COPY_SPEAK, POST_COPY_BOTH):
-				# Translators: A short confirmation message spoken after copying a speech history item.
-				self.oldSpeak([_('Copied')])
+			self._performPostCopyFeedback()
 
 	# Translators: Documentation string for copy currently selected speech history item script
 	script_copyLast.__doc__ = _('Copy the currently selected speech history item to the clipboard, which by default will be the most recently spoken text by NVDA.')
 	script_copyLast.category = SCRCAT_SPEECH
 
 	def script_prevString(self, gesture):
+		if not self._history:
+			# Translators: A message shown when users try to review history but it is empty.
+			self._speakMessage(_('No history items.'))
+			return
 		self.history_pos += 1
 		if self.history_pos > len(self._history) - 1:
 			tones.beep(200, 100)
@@ -122,6 +143,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_prevString.category = SCRCAT_SPEECH
 
 	def script_nextString(self, gesture):
+		if not self._history:
+			# Translators: A message shown when users try to review history but it is empty.
+			self._speakMessage(_('No history items.'))
+			return
 		self.history_pos -= 1
 		if self.history_pos < 0:
 			tones.beep(200, 100)
@@ -135,11 +160,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_startRecording(self, gesture):
 		if self._recording:
 			# Translators: Message spoken when speech recording is already active
-			self.oldSpeak([_('Already recording speech')])
+			self._speakMessage(_('Already recording speech'))
 			return
 
 		# Translators: Message spoken when speech recording is started
-		self.oldSpeak([_('Started recording speech')])
+		self._speakMessage(_('Started recording speech'))
 		self._recording = True
 	# Translators: Documentation string for start recording script
 	script_startRecording.__doc__ = _('Start recording NVDA\'s speech output, for copying multiple announcements to the clipboard.')
@@ -148,14 +173,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_stopRecording(self, gesture):
 		if not self._recording:
 			# Translators: Message spoken when speech recording is not already active
-			self.oldSpeak([_('Not currently recording speech')])
+			self._speakMessage(_('Not currently recording speech'))
 			return
 
 		self._recording = False
-		# Translators: Message spoken when speech recording is stopped
-		self.oldSpeak([_('Recorded speech copied to clipboard')])
-		api.copyToClip('\n'.join(self._recorded))
+		recordedText = '\n'.join(self._recorded)
 		self._recorded.clear()
+		if recordedText:
+			api.copyToClip(recordedText)
+			# Translators: Message spoken when speech recording is stopped.
+			self._speakMessage(_('Recorded speech copied to clipboard'))
+		else:
+			# Translators: Message spoken when recording is stopped but no announcements were captured.
+			self._speakMessage(_('No recorded speech to copy'))
 	# Translators: Documentation string for stop recording script
 	script_stopRecording.__doc__ = _('Stop recording NVDA\'s speech output, and copy the recorded announcements to the clipboard.')
 	script_stopRecording.category = SCRCAT_SPEECH
@@ -181,13 +211,23 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	script_showHistory.__doc__ = _("Show NVDA's speech history in a browseable list")
 	script_showHistory.category = SCRCAT_SPEECH
 
+	def script_showHistoryDialog(self, gesture):
+		gui.mainFrame.prePopup()
+		dialog = HistoryDialog(gui.mainFrame, self)
+		dialog.Show()
+		dialog.Raise()
+		gui.mainFrame.postPopup()
+	# Translators: Documentation string for show speech history dialog script.
+	script_showHistoryDialog.__doc__ = _('Open a dialog showing recent items spoken by NVDA.')
+	script_showHistoryDialog.category = SCRCAT_SPEECH
+
 	def terminate(self, *args, **kwargs):
 		super().terminate(*args, **kwargs)
 		if BUILD_YEAR >= 2021:
 			speech.speech.speak = self.oldSpeak
 		else:
 			speech.speak = self.oldSpeak
-		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(SpeechHistorySettingsPanel)
+		NVDASettingsDialog.categoryClasses.remove(SpeechHistorySettingsPanel)
 
 	def append_to_history(self, seq):
 		seq = [command for command in seq if not isinstance(command, FocusLossCancellableSpeechCommand)]
@@ -205,6 +245,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def getSequenceText(self, sequence):
 		return speechViewer.SPEECH_ITEM_SEPARATOR.join([x for x in sequence if isinstance(x, str)])
 
+	def clearHistory(self):
+		self._history.clear()
+		self.history_pos = 0
+		self._recorded.clear()
+
 	__gestures = {
 		'kb:f12': 'copyLast',
 		'kb:shift+f11': 'prevString',
@@ -212,15 +257,16 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		'kb:NVDA+shift+f11': 'startRecording',
 		'kb:NVDA+shift+f12': 'stopRecording',
 		'kb:NVDA+h': 'showHistory',
+		'kb:NVDA+alt+f12': 'showHistoryDialog',
 	}
 
 
-class SpeechHistorySettingsPanel(gui.settingsDialogs.SettingsPanel):
+class SpeechHistorySettingsPanel(SettingsPanel):
 	# Translators: the label/title for the Speech History settings panel.
 	title = _('Speech History')
 
 	def makeSettings(self, settingsSizer):
-		helper = gui.guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
+		helper = guiHelper.BoxSizerHelper(self, sizer=settingsSizer)
 
 		# Translators: the label for the preference to choose the maximum number of stored history entries
 		maxHistoryLengthLabelText = _('&Maximum number of history entries (requires NVDA restart to take effect)')
@@ -283,3 +329,201 @@ class SpeechHistorySettingsPanel(gui.settingsDialogs.SettingsPanel):
 		config.conf[CONFIG_SECTION]['beepDuration'] = self.beepDurationEdit.GetValue()
 		config.conf[CONFIG_SECTION]['trimWhitespaceFromStart'] = self.trimWhitespaceFromStartCB.GetValue()
 		config.conf[CONFIG_SECTION]['trimWhitespaceFromEnd'] = self.trimWhitespaceFromEndCB.GetValue()
+
+
+class HistoryDialog(
+		DpiScalingHelperMixinWithoutInit,
+		wx.Dialog  # wxPython does not reliably call base class initializer, put last in MRO
+):
+	@classmethod
+	def _instance(cls):
+		"""type: () -> HistoryDialog
+		Return None until replaced with a weakref.ref object.
+		"""
+		return None
+
+	helpId = "speechHistoryElementsList"
+
+	def __new__(cls, *args, **kwargs):
+		instance = HistoryDialog._instance()
+		if instance is None:
+			return super(HistoryDialog, cls).__new__(cls, *args, **kwargs)
+		return instance
+
+	def __init__(self, parent, addon):
+		if HistoryDialog._instance() is not None:
+			self.updateHistory()
+			self.Raise()
+			return
+
+		HistoryDialog._instance = weakref.ref(self)
+		# Translators: The title of the history elements dialog.
+		title = _("Speech history items")
+		super().__init__(
+			parent,
+			title=title,
+			style=wx.DEFAULT_DIALOG_STYLE | wx.RESIZE_BORDER | wx.MAXIMIZE_BOX,
+		)
+
+		self.addon = addon
+		self.history = []
+		self.searchHistory = []
+		self.searches = {"": 0}
+		self.curSearch = ""
+		self.selection = set()
+
+		szMain = guiHelper.BoxSizerHelper(self, sizer=wx.BoxSizer(wx.VERTICAL))
+		szCurrent = guiHelper.BoxSizerHelper(self, sizer=wx.BoxSizer(wx.HORIZONTAL))
+		szBottom = guiHelper.BoxSizerHelper(self, sizer=wx.BoxSizer(wx.HORIZONTAL))
+
+		# Translators: The label for the search text field in the Speech History dialog.
+		self.searchTextField = szMain.addLabeledControl(
+			_("&Search"),
+			wx.TextCtrl,
+			style=wx.TE_PROCESS_ENTER,
+		)
+		self.searchTextField.Bind(wx.EVT_TEXT_ENTER, self.onSearch)
+		self.searchTextField.Bind(wx.EVT_KILL_FOCUS, self.onSearch)
+
+		# Translators: The label for the history entries list in the Speech History dialog.
+		entriesLabel = _("History list")
+		self.historyList = nvdaControls.AutoWidthColumnListCtrl(
+			parent=self,
+			autoSizeColumn=1,
+			style=wx.LC_REPORT | wx.LC_NO_HEADER,
+		)
+		szMain.addItem(self.historyList, flag=wx.EXPAND, proportion=4)
+		# This list has one hidden header column used as a placeholder.
+		self.historyList.InsertColumn(0, entriesLabel)
+		self.historyList.Bind(wx.EVT_LIST_ITEM_SELECTED, self.onSelect)
+		self.historyList.Bind(wx.EVT_LIST_ITEM_DESELECTED, self.onDeselect)
+
+		# Multiline field containing full text from selected items.
+		self.currentTextElement = szCurrent.addItem(
+			wx.TextCtrl(self, style=wx.TE_MULTILINE | wx.TE_READONLY),
+			flag=wx.EXPAND,
+			proportion=1,
+		)
+
+		# Translators: Label for the copy button in the Speech History dialog.
+		self.copyButton = szCurrent.addItem(wx.Button(self, label=_("&Copy item")), proportion=0)
+		self.copyButton.Bind(wx.EVT_BUTTON, self.onCopy)
+		szMain.addItem(
+			szCurrent.sizer,
+			border=guiHelper.BORDER_FOR_DIALOGS,
+			flag=wx.EXPAND,
+			proportion=1,
+		)
+
+		szMain.addItem(
+			wx.StaticLine(self),
+			border=guiHelper.BORDER_FOR_DIALOGS,
+			flag=wx.ALL | wx.EXPAND,
+		)
+
+		# Translators: Label for the copy all button in the Speech History dialog.
+		self.copyAllButton = szBottom.addItem(wx.Button(self, label=_("Copy &all")))
+		self.copyAllButton.Bind(wx.EVT_BUTTON, self.onCopyAll)
+
+		# Translators: Label for the clear history button in the Speech History dialog.
+		self.clearHistoryButton = szBottom.addItem(wx.Button(self, label=_("C&lear history")))
+		self.clearHistoryButton.Bind(wx.EVT_BUTTON, self.onClear)
+
+		# Translators: Label for the refresh button in the Speech History dialog.
+		self.refreshButton = szBottom.addItem(wx.Button(self, label=_("&Refresh history")))
+		self.refreshButton.Bind(wx.EVT_BUTTON, self.onRefresh)
+
+		# Translators: The label of a button to close the Speech History dialog.
+		closeButton = wx.Button(self, label=_("C&lose"), id=wx.ID_CLOSE)
+		closeButton.Bind(wx.EVT_BUTTON, lambda evt: self.Close())
+		szBottom.addItem(closeButton)
+		self.Bind(wx.EVT_CLOSE, self.onClose)
+		self.EscapeId = wx.ID_CLOSE
+
+		szMain.addItem(
+			szBottom.sizer,
+			border=guiHelper.BORDER_FOR_DIALOGS,
+			flag=wx.ALL | wx.EXPAND,
+			proportion=1,
+		)
+		szMain = szMain.sizer
+		szMain.Fit(self)
+		self.SetSizer(szMain)
+		self.updateHistory()
+
+		self.SetMinSize(szMain.GetMinSize())
+		self.SetSize(self.scaleSize((763, 509)))
+		self.CentreOnScreen()
+		self.historyList.SetFocus()
+
+	def updateHistory(self):
+		self.selection = set()
+		self.history = [self.addon.getSequenceText(item) for item in self.addon._history]
+		self.doSearch(self.curSearch)
+
+	def doSearch(self, text=""):
+		self.selection = set()
+		if not text:
+			self.searchHistory = list(self.history)
+		else:
+			self.searchHistory = [item for item in self.history if text in item.lower()]
+		self.historyList.DeleteAllItems()
+		self.currentTextElement.SetValue("")
+		for item in self.searchHistory:
+			self.historyList.Append((item[0:100],))
+		if self.searchHistory:
+			index = self.searches.get(text, 0)
+			if index >= len(self.searchHistory):
+				index = len(self.searchHistory) - 1
+			index = max(index, 0)
+			self.historyList.Select(index, on=1)
+			self.historyList.SetItemState(index, wx.LIST_STATE_FOCUSED, wx.LIST_STATE_FOCUSED)
+
+	def updateSelection(self):
+		self.currentTextElement.SetValue(self.itemsToString(sorted(self.selection)))
+
+	def itemsToString(self, items):
+		return "\n".join([self.searchHistory[index] for index in items if index < len(self.searchHistory)])
+
+	def onSearch(self, evt):
+		text = self.searchTextField.GetValue().lower()
+		if text == self.curSearch:
+			return
+		index = self.historyList.GetFocusedItem()
+		if index < 0:
+			index = 0
+		self.searches[self.curSearch] = index
+		self.curSearch = text
+		self.doSearch(text)
+
+	def onClose(self, evt):
+		self.DestroyChildren()
+		self.Destroy()
+
+	def onCopy(self, evt):
+		text = self.currentTextElement.GetValue()
+		if text and api.copyToClip(text):
+			self.addon._performPostCopyFeedback()
+
+	def onCopyAll(self, evt):
+		text = self.itemsToString(range(0, len(self.searchHistory)))
+		if text and api.copyToClip(text):
+			self.addon._performPostCopyFeedback()
+
+	def onClear(self, evt):
+		self.addon.clearHistory()
+		self.searches = {"": 0}
+		self.Close()
+
+	def onRefresh(self, evt):
+		self.updateHistory()
+
+	def onSelect(self, evt):
+		index = evt.GetIndex()
+		self.selection.add(index)
+		self.updateSelection()
+
+	def onDeselect(self, evt):
+		index = evt.GetIndex()
+		self.selection.discard(index)
+		self.updateSelection()
