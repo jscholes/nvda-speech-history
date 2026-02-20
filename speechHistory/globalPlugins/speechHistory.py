@@ -23,6 +23,7 @@ from queueHandler import queueFunction, eventQueue
 from eventHandler import FocusLossCancellableSpeechCommand
 from gui import guiHelper, nvdaControls
 from gui.dpiScalingHelper import DpiScalingHelperMixinWithoutInit
+from gui.settingsDialogs import NVDASettingsDialog, SettingsPanel
 from globalCommands import SCRCAT_SPEECH
 
 try:
@@ -83,7 +84,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			'trimWhitespaceFromEnd': 'boolean(default=false)',
 		}
 		config.conf.spec[CONFIG_SECTION] = confspec
-		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(SpeechHistorySettingsPanel)
+		NVDASettingsDialog.categoryClasses.append(SpeechHistorySettingsPanel)
 
 		self._history = deque(maxlen=config.conf[CONFIG_SECTION]['maxHistoryLength'])
 		self._recorded = []
@@ -239,7 +240,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			speech.speech.speak = self.oldSpeak
 		else:
 			speech.speak = self.oldSpeak
-		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(SpeechHistorySettingsPanel)
+		NVDASettingsDialog.categoryClasses.remove(SpeechHistorySettingsPanel)
 
 	def append_to_history(self, seq):
 		seq = [command for command in seq if not isinstance(command, FocusLossCancellableSpeechCommand)]
@@ -273,7 +274,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	}
 
 
-class SpeechHistorySettingsPanel(gui.settingsDialogs.SettingsPanel):
+class SpeechHistorySettingsPanel(SettingsPanel):
 	# Translators: the label/title for the Speech History settings panel.
 	title = _('Speech History')
 
