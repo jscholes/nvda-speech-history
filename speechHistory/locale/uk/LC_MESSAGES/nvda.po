@@ -1,0 +1,140 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-07 12:56+0300\n"
+"PO-Revision-Date: 2025-07-07 14:11+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: uk_UA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.6\n"
+
+#: speechHistory/globalPlugins/speechHistory.py:108
+msgid "Copied"
+msgstr "Скопійовано"
+
+#: speechHistory/globalPlugins/speechHistory.py:111
+msgid ""
+"Copy the currently selected speech history item to the clipboard, which by "
+"default will be the most recently spoken text by NVDA."
+msgstr ""
+"Скопіювати вибраний елемент історії мовлення в буфер обміну, який за "
+"замовчуванням буде останнім текстом, прочитаним NVDA."
+
+#: speechHistory/globalPlugins/speechHistory.py:121
+msgid "Review the previous item in NVDA's speech history."
+msgstr "Переглянути попередній елемент в історії мовлення NVDA."
+
+#: speechHistory/globalPlugins/speechHistory.py:132
+msgid "Review the next item in NVDA's speech history."
+msgstr "Переглянути наступний елемент в історії мовлення NVDA."
+
+#: speechHistory/globalPlugins/speechHistory.py:138
+msgid "Already recording speech"
+msgstr "Мовлення записується"
+
+#: speechHistory/globalPlugins/speechHistory.py:142
+msgid "Started recording speech"
+msgstr "Запис мовлення розпочато"
+
+#: speechHistory/globalPlugins/speechHistory.py:145
+msgid ""
+"Start recording NVDA's speech output, for copying multiple announcements to "
+"the clipboard."
+msgstr ""
+"Почати записувати голосовий вивід NVDA, щоб скопіювати кілька оголошень до "
+"буфера обміну."
+
+#: speechHistory/globalPlugins/speechHistory.py:151
+msgid "Not currently recording speech"
+msgstr "Наразі мовлення не записується"
+
+#: speechHistory/globalPlugins/speechHistory.py:156
+msgid "Recorded speech copied to clipboard"
+msgstr "Записане мовлення скопійовано в буфер обміну"
+
+#: speechHistory/globalPlugins/speechHistory.py:160
+msgid ""
+"Stop recording NVDA's speech output, and copy the recorded announcements to "
+"the clipboard."
+msgstr ""
+"Зупинити запис мовлення NVDA та скопіюйте записані оголошення до буфера "
+"обміну."
+
+#: speechHistory/globalPlugins/speechHistory.py:166
+msgid ""
+"Viewing speech history is not supported in this version of NVDA for security "
+"reasons."
+msgstr ""
+"Перегляд історії мовлення не підтримується в цій версії NVDA з міркувань "
+"безпеки."
+
+#: speechHistory/globalPlugins/speechHistory.py:169
+msgid "No history items."
+msgstr "Немає елементів історії"
+
+#: speechHistory/globalPlugins/speechHistory.py:174
+#: speechHistory/globalPlugins/speechHistory.py:220
+msgid "Speech History"
+msgstr "Історія мовлення"
+
+#: speechHistory/globalPlugins/speechHistory.py:181
+msgid "Show NVDA's speech history in a browseable list"
+msgstr ""
+"Показати історію мовлення NVDA у вигляді списку, який можна переглядати"
+
+#: speechHistory/globalPlugins/speechHistory.py:226
+msgid ""
+"&Maximum number of history entries (requires NVDA restart to take effect)"
+msgstr ""
+"&Максимальна кількість записів в історії (потрібен перезапуск для "
+"застосування)"
+
+#: speechHistory/globalPlugins/speechHistory.py:230
+msgid "&After copying speech:"
+msgstr "&Після копіювання мовлення:"
+
+#: speechHistory/globalPlugins/speechHistory.py:233
+msgid "Do nothing"
+msgstr "Нічого не робити"
+
+#: speechHistory/globalPlugins/speechHistory.py:235
+msgid "Beep"
+msgstr "Звуковий сигнал"
+
+#: speechHistory/globalPlugins/speechHistory.py:237
+msgid "Speak"
+msgstr "Мовлення"
+
+#: speechHistory/globalPlugins/speechHistory.py:239
+msgid "Both beep and speak"
+msgstr "Звуковий сигнал та мовлення"
+
+#: speechHistory/globalPlugins/speechHistory.py:248
+msgid "Beep &frequency (Hz)"
+msgstr "&Частота звукового сигналу (Гц)"
+
+#: speechHistory/globalPlugins/speechHistory.py:252
+msgid "Beep &duration (ms)"
+msgstr "Тривалість звукового сигналу (мс)"
+
+#: speechHistory/globalPlugins/speechHistory.py:256
+msgid "&Play example beep"
+msgstr "&Відтворити приклад звукового сигналу"
+
+#: speechHistory/globalPlugins/speechHistory.py:262
+msgid "Trim whitespace from &start when copying text"
+msgstr "Видалити пробіли на початку під час копіювання тексту"
+
+#: speechHistory/globalPlugins/speechHistory.py:266
+msgid "Trim whitespace from &end when copying text"
+msgstr "Видалити пробіли у кінці під час копіювання тексту"
