@@ -1,0 +1,135 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Speach History\n"
+"POT-Creation-Date: 2026-02-21 02:51+0300\n"
+"PO-Revision-Date: 2026-02-21 03:03+0300\n"
+"Last-Translator: \n"
+"Language-Team: Danil Kostenkov\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.8\n"
+"X-Poedit-Basepath: ../../../globalPlugins\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: speechHistory.py:108
+msgid "Copied"
+msgstr "Сообщение NVDA скопировано"
+
+#: speechHistory.py:111
+msgid ""
+"Copy the currently selected speech history item to the clipboard, which by "
+"default will be the most recently spoken text by NVDA."
+msgstr ""
+"Копирование выбранного элемента истории речи в буфер обмена, по умолчанию "
+"это последняя произнесённая фраза NVDA."
+
+#: speechHistory.py:121
+msgid "Review the previous item in NVDA's speech history."
+msgstr "Просмотр предыдущего сообщение в истории речи NVDA."
+
+#: speechHistory.py:132
+msgid "Review the next item in NVDA's speech history."
+msgstr "Просмотр следующего сообщение в истории речи NVDA."
+
+#: speechHistory.py:138
+msgid "Already recording speech"
+msgstr "Запись речи уже идёт"
+
+#: speechHistory.py:142
+msgid "Started recording speech"
+msgstr "Запись речи начата"
+
+#: speechHistory.py:145
+msgid ""
+"Start recording NVDA's speech output, for copying multiple announcements to "
+"the clipboard."
+msgstr ""
+"Начинает записывать речевой вывод NVDA для копирования нескольких объявлений "
+"в буфер обмена."
+
+#: speechHistory.py:151
+msgid "Not currently recording speech"
+msgstr "В данный момент речь не записывается"
+
+#: speechHistory.py:156
+msgid "Recorded speech copied to clipboard"
+msgstr "Записанная речь скопирована в буфер обмена"
+
+#: speechHistory.py:160
+msgid ""
+"Stop recording NVDA's speech output, and copy the recorded announcements to "
+"the clipboard."
+msgstr ""
+"Останавливает запись речевого вывода NVDA и копирует записанные объявления в "
+"буфер обмена."
+
+#: speechHistory.py:166
+msgid ""
+"Viewing speech history is not supported in this version of NVDA for security "
+"reasons."
+msgstr ""
+"По соображениям безопасности просмотр истории речевых сообщений в этой "
+"версии NVDA не поддерживается."
+
+#: speechHistory.py:169
+msgid "No history items."
+msgstr "Нет сообщений в истории речи."
+
+#: speechHistory.py:174 speechHistory.py:220
+msgid "Speech History"
+msgstr "История речи"
+
+#: speechHistory.py:181
+msgid "Show NVDA's speech history in a browseable list"
+msgstr "Показать историю речи NVDA в виде списка"
+
+#: speechHistory.py:226
+msgid ""
+"&Maximum number of history entries (requires NVDA restart to take effect)"
+msgstr ""
+"&Максимальное количество записей истории (для вступления в силу требуется "
+"перезапуск NVDA)"
+
+#: speechHistory.py:230
+msgid "&After copying speech:"
+msgstr "&Действие после копирования речи:"
+
+#: speechHistory.py:233
+msgid "Do nothing"
+msgstr "Действие не требуется"
+
+#: speechHistory.py:235
+msgid "Beep"
+msgstr "Воспроизводить звуковой сигнал"
+
+#: speechHistory.py:237
+msgid "Speak"
+msgstr "Проговаривать"
+
+#: speechHistory.py:239
+msgid "Both beep and speak"
+msgstr "Проговаривать и воспроизводить звуковой сигнал"
+
+#: speechHistory.py:248
+msgid "Beep &frequency (Hz)"
+msgstr "&Частота звукового сигнала (в герцах)"
+
+#: speechHistory.py:252
+msgid "Beep &duration (ms)"
+msgstr "&Длительность звукового сигнала (в милисекундах)"
+
+#: speechHistory.py:256
+msgid "&Play example beep"
+msgstr "&Воспроизвести образец звукового сигнала"
+
+#: speechHistory.py:262
+msgid "Trim whitespace from &start when copying text"
+msgstr "&Обрезать пробелы с начала при копировании текста"
+
+#: speechHistory.py:266
+msgid "Trim whitespace from &end when copying text"
+msgstr "&Обрезать пробелы с конца при копировании текста"
