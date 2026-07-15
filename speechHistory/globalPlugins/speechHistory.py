@@ -10,6 +10,7 @@ import wx
 
 import addonHandler
 import api
+import braille
 import config
 import globalPluginHandler
 import gui
@@ -92,6 +93,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.oldSpeak = speech.speak
 			speech.speak = self.mySpeak
 
+	def speakAndBraille(self, sequence):
+		self.oldSpeak(sequence)
+		braille.handler.message(self.getSequenceText(sequence))
+
 	def script_copyLast(self, gesture):
 		text = self.getSequenceText(self._history[self.history_pos])
 		if config.conf[CONFIG_SECTION]['trimWhitespaceFromStart']:
@@ -105,7 +110,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				tones.beep(config.conf[CONFIG_SECTION]['beepFrequency'], config.conf[CONFIG_SECTION]['beepDuration'])
 			if postCopyAction in (POST_COPY_SPEAK, POST_COPY_BOTH):
 				# Translators: A short confirmation message spoken after copying a speech history item.
-				self.oldSpeak([_('Copied')])
+				self.speakAndBraille([_('Copied')])
 
 	# Translators: Documentation string for copy currently selected speech history item script
 	script_copyLast.__doc__ = _('Copy the currently selected speech history item to the clipboard, which by default will be the most recently spoken text by NVDA.')
@@ -116,7 +121,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if self.history_pos > len(self._history) - 1:
 			tones.beep(200, 100)
 			self.history_pos -= 1
-		self.oldSpeak(self._history[self.history_pos])
+		self.speakAndBraille(self._history[self.history_pos])
 	# Translators: Documentation string for previous speech history item script
 	script_prevString.__doc__ = _('Review the previous item in NVDA\'s speech history.')
 	script_prevString.category = SCRCAT_SPEECH
@@ -127,7 +132,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			tones.beep(200, 100)
 			self.history_pos += 1
 
-		self.oldSpeak(self._history[self.history_pos])
+		self.speakAndBraille(self._history[self.history_pos])
 	# Translators: Documentation string for next speech history item script
 	script_nextString.__doc__ = _('Review the next item in NVDA\'s speech history.')
 	script_nextString.category = SCRCAT_SPEECH
@@ -135,11 +140,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_startRecording(self, gesture):
 		if self._recording:
 			# Translators: Message spoken when speech recording is already active
-			self.oldSpeak([_('Already recording speech')])
+			self.speakAndBraille([_('Already recording speech')])
 			return
 
 		# Translators: Message spoken when speech recording is started
-		self.oldSpeak([_('Started recording speech')])
+		self.speakAndBraille([_('Started recording speech')])
 		self._recording = True
 	# Translators: Documentation string for start recording script
 	script_startRecording.__doc__ = _('Start recording NVDA\'s speech output, for copying multiple announcements to the clipboard.')
@@ -148,12 +153,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_stopRecording(self, gesture):
 		if not self._recording:
 			# Translators: Message spoken when speech recording is not already active
-			self.oldSpeak([_('Not currently recording speech')])
+			self.speakAndBraille([_('Not currently recording speech')])
 			return
 
 		self._recording = False
 		# Translators: Message spoken when speech recording is stopped
-		self.oldSpeak([_('Recorded speech copied to clipboard')])
+		self.speakAndBraille([_('Recorded speech copied to clipboard')])
 		api.copyToClip('\n'.join(self._recorded))
 		self._recorded.clear()
 	# Translators: Documentation string for stop recording script
