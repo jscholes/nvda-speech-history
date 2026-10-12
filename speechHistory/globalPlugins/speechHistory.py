@@ -7,7 +7,7 @@
 from collections import deque
 
 import wx
-
+from datetime import datetime
 import addonHandler
 import api
 import config
@@ -75,6 +75,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			'beepDuration': f'integer(default={DEFAULT_BEEP_DURATION}, min={MIN_BEEP_DURATION}, max={MAX_BEEP_DURATION})',
 			'trimWhitespaceFromStart': 'boolean(default=false)',
 			'trimWhitespaceFromEnd': 'boolean(default=false)',
+			'includeTime': 'boolean(default=false)',
 		}
 		config.conf.spec[CONFIG_SECTION] = confspec
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(SpeechHistorySettingsPanel)
@@ -191,6 +192,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def append_to_history(self, seq):
 		seq = [command for command in seq if not isinstance(command, FocusLossCancellableSpeechCommand)]
+		if config.conf[CONFIG_SECTION]['includeTime']:
+			curr_time = datetime.now()
+			seq.append(f"({curr_time.time()})")
 		self._history.appendleft(seq)
 		self.history_pos = 0
 		if self._recording:
@@ -266,6 +270,10 @@ class SpeechHistorySettingsPanel(gui.settingsDialogs.SettingsPanel):
 		self.trimWhitespaceFromEndCB = helper.addItem(wx.CheckBox(self, label=_('Trim whitespace from &end when copying text')))
 		self.trimWhitespaceFromEndCB.SetValue(config.conf[CONFIG_SECTION]['trimWhitespaceFromEnd'])
 
+		# Translators: the label for the preference to show the history timestamps
+		self.timeCB = helper.addItem(wx.CheckBox(self, label=_('Include timestamps for each element while navigating')))
+		self.timeCB .SetValue(config.conf[CONFIG_SECTION]['includeTime'])
+
 	def refreshUI(self):
 		postCopyAction = self.postCopyActionValues[self.postCopyActionCombo.GetSelection()]
 		enableBeepSettings = postCopyAction in (POST_COPY_BEEP, POST_COPY_BOTH)
@@ -283,3 +291,4 @@ class SpeechHistorySettingsPanel(gui.settingsDialogs.SettingsPanel):
 		config.conf[CONFIG_SECTION]['beepDuration'] = self.beepDurationEdit.GetValue()
 		config.conf[CONFIG_SECTION]['trimWhitespaceFromStart'] = self.trimWhitespaceFromStartCB.GetValue()
 		config.conf[CONFIG_SECTION]['trimWhitespaceFromEnd'] = self.trimWhitespaceFromEndCB.GetValue()
+		config.conf[CONFIG_SECTION]['includeTime'] = self.timeCB.GetValue()
