@@ -1,0 +1,130 @@
+# Simplified Chinese translation for Speech History.
+# Copyright (C) 2012 Tyler Spivey
+# Copyright (C) 2015-2026 James Scholes
+# This file is distributed under the same license as the Speech History add-on.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: speechHistory 2026.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-07 12:56+0300\n"
+"PO-Revision-Date: 2026-11-01 10:31+0800\n"
+"Last-Translator: XHG20033 <xhg20033@outlook.com>\n"
+"Language-Team: Simplified Chinese\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.10\n"
+
+#: speechHistory/globalPlugins/speechHistory.py:108
+msgid "Copied"
+msgstr "已复制"
+
+#: speechHistory/globalPlugins/speechHistory.py:111
+msgid ""
+"Copy the currently selected speech history item to the clipboard, which by "
+"default will be the most recently spoken text by NVDA."
+msgstr ""
+"将当前选中的朗读历史记录复制到剪贴板，默认情况下即 NVDA 最后朗读的文本。"
+
+#: speechHistory/globalPlugins/speechHistory.py:121
+msgid "Review the previous item in NVDA's speech history."
+msgstr "浏览上一条 NVDA 朗读历史。"
+
+#: speechHistory/globalPlugins/speechHistory.py:132
+msgid "Review the next item in NVDA's speech history."
+msgstr "浏览下一条 NVDA 朗读历史。"
+
+#: speechHistory/globalPlugins/speechHistory.py:138
+msgid "Already recording speech"
+msgstr "已在记录中"
+
+#: speechHistory/globalPlugins/speechHistory.py:142
+msgid "Started recording speech"
+msgstr "开始记录朗读"
+
+#: speechHistory/globalPlugins/speechHistory.py:145
+msgid ""
+"Start recording NVDA's speech output, for copying multiple announcements to "
+"the clipboard."
+msgstr "开始记录 NVDA 的语音输出，以便将多条播报一并复制到剪贴板。"
+
+#: speechHistory/globalPlugins/speechHistory.py:151
+msgid "Not currently recording speech"
+msgstr "当前未在记录朗读"
+
+#: speechHistory/globalPlugins/speechHistory.py:156
+msgid "Recorded speech copied to clipboard"
+msgstr "已将记录的朗读复制到剪贴板"
+
+#: speechHistory/globalPlugins/speechHistory.py:160
+msgid ""
+"Stop recording NVDA's speech output, and copy the recorded announcements to "
+"the clipboard."
+msgstr "停止记录 NVDA 的语音输出，并将已记录的播报复制到剪贴板。"
+
+#: speechHistory/globalPlugins/speechHistory.py:166
+msgid ""
+"Viewing speech history is not supported in this version of NVDA for security "
+"reasons."
+msgstr "出于安全考虑，此版本的 NVDA 不支持查看朗读历史。"
+
+#: speechHistory/globalPlugins/speechHistory.py:169
+msgid "No history items."
+msgstr "无历史记录。"
+
+#: speechHistory/globalPlugins/speechHistory.py:174
+#: speechHistory/globalPlugins/speechHistory.py:220
+msgid "Speech History"
+msgstr "朗读历史"
+
+#: speechHistory/globalPlugins/speechHistory.py:181
+msgid "Show NVDA's speech history in a browseable list"
+msgstr "以可浏览的列表显示 NVDA 的朗读历史"
+
+#: speechHistory/globalPlugins/speechHistory.py:226
+msgid ""
+"&Maximum number of history entries (requires NVDA restart to take effect)"
+msgstr "历史记录条数上限（需重启 NVDA 才可生效） (&M)"
+
+#: speechHistory/globalPlugins/speechHistory.py:230
+msgid "&After copying speech:"
+msgstr "复制朗读后(&A)："
+
+#: speechHistory/globalPlugins/speechHistory.py:233
+msgid "Do nothing"
+msgstr "无操作"
+
+#: speechHistory/globalPlugins/speechHistory.py:235
+msgid "Beep"
+msgstr "提示音"
+
+#: speechHistory/globalPlugins/speechHistory.py:237
+msgid "Speak"
+msgstr "朗读"
+
+#: speechHistory/globalPlugins/speechHistory.py:239
+msgid "Both beep and speak"
+msgstr "提示音与朗读"
+
+#: speechHistory/globalPlugins/speechHistory.py:248
+msgid "Beep &frequency (Hz)"
+msgstr "提示音频率 (Hz) (&F)"
+
+#: speechHistory/globalPlugins/speechHistory.py:252
+msgid "Beep &duration (ms)"
+msgstr "提示音时长 (ms) (&D)"
+
+#: speechHistory/globalPlugins/speechHistory.py:256
+msgid "&Play example beep"
+msgstr "播放示例提示音(&P)"
+
+#: speechHistory/globalPlugins/speechHistory.py:262
+msgid "Trim whitespace from &start when copying text"
+msgstr "复制文本时去除开头空白(&S)"
+
+#: speechHistory/globalPlugins/speechHistory.py:266
+msgid "Trim whitespace from &end when copying text"
+msgstr "复制文本时去除末尾空白(&E)"
